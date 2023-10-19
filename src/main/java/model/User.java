@@ -1,6 +1,8 @@
-package com.cmas;
+package model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private final String name;
     private final String email;
     private final String userID;
@@ -33,5 +35,9 @@ public class User {
 
     public String getUserID(){
         return userID;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
     }
 }

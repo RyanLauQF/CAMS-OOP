@@ -1,4 +1,4 @@
-package com.cmas;
+package model;
 
 public class Staff extends User {
     public Staff(String name, String email, String faculty){

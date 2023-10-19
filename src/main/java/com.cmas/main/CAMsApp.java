@@ -1,19 +1,24 @@
-package com.cmas.app;
-import com.cmas.*;
+package com.cmas.main;
+import controller.CampManager;
+import controller.UserManager;
+import database.Database;
+import model.CampCommMember;
+import model.Staff;
+import model.Student;
+import model.User;
 
 import java.util.Scanner;
 
 public class CAMsApp {
-    public static final String STAFF_LIST_FILEPATH = "src/main/resources/staff_list.csv";
-    public static final String STUDENT_LIST_FILEPATH = "src/main/resources/student_list.csv";
 
     /**
      * Main function to run Camp Application and Management System (CAMs)
      */
     public static void main(String[] args){
+        Database db = new Database();
 
         // preprocess
-        UserManager userManager = new UserManager(STAFF_LIST_FILEPATH, STUDENT_LIST_FILEPATH);
+        UserManager userManager = new UserManager();
         CampManager campManager = new CampManager();
 
         Scanner sc = new Scanner(System.in);

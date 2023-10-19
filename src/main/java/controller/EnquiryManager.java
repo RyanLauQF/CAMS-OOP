@@ -1,4 +1,4 @@
-package com.cmas;
+package controller;
 
 public class EnquiryManager {
     public EnquiryManager(){

@@ -1,4 +1,4 @@
-package com.cmas;
+package model;
 
 public class Camp {
     public Camp(){

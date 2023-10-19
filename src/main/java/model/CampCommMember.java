@@ -1,4 +1,4 @@
-package com.cmas;
+package model;
 
 public class CampCommMember extends Student {
     public CampCommMember(String name, String email, String faculty){
