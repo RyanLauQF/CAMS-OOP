@@ -25,8 +25,12 @@ public class User implements Serializable {
         return password;
     }
 
-    public String getFaculty(){
-        return faculty;
+//    public String getFaculty(){
+//        return faculty;
+//    }
+    public UserGroup getFaculty(){
+        UserGroup fac = UserGroup.valueOf(this.faculty.toUpperCase());
+        return fac;
     }
 
     public String getEmail(){
