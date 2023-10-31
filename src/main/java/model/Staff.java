@@ -23,7 +23,9 @@ public class Staff extends User {
     public void editCamp(Camp camp){
     };
 
-    public void deleteCamp(Camp camp){};
+    public void deleteCamp(Camp camp){
+
+    };
 
     public void toggleVisibilityCamp(Camp camp){};
 

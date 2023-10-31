@@ -9,7 +9,7 @@ public class User implements Serializable {
     private String password;
     private final String faculty;
 
-    public User(String name, String email, String faculty){
+    public User(String name, String email, String userGroup){
         this.name = name;
         this.email = email;
         this.userID = email.substring(0, email.indexOf("@")); // set user id from email
