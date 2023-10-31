@@ -6,16 +6,45 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class StaffView {
+    public static void renderView(Staff staff){
+        Scanner sc = new Scanner(System.in);
 
-    public StaffView(){
+        System.out.println("\nLogged in as Staff");
 
+        while(true){
+            try{
+                System.out.println("========================================================");
+                System.out.println("1) Implement function");
+                System.out.println("2) Logout\n");
+                System.out.print("Select an action: ");
+
+                while(!sc.hasNextInt()){
+                    System.out.println("Invalid Choice!");
+                    sc.nextLine();
+                    System.out.print("Select an action: ");
+                }
+                int choice = sc.nextInt();
+
+                switch (choice){
+                    case 1:
+                        // do smth
+                        System.out.println("Not implemented");
+                        break;
+                    case 2:
+                        System.out.println("Logging Out...");
+                        return;
+                    default:
+                        // do smth
+                        break;
+                }
+            }
+            catch (Exception e){
+                System.out.println(e.toString());
+            }
+        }
     }
 
-    public void startView(){
-
-    }
-
-    public Camp getCampDetails(Staff staff){
+    public static Camp getCampDetails(Staff staff){
         Scanner sc = new Scanner(System.in);
         //String name, LocalDate startDate, LocalDate endDate, LocalDate closingDate, UserGroup userGroup, String location, int totalSlots, int campCommSlots, String description, Staff staffInCharge, boolean isVisible
         System.out.println("Enter the name of camp: ");
@@ -54,11 +83,11 @@ public class StaffView {
 
         return newCamp;
     }
-    public void viewAllCamps(){};
+    public static void viewAllCamps(){};
 
-    public void viewCreatedCamps(){};
+    public static void viewCreatedCamps(){};
 
-    public void viewEnquiries(Camp camp, Student student){};
+    public static void viewEnquiries(Camp camp, Student student){};
 
-    public void viewSuggestions(Camp camp, CampCommMember member){};
+    public static void viewSuggestions(Camp camp, CampCommMember member){};
 }
