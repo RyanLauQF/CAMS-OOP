@@ -51,11 +51,11 @@ public class Camp {
      * @param role    "attendee" or "camp committee"
      * @throws Exception if camp is full, or if camp committee is full
      */
-    public void registerStudent(Student student, String role) throws Exception {
+    public void registerStudent(Student student, StudentRole role) throws Exception {
         if (registeredStudents.size() == totalSlots) {
             throw new Exception("Camp is fully registered");
         }
-        if (role.equals("camp committee")) {
+        if (role == StudentRole.CampComm) {
             if (registeredStudents.stream().filter(s -> s instanceof CampCommMember).count() == campCommSlots) {
                 throw new Exception("Camp committee is full");
             }
@@ -63,7 +63,7 @@ public class Camp {
             // do we need to return a camp comm member? not sure if down-casting the REFERENCE affects the actual object.
             CampCommMember campCommMember = (CampCommMember) student;
             registeredStudents.add(campCommMember);
-        } else if (role.equals("attendee")) {
+        } else if (role == StudentRole.Attendee) {
             registeredStudents.add(student);
         }
         // can abstract to an enum to manage roles
