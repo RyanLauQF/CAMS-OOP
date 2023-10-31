@@ -1,8 +1,6 @@
 package view;
 
-import model.Camp;
-import model.CampCommMember;
-import model.Student;
+import model.*;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -46,7 +44,14 @@ public class StaffView {
         boolean isVisible = true;
 
         sc.close();
-        Camp newCamp = new Camp(name, startDate, endDate,  closingDate,  userGroup,  location,  totalSlots, campCommSlots,  description,  staffInCharge,  isVisible);
+        Camp newCamp = null;
+        try{
+            newCamp = new Camp(name, startDate, endDate,  closingDate,  userGroup,  location,  totalSlots, campCommSlots,  description,  staffInCharge,  isVisible);
+        }
+        catch(Exception e){
+            System.out.println("unable to create camp");
+        }
+
         return newCamp;
     }
     public void viewAllCamps(){};

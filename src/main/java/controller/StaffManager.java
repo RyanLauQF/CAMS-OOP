@@ -1,5 +1,7 @@
 package controller;
 
+import model.*;
+import view.*;
 
 public class StaffManager {
     private Staff staff;

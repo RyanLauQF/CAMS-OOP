@@ -18,7 +18,7 @@ public class Student extends User {
     public ArrayList<Camp> viewCamps(Camp[] camps) {
         ArrayList<Camp> availableCamps = new ArrayList<Camp>();
         for (Camp camp: camps) {
-            if (camp.getUserGroup() == this.getFaculty() || camp.getUserGroup() === "NTU") {
+            if (camp.getUserGroup() == this.getFaculty() || camp.getUserGroup().equals("NTU")) {
                 availableCamps.add(camp);
             }
         }
@@ -28,7 +28,14 @@ public class Student extends User {
 //        return camps;
 //    } i feel like we should get rid of this function and put the no. of slots under each camp viewed
     public void signUp(Camp camp, StudentRole role) {
-        camp.registerStudent(this, role);
+        try{
+            camp.registerStudent(this, role);
+        }
+        catch(Exception e){
+            System.out.println("Unable to register student");
+            return;
+        }
+
         if (role == StudentRole.CampComm) {
             this.isCampCommitteeMember = true;
         }
@@ -48,6 +55,7 @@ public class Student extends User {
                 enquiry.getQuery();
             }
         }
+        return "";
     }
 
     public void editEnquiry(Camp camp, Enquiry query, String newQuery) {
@@ -69,6 +77,11 @@ public class Student extends User {
 
     public void withdrawCamp(Camp camp) {
         camps.remove(camp);
-        camp.withdrawStudent(this);
+        try{
+            camp.withdrawStudent(this);
+        }
+        catch(Exception e){
+            System.out.println("error withdrawing student");
+        }
     }
 }

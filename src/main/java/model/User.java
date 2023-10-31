@@ -14,7 +14,7 @@ public class User implements Serializable {
         this.email = email;
         this.userID = email.substring(0, email.indexOf("@")); // set user id from email
         this.password = "password"; // default
-        this.faculty = faculty;
+        this.faculty = userGroup;
     }
 
     public String getName(){
