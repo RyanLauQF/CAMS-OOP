@@ -1,14 +1,21 @@
 package controller;
 
 import database.Database;
+import model.CampCommMember;
 import model.Student;
 import model.User;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class UserManager {
 
     private static final HashMap<String, User> usersData = Database.USER_DATA;
+
+    public static void registerStudentAsCommMember(Student student, UUID campID){
+        CampCommMember campCommMember = new CampCommMember(student, campID);
+        addUser(campCommMember.getUserID(), campCommMember); // overwrites key of original student
+    }
 
     public static void showUsers(){
         for(String userID : usersData.keySet()){
@@ -21,6 +28,10 @@ public class UserManager {
                 System.out.println(" staff");
             }
         }
+    }
+
+    public static void updatePassword(User user, String password){
+        user.setPassword(password);
     }
 
     public static boolean containsUser(String userID){
@@ -36,8 +47,10 @@ public class UserManager {
         return user.getPassword().equals(password);
     }
 
-//    public static void main(String[] args){
-//        UserManager mng = new UserManager("src/main/resources/staff_list.csv", "src/main/resources/student_list.csv");
-//        mng.showUsers();
-//    }
+    public static void addUser(String userID, User user){
+        usersData.put(userID, user);
+    }
+    public static void removeUser(String userID){
+        usersData.remove(userID);
+    }
 }

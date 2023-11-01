@@ -1,43 +1,27 @@
 package model;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class Staff extends User {
 
     //attributes
-    private ArrayList<Camp> campsCreated;
+    private final Set<UUID> campIDs;
     
     //constructor
-    public Staff(String name, String email, String faculty){
+    public Staff(String name, String email, UserGroup faculty){
         //change faculty to UserGroup?
         super(name, email, faculty);
-        this.campsCreated =  new ArrayList<Camp>();
+        this.campIDs = new HashSet<>();
     }
 
-    //methods
-    public void createCamp(Camp newCamp){
-        //add camp into list
-        campsCreated.add(newCamp);
-    };
-
-    public void editCamp(Camp camp){
-    };
-
-    public void deleteCamp(Camp camp){
-
-    };
-
-    public void toggleVisibilityCamp(Camp camp){};
-
-
-
-    public void approveSuggestions(Camp camp, CampCommMember member){};
-
-    public void generateStudentList(Camp camp){};
-
-    public void generatePerformanceReport(CampCommMember member){};
-
-
-
-
+    public boolean hasCreatedCamp(UUID campID){
+        return campIDs.contains(campID);
+    }
+    public void registerNewCamp(UUID campID) {
+        campIDs.add(campID);
+    }
+    public Set<UUID> getCampIDs() {
+        return campIDs;
+    }
 }

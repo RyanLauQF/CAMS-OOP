@@ -11,7 +11,6 @@ public class Enquiry {
         this.createdBy = createdBy;
     }
 
-
     public String getQuery() {
         return query;
     }

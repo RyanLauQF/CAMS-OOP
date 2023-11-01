@@ -6,15 +6,22 @@ public class User implements Serializable {
     private final String name;
     private final String email;
     private final String userID;
-    private String password;
-    private final String faculty;
+    private final UserGroup faculty;
 
-    public User(String name, String email, String userGroup){
+    private String password;
+
+    public User(String name, String email, UserGroup userGroup){
         this.name = name;
         this.email = email;
         this.userID = email.substring(0, email.indexOf("@")); // set user id from email
         this.password = "password"; // default
         this.faculty = userGroup;
+    }
+
+    // ======================= GETTER AND SETTER FUNCTIONS =======================
+
+    public void setPassword(String password){
+        this.password = password;
     }
 
     public String getName(){
@@ -25,12 +32,7 @@ public class User implements Serializable {
         return password;
     }
 
-//    public String getFaculty(){
-//        return faculty;
-//    }
-    public UserGroup getFaculty(){
-        UserGroup fac = UserGroup.valueOf(this.faculty.toUpperCase());
-        return fac;
+    public UserGroup getFaculty(){ return faculty;
     }
 
     public String getEmail(){
@@ -39,9 +41,5 @@ public class User implements Serializable {
 
     public String getUserID(){
         return userID;
-    }
-
-    public void setPassword(String password){
-        this.password = password;
     }
 }
