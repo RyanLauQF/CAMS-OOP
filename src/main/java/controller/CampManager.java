@@ -56,8 +56,7 @@ public class CampManager {
         }
 
         student.registerForCamp(campID);
-        student.setCampCommitteeMember(true);
-        student.setCommCampID(campID);
+        UserManager.registerStudentAsCommMember(student, campID);
         camp.addCommMember(studentID);
     }
 

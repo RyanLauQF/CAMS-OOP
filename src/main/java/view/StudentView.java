@@ -1,33 +1,37 @@
 package view;
 
 import controller.CampManager;
+import controller.UserManager;
 import helper.UserIO;
 import model.Camp;
+import model.CampCommMember;
 import model.Student;
+import model.User;
 
 import java.util.HashMap;
 import java.util.UUID;
 
 public class StudentView {
-    public static void renderView(Student student){
-
-        System.out.println("\nLogged in as " + student.getName());
+    public static void renderView(String studentID){
+        System.out.println("\nLogged in as " + studentID);
 
         while(true){
-            if(student.isCampCommitteeMember()){
-                CampCommView.renderView(student);
+            User user = UserManager.getUser(studentID);
+            if(user instanceof CampCommMember){
+                // go to camp committee member view
+                CampCommView.renderView((CampCommMember) user);
                 return;
             }
             else{
+                Student student = (Student) user;
                 try{
                     System.out.println("======================= HOME MENU =======================");
                     System.out.println("1) View all available camps within faculty");
                     System.out.println("2) Register for camp");
                     System.out.println("3) View registered camps");
-                    System.out.println("4) View all enquiries");
-                    System.out.println("5) View enquiry reply");
-                    System.out.println("6) Change password");
-                    System.out.println("7) Logout");
+                    System.out.println("4) View your enquiries");
+                    System.out.println("5) Change password");
+                    System.out.println("6) Logout");
                     System.out.println("=========================================================\n");
 
                     System.out.print("Select an action: ");
@@ -41,14 +45,15 @@ public class StudentView {
                             registerCampView(student);
                             break;
                         case 3:
+                            registeredCampsView(student);
                             break;
                         case 4:
+                            EnquiryView.studentEnquiryView(student);
                             break;
                         case 5:
+                            AppView.changePasswordView(student);
                             break;
                         case 6:
-                            break;
-                        case 7:
                             System.out.println("Logging Out...");
                             return;
                         default:
@@ -113,16 +118,13 @@ public class StudentView {
                 }
             }
             catch (Exception e){
-                System.out.println(e.toString());
+                System.out.println("Error! " + e.getMessage());
+                return;
             }
         }
     }
 
-    public static void registeredCampsView(){
-
-    }
-
-    public static void enquiriesView(){
+    public static void registeredCampsView(Student student){
 
     }
 }

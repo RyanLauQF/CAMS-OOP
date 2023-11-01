@@ -1,5 +1,7 @@
 package helper;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class UserIO {
@@ -25,8 +27,23 @@ public class UserIO {
         return choice;
     }
 
-    public static String getStringResponse(){
-        return sc.nextLine();
+    public static LocalDate getDateResponse(){
+        LocalDate date = null;
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Adjust the format as needed
+
+        boolean isValid = false;
+        while (!isValid) {
+            String input = sc.nextLine();
+
+            try {
+                date = LocalDate.parse(input, dateFormatter);
+                isValid = true;
+            } catch (Exception e) {
+                System.out.print("Invalid date format. Please enter a date in the format yyyy-MM-dd: ");
+            }
+        }
+
+        return date;
     }
 
     public static int getIntResponse() {
@@ -42,6 +59,10 @@ public class UserIO {
         }
         sc.nextLine(); // read newline character left in the input buffer
         return response;
+    }
+
+    public static String getStringResponse(){
+        return sc.nextLine();
     }
 
     public static void close(){

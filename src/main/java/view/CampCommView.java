@@ -2,32 +2,31 @@ package view;
 
 import controller.CampManager;
 import helper.UserIO;
-import model.Student;
+import model.CampCommMember;
 
 public class CampCommView {
-    public static void renderView(Student student){
+    public static void renderView(CampCommMember student){
         while(true){
             try{
                 System.out.println("======================= HOME MENU =======================");
                 System.out.println("1) View available camps");
                 System.out.println("2) Register for camp");
                 System.out.println("3) View registered camps");
-                System.out.println("4) View all enquiries");
-                System.out.println("5) View enquiry reply");
+                System.out.println("4) View your enquiries");
 
                 System.out.println("\n------------- CAMP COMMITTEE MEMBER MENU -------------");
                 System.out.println("Camp Committee Member of: " + CampManager.getCamp(student.getCommCampID()).getName());
-                System.out.println("6) View all suggestions made");
-                System.out.println("7) Submit suggestion to update camp details");
-                System.out.println("8) Edit Suggestions");
-                System.out.println("9) View all enquiries");
-                System.out.println("10) Reply to enquiry");
-                System.out.println("11) Generate camp report");
-                System.out.println("12) Generate enquiry report");
+                System.out.println("5) View all suggestions made");
+                System.out.println("6) Submit suggestion to update camp details");
+                System.out.println("7) Edit Suggestions");
+                System.out.println("8) View all enquiries for camp");
+                System.out.println("9) Reply to enquiry");
+                System.out.println("10) Generate camp report");
+                System.out.println("11) Generate enquiry report");
                 System.out.println("------------------------------------------------------\n");
 
-                System.out.println("13) Change Password");
-                System.out.println("14) Logout");
+                System.out.println("12) Change Password");
+                System.out.println("13) Logout");
                 System.out.println("=========================================================\n");
 
                 System.out.print("Select an action: ");
@@ -35,12 +34,16 @@ public class CampCommView {
 
                 switch (choice){
                     case 1:
+                        StudentView.availableCampsView(student);
                         break;
                     case 2:
+                        StudentView.registerCampView(student);
                         break;
                     case 3:
+                        StudentView.registeredCampsView(student);
                         break;
                     case 4:
+                        EnquiryView.studentEnquiryView(student);
                         break;
                     case 5:
                         break;
@@ -57,10 +60,9 @@ public class CampCommView {
                     case 11:
                         break;
                     case 12:
+                        AppView.changePasswordView(student);
                         break;
                     case 13:
-                        break;
-                    case 14:
                         System.out.println("Logging Out...");
                         return;
                     default:

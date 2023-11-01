@@ -1,6 +1,7 @@
 package view;
 
 import controller.CampManager;
+import controller.UserManager;
 import helper.UserIO;
 import model.*;
 
@@ -10,10 +11,12 @@ import java.util.Set;
 import java.util.UUID;
 
 public class StaffView {
-    public static void renderView(Staff staff){
-        System.out.println("\nLogged in as " + staff.getName());
+    public static void renderView(String staffID){
+        System.out.println("\nLogged in as " + staffID);
 
         while(true){
+            User user = UserManager.getUser(staffID);
+            Staff staff = (Staff) user;
             try{
                 System.out.println("======================= HOME MENU =======================");
                 System.out.println("1) View All Camps");
@@ -162,8 +165,8 @@ public class StaffView {
         String name = UserIO.getStringResponse();
 
         System.out.print("Enter the start date of the camp(yyyy-MM-dd): ");
-        String sDate = UserIO.getStringResponse();
-        LocalDate startDate = LocalDate.parse(sDate);
+//        String sDate = UserIO.getStringResponse();
+        LocalDate startDate = UserIO.getDateResponse();
 
         System.out.print("Enter the end date of the camp(yyyy-MM-dd): ");
         String eDate = UserIO.getStringResponse();

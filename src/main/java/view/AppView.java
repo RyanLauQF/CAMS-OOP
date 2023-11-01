@@ -3,7 +3,6 @@ package view;
 import controller.UserManager;
 import helper.UserIO;
 import model.Staff;
-import model.Student;
 import model.User;
 
 
@@ -46,15 +45,13 @@ public class AppView {
             User user = UserManager.getUser(userID);
 
             // valid user
-            if(user instanceof Student){
-                // student display
-                Student student = (Student) user;
-                StudentView.renderView(student);
-            }
-            else if(user instanceof Staff){
+            if(user instanceof Staff){
                 // staff display
-                Staff staff = (Staff) user;
-                StaffView.renderView(staff);
+                StaffView.renderView(userID);
+            }
+            else{
+                // student display
+                StudentView.renderView(userID);
             }
         }
     }

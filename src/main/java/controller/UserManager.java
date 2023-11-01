@@ -1,14 +1,21 @@
 package controller;
 
 import database.Database;
+import model.CampCommMember;
 import model.Student;
 import model.User;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class UserManager {
 
     private static final HashMap<String, User> usersData = Database.USER_DATA;
+
+    public static void registerStudentAsCommMember(Student student, UUID campID){
+        CampCommMember campCommMember = new CampCommMember(student, campID);
+        addUser(campCommMember.getUserID(), campCommMember); // overwrites key of original student
+    }
 
     public static void showUsers(){
         for(String userID : usersData.keySet()){
@@ -38,5 +45,12 @@ public class UserManager {
     public static boolean validateUser(String userID, String password){
         User user = getUser(userID);
         return user.getPassword().equals(password);
+    }
+
+    public static void addUser(String userID, User user){
+        usersData.put(userID, user);
+    }
+    public static void removeUser(String userID){
+        usersData.remove(userID);
     }
 }

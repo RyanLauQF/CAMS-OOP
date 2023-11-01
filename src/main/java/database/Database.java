@@ -7,14 +7,14 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class Database {
+
+    public static HashMap<String, User> USER_DATA = new HashMap<>();
+
     public static HashMap<UUID, Camp> CAMP_DATA = new HashMap<>();
 
     public static HashMap<UUID, Suggestion> SUGGESTION_DATA = new HashMap<>();
 
     public static HashMap<UUID, Enquiry> ENQUIRY_DATA = new HashMap<>();
-
-    public static HashMap<String, User> USER_DATA = new HashMap<>();
-
 
     // FOR TESTING
     public static final String STAFF_LIST_FILEPATH = "src/main/resources/staff_list.csv";
