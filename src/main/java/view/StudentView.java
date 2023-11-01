@@ -1,13 +1,12 @@
 package view;
 
-import model.Camp;
+import helper.UserIO;
 import model.Student;
+import model.User;
 
-import java.util.Scanner;
 
 public class StudentView {
     public static void renderView(Student student){
-        Scanner sc = new Scanner(System.in);
 
         System.out.println("\nLogged in as Student");
 
@@ -18,12 +17,7 @@ public class StudentView {
                 System.out.println("2) Logout\n");
                 System.out.print("Select an action: ");
 
-                while(!sc.hasNextInt()){
-                    System.out.println("Invalid Choice!");
-                    sc.nextLine();
-                    System.out.print("Select an action: ");
-                }
-                int choice = sc.nextInt();
+                int choice = UserIO.getSelection(1, 2);
 
                 switch (choice){
                     case 1:

@@ -1,10 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class Camp {
+public class Camp implements Serializable {
     // Camp Information
     private String name;
     private LocalDate startDate;
@@ -12,7 +13,7 @@ public class Camp {
     private LocalDate closingDate;
     private UserGroup userGroup;
     private String location;
-    private int totalSlots;
+    private final int totalSlots;
     private int campCommSlots;
     private String description;
     private Staff staffInCharge;
@@ -22,18 +23,15 @@ public class Camp {
     private ArrayList<Enquiry> enquiries;
     private ArrayList<Suggestion> suggestions;
 
-    public Camp(String name, LocalDate startDate, LocalDate endDate, LocalDate closingDate, UserGroup userGroup, String location, int totalSlots, int campCommSlots, String description, Staff staffInCharge, boolean isVisible) throws Exception {
+    public Camp(String name, LocalDate startDate, LocalDate endDate, LocalDate closingDate, UserGroup userGroup, String location, int totalSlots, String description, Staff staffInCharge, boolean isVisible) throws Exception {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.closingDate = closingDate;
         this.userGroup = userGroup;
         this.location = location;
-        if (campCommSlots > 10) {
-            throw new Exception("Maximum of 10 Camp Committee Slots");
-        }
         this.totalSlots = totalSlots;
-        this.campCommSlots = campCommSlots;
+        this.campCommSlots = 10; // max 10 (default)
         this.description = description;
         this.staffInCharge = staffInCharge;
         this.isVisible = isVisible;
@@ -188,6 +186,8 @@ public class Camp {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    public int getTotalSlots() { return totalSlots; }
 
     public int getCampCommSlots() {
         return campCommSlots;

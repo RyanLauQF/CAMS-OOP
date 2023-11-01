@@ -1,17 +1,14 @@
 package view;
 
 import controller.UserManager;
-import model.CampCommMember;
+import helper.UserIO;
 import model.Staff;
 import model.Student;
 import model.User;
 
-import java.util.Scanner;
 
 public class AppView {
     public static void renderView(){
-        Scanner sc = new Scanner(System.in);
-
         while(true){
             // system login
             String userID, password;
@@ -22,19 +19,18 @@ public class AppView {
             System.out.println("2) Quit\n");
             System.out.print("Select an action: ");
 
-            while(!sc.hasNextInt()){
-                System.out.println("Invalid Choice!");
-                sc.nextLine();
-                System.out.print("Select an action: ");
+            int choice = UserIO.getSelection(1, 2);
+            if (choice == 2) {
+                // quit program
+                System.out.println("Exiting CAMs. See you again!");
+                return;
             }
-            int choice = sc.nextInt();
-            if (choice == 2) break; // quit program
 
             System.out.print("Enter your User ID: ");
-            userID = sc.next();
+            userID = UserIO.getStringResponse();
 
             System.out.print("Enter your Password: ");
-            password = sc.next();
+            password = UserIO.getStringResponse();
 
             // check if user exists and credentials are valid
             if(!UserManager.containsUser(userID)){
@@ -60,13 +56,6 @@ public class AppView {
                 Staff staff = (Staff) user;
                 StaffView.renderView(staff);
             }
-            else {
-                // camp comm member
-                CampCommMember commMember = (CampCommMember) user;
-                CommMemView.renderView(commMember);
-            }
         }
-
-        sc.close();
     }
 }

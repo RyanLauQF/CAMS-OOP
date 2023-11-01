@@ -1,14 +1,11 @@
 package controller;
 
-import model.*;
-import view.*;
+import model.Staff;
+
+import java.util.UUID;
 
 public class StaffManager {
-    public static void createCamp(Camp newCamp){
-    }
-
-    //control view object
-    public static Camp getCampDetails(){
-        return null;
+    public static void addCampToStaff(UUID campID, Staff staff){
+        staff.registerNewCamp(campID);
     }
 }
