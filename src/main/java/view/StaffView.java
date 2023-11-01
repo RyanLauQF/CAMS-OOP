@@ -46,7 +46,7 @@ public class StaffView {
                         processSuggestionView(staff);
                         break;
                     case 6:
-                        changePasswordView(staff);
+                        AppView.changePasswordView(staff);
                         break;
                     case 7:
                         System.out.println("Logging Out...");
@@ -62,10 +62,10 @@ public class StaffView {
     }
 
     public static void allCampView(){
+        HashMap<UUID, Camp> allCamps = CampManager.getAllCamps();
 
         System.out.println("\n=========================================================\n");
 
-        HashMap<UUID, Camp> allCamps = CampManager.getAllCamps();
         for(UUID key : allCamps.keySet()){
             allCamps.get(key).printCampDetails();
         }
@@ -75,30 +75,32 @@ public class StaffView {
 
     public static void staffCampView(Staff staff){
 
-        // prints all camp staff has created
-        System.out.println("\n=========================================================\n");
-
         Set<UUID> campKeys = staff.getCampIDs();
         HashMap<UUID, Camp> allCamps = CampManager.getAllCamps();
 
         // maps choice to UID of camp in hashmap
         HashMap<Integer, UUID> campSelection = new HashMap<>();
 
+        // prints all camp staff has created
+        System.out.println("\n=========================================================\n");
+
         int count = 1;
         for(UUID key : campKeys){
-            System.out.println("Camp Number: " + count++);
+            System.out.println("Camp Number: " + count);
+            System.out.println(key);
             allCamps.get(key).printCampDetails();
             campSelection.put(count, key);
+            count++;
         }
 
         System.out.println("\n=========================================================\n");
 
         System.out.print("Select a camp: ");
-        int choice = UserIO.getSelection(1, count); // TODO: make sure its valid
+        int choice = UserIO.getSelection(1, count);
 
         UUID campUID = campSelection.get(choice);
+        System.out.println(campUID);
 
-        // TODO: render camp detailed options
         selectCampView(staff, campUID);
     }
 
@@ -186,14 +188,7 @@ public class StaffView {
 
         boolean isVisible = true;
 
-        Camp newCamp = null;
-        try{
-            newCamp = new Camp(name, startDate, endDate,  closingDate,  userGroup,  location,  totalSlots,  description,  staff,  isVisible);
-        }
-        catch(Exception e){
-            System.out.println("unable to create camp");
-        }
-
+        Camp newCamp = new Camp(name, startDate, endDate,  closingDate,  userGroup,  location,  totalSlots,  description,  staff,  isVisible);
         CampManager.addNewCamp(newCamp, staff);
     }
 
@@ -204,10 +199,4 @@ public class StaffView {
     public static void processSuggestionView(Staff staff){
         System.out.println("accept/reject suggestions");
     }
-
-    public static void changePasswordView(Staff staff){
-        System.out.println("password change");
-    }
-
-
 }

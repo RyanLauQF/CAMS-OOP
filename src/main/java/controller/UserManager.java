@@ -23,6 +23,10 @@ public class UserManager {
         }
     }
 
+    public static void updatePassword(User user, String password){
+        user.setPassword(password);
+    }
+
     public static boolean containsUser(String userID){
         return usersData.containsKey(userID);
     }
@@ -35,9 +39,4 @@ public class UserManager {
         User user = getUser(userID);
         return user.getPassword().equals(password);
     }
-
-//    public static void main(String[] args){
-//        UserManager mng = new UserManager("src/main/resources/staff_list.csv", "src/main/resources/student_list.csv");
-//        mng.showUsers();
-//    }
 }

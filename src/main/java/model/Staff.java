@@ -9,7 +9,7 @@ public class Staff extends User {
     private final Set<UUID> campIDs;
     
     //constructor
-    public Staff(String name, String email, String faculty){
+    public Staff(String name, String email, UserGroup faculty){
         //change faculty to UserGroup?
         super(name, email, faculty);
         this.campIDs = new HashSet<>();

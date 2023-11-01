@@ -58,4 +58,13 @@ public class AppView {
             }
         }
     }
+
+    public static void changePasswordView(User user) throws Exception {
+        System.out.print("Enter new password: ");
+        String newPassword = UserIO.getStringResponse();
+
+        // TODO: first time login needs a reset password flow
+        // TODO: password checking? can throw exceptions if u want to
+        UserManager.updatePassword(user, newPassword);
+    }
 }

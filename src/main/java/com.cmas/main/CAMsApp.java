@@ -1,15 +1,7 @@
 package com.cmas.main;
-import controller.CampManager;
-import controller.UserManager;
 import database.Database;
 import helper.UserIO;
-import model.CampCommMember;
-import model.Staff;
-import model.Student;
-import model.User;
 import view.AppView;
-
-import java.util.Scanner;
 
 public class CAMsApp {
 

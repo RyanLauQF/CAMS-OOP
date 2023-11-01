@@ -2,8 +2,9 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class Camp implements Serializable {
     // Camp Information
@@ -13,17 +14,17 @@ public class Camp implements Serializable {
     private LocalDate closingDate;
     private UserGroup userGroup;
     private String location;
-    private final int totalSlots;
-    private int campCommSlots;
+    private int totalSlots;
     private String description;
     private Staff staffInCharge;
-
-    private ArrayList<Student> registeredStudents;
     private boolean isVisible;
-    private ArrayList<Enquiry> enquiries;
-    private ArrayList<Suggestion> suggestions;
 
-    public Camp(String name, LocalDate startDate, LocalDate endDate, LocalDate closingDate, UserGroup userGroup, String location, int totalSlots, String description, Staff staffInCharge, boolean isVisible) throws Exception {
+    private final Set<String> registeredAttendeeID;
+    private final Set<String> registeredCommMemID;
+    private final Set<UUID> enquiryID;
+    private final Set<UUID> suggestionID;
+
+    public Camp(String name, LocalDate startDate, LocalDate endDate, LocalDate closingDate, UserGroup userGroup, String location, int totalSlots, String description, Staff staffInCharge, boolean isVisible) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -31,64 +32,13 @@ public class Camp implements Serializable {
         this.userGroup = userGroup;
         this.location = location;
         this.totalSlots = totalSlots;
-        this.campCommSlots = 10; // max 10 (default)
         this.description = description;
         this.staffInCharge = staffInCharge;
         this.isVisible = isVisible;
-        this.registeredStudents = new ArrayList<Student>();
-        this.enquiries = new ArrayList<Enquiry>();
-        this.suggestions = new ArrayList<Suggestion>();
-    }
-
-    public ArrayList<Student> getRegisteredStudents() {
-        return registeredStudents;
-    }
-
-    /**
-     * @param student student to be enrolled
-     * @param role    "attendee" or "camp committee"
-     * @throws Exception if camp is full, or if camp committee is full
-     */
-    public void registerStudent(Student student, StudentRole role) throws Exception {
-        if (registeredStudents.size() == totalSlots) {
-            throw new Exception("Camp is fully registered");
-        }
-        if (role == StudentRole.CampComm) {
-            if (registeredStudents.stream().filter(s -> s instanceof CampCommMember).count() == campCommSlots) {
-                throw new Exception("Camp committee is full");
-            }
-            // should we downcast? I think there are attributes of camp comm members that students don't have (points etc.), it is possible to use a constructor instead
-            // do we need to return a camp comm member? not sure if down-casting the REFERENCE affects the actual object.
-            CampCommMember campCommMember = (CampCommMember) student;
-            registeredStudents.add(campCommMember);
-        } else if (role == StudentRole.Attendee) {
-            registeredStudents.add(student);
-        }
-        // can abstract to an enum to manage roles
-        throw new Exception("Invalid role");
-    }
-
-    public void withdrawStudent(Student student) throws Exception {
-        if (!registeredStudents.contains((student))) {
-            throw new Exception(("Student is not registered"));
-        }
-        // should this validation occur here?
-        if (student instanceof CampCommMember) {
-            throw new Exception(("Camp Committee Members cannot withdraw"));
-        }
-        registeredStudents.remove(student);
-    }
-
-    public int getRemainingSlots() {
-        return totalSlots - registeredStudents.size();
-    }
-
-    public void addEnquiry(Enquiry enquiry) {
-        enquiries.add(enquiry);
-    }
-
-    public void addSuggestion(Suggestion suggestion) {
-        suggestions.add(suggestion);
+        this.registeredAttendeeID = new HashSet<>();
+        this.registeredCommMemID = new HashSet<>();
+        this.enquiryID = new HashSet<>();
+        this.suggestionID = new HashSet<>();
     }
 
     // ----- GENERATE REPORT -----
@@ -101,17 +51,18 @@ public class Camp implements Serializable {
         System.out.println("User Group: " + userGroup);
         System.out.println("Location: " + location);
         System.out.println("Total Slots: " + totalSlots);
-        System.out.println("Camp Committee Slots: " + campCommSlots);
+        System.out.println("Number of Committee Members: " + registeredCommMemID.size());
         System.out.println("Description: " + description);
-        System.out.println("Staff in charge: " + "***** TO IMPLEMENT *****");
+        System.out.println("Staff in charge: " + staffInCharge.getName() + " | " + staffInCharge.getFaculty());
+        System.out.println("-----------------------");
     }
 
     public void printAttendees() {
         System.out.println("----- ATTENDEE LIST -----");
-        for (Student attendee :
-                registeredStudents) {
-
-        }
+//        for (Student attendee :
+//                registeredStudents) {
+//
+//        }
     }
 
     public void generateReport() {
@@ -137,7 +88,60 @@ public class Camp implements Serializable {
         throw new Exception("generatePerformanceReport has no implementation");
     }
 
-    // ----- MISC. GETTERS AND SETTERS -----
+    // =========================== GETTER AND SETTER FUNCTIONS =========================== //
+    public int getRemainingSlots() {
+        return totalSlots - registeredAttendeeID.size() - registeredCommMemID.size();
+    }
+    public Set<String> getRegisteredAttendees() {
+        return registeredAttendeeID;
+    }
+
+    public boolean hasRegistered(String userID){
+        return registeredAttendeeID.contains(userID) || registeredCommMemID.contains(userID);
+    }
+    public void addAttendee(String attendeeID){
+        registeredAttendeeID.add(attendeeID);
+    }
+
+    public void removeAttendee(String attendeeID){
+        registeredAttendeeID.remove(attendeeID);
+    }
+
+    public Set<String> getRegisteredCommMembers() {
+        return registeredCommMemID;
+    }
+
+    public void addCommMember(String commMemberID){
+        registeredCommMemID.add(commMemberID);
+    }
+
+    public void removeCommMember(String commMemberID){
+        registeredCommMemID.remove(commMemberID);
+    }
+
+    public Set<UUID> getEnquiryID() {
+        return enquiryID;
+    }
+
+    public Set<UUID> getSuggestionID() {
+        return suggestionID;
+    }
+
+    public void addEnquiry(UUID enquiryUID) {
+        enquiryID.add(enquiryUID);
+    }
+
+    public void removeEnquiry(UUID enquiryUID) {
+        enquiryID.remove(enquiryUID);
+    }
+
+    public void addSuggestion(UUID suggestionUID) {
+        suggestionID.add(suggestionUID);
+    }
+
+    public void removeSuggestion(UUID suggestionUID) {
+        suggestionID.remove(suggestionUID);
+    }
 
     public String getName() {
         return name;
@@ -188,14 +192,7 @@ public class Camp implements Serializable {
     }
 
     public int getTotalSlots() { return totalSlots; }
-
-    public int getCampCommSlots() {
-        return campCommSlots;
-    }
-
-    public void setCampCommSlots(int campCommSlots) {
-        this.campCommSlots = campCommSlots;
-    }
+    public void setTotalSlots(int totalSlots) { this.totalSlots = totalSlots; }
 
     public String getDescription() {
         return description;
@@ -213,19 +210,11 @@ public class Camp implements Serializable {
         this.staffInCharge = staffInCharge;
     }
 
-    public ArrayList<Enquiry> getEnquiries() {
-        return enquiries;
-    }
-
     public boolean isVisible() {
         return isVisible;
     }
 
     public void setVisible(boolean visible) {
         isVisible = visible;
-    }
-
-    public ArrayList<Suggestion> getSuggestions() {
-        return suggestions;
     }
 }

@@ -2,12 +2,12 @@ package model;
 
 public class Suggestion {
     private String suggestion;
-    private final CampCommMember createdBy;
+    private final String creatorID;
     private boolean isAccepted;
 
-    public Suggestion(String suggestion, CampCommMember createdBy) {
+    public Suggestion(String suggestion, String creatorID) {
         this.suggestion = suggestion;
-        this.createdBy = createdBy;
+        this.creatorID = creatorID;
     }
 
     public String getSuggestion() {
@@ -18,8 +18,8 @@ public class Suggestion {
         this.suggestion = suggestion;
     }
 
-    public CampCommMember getCreatedBy() {
-        return createdBy;
+    public String getCreatorID() {
+        return creatorID;
     }
 
     public boolean isAccepted() {

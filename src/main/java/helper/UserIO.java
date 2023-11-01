@@ -26,7 +26,7 @@ public class UserIO {
     }
 
     public static String getStringResponse(){
-        return sc.next();
+        return sc.nextLine();
     }
 
     public static int getIntResponse() {
@@ -34,13 +34,13 @@ public class UserIO {
         while (true) {
             try {
                 response = sc.nextInt();
-                break; // Valid input, break out of the loop
+                break;
             } catch (Exception e) {
                 System.out.println("Invalid input. Please enter a valid integer.");
-                sc.next(); // Consume invalid input
+                sc.next(); // read invalid input and try again
             }
         }
-        sc.nextLine(); // Consume the newline character left in the input buffer
+        sc.nextLine(); // read newline character left in the input buffer
         return response;
     }
 

@@ -1,7 +1,10 @@
 package view;
 
+import controller.CampManager;
 import helper.UserIO;
+import model.UserGroup;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class CampEditView {
@@ -9,6 +12,8 @@ public class CampEditView {
         while(true){
             try{
                 System.out.println("======================= EDIT MENU =======================");
+                CampManager.getCamp(campUID).printCampDetails();
+                System.out.println("\nOptions: ");
                 System.out.println("1) Change Name");
                 System.out.println("2) Change Start Date");
                 System.out.println("3) Change End Date");
@@ -26,28 +31,28 @@ public class CampEditView {
 
                 switch (choice){
                     case 1:
-                        changeNameView();
+                        changeNameView(campUID);
                         break;
                     case 2:
-                        changeStartDateView();
+                        changeStartDateView(campUID);
                         break;
                     case 3:
-                        changeEndDateView();
+                        changeEndDateView(campUID);
                         break;
                     case 4:
-                        changeClosingDateView();
+                        changeClosingDateView(campUID);
                         break;
                     case 5:
-                        changeStudentGroupView();
+                        changeStudentGroupView(campUID);
                         break;
                     case 6:
-                        changeLocationView();
+                        changeLocationView(campUID);
                         break;
                     case 7:
-                        changeSlotsView();
+                        changeSlotsView(campUID);
                         break;
                     case 8:
-                        changeDescriptionView();
+                        changeDescriptionView(campUID);
                         break;
                     case 9:
                         System.out.println("Cancelling Editing...");
@@ -62,35 +67,55 @@ public class CampEditView {
         }
     }
 
-    public static void changeNameView(){
-
+    public static void changeNameView(UUID campUID){
+        System.out.print("Enter camp name: ");
+        String campName = UserIO.getStringResponse();
+        CampManager.updateCampName(campUID, campName);
     }
 
-    public static void changeStartDateView(){
-
+    public static void changeStartDateView(UUID campUID){
+        System.out.print("Enter camp start date: ");
+        String date = UserIO.getStringResponse();
+        LocalDate startDate = LocalDate.parse(date);
+        CampManager.updateStartDate(campUID, startDate);
     }
 
-    public static void changeEndDateView(){
-
+    public static void changeEndDateView(UUID campUID){
+        System.out.print("Enter camp end date: ");
+        String date = UserIO.getStringResponse();
+        LocalDate endDate = LocalDate.parse(date);
+        CampManager.updateEndDate(campUID, endDate);
     }
 
-    public static void changeClosingDateView(){
-
+    public static void changeClosingDateView(UUID campUID){
+        System.out.print("Enter camp registration closing date: ");
+        String date = UserIO.getStringResponse();
+        LocalDate closingDate = LocalDate.parse(date);
+        CampManager.updateClosingDate(campUID, closingDate);
     }
 
-    public static void changeStudentGroupView(){
-
+    public static void changeStudentGroupView(UUID campUID){
+        System.out.print("Enter student group: ");
+        String group = UserIO.getStringResponse();
+        UserGroup userGroup = UserGroup.valueOf(group.toUpperCase());
+        CampManager.updateStudentGroup(campUID, userGroup);
     }
 
-    public static void changeLocationView(){
-
+    public static void changeLocationView(UUID campUID){
+        System.out.print("Enter camp location: ");
+        String location = UserIO.getStringResponse();
+        CampManager.updateLocation(campUID, location);
     }
 
-    public static void changeSlotsView(){
-
+    public static void changeSlotsView(UUID campUID){
+        System.out.print("Enter number of slots: ");
+        int numSlots = UserIO.getIntResponse();
+        CampManager.updateNumSlots(campUID, numSlots);
     }
 
-    public static void changeDescriptionView(){
-
+    public static void changeDescriptionView(UUID campUID){
+        System.out.print("Enter camp description: ");
+        String description = UserIO.getStringResponse();
+        CampManager.updateDescription(campUID, description);
     }
 }
