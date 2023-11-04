@@ -33,8 +33,8 @@ public class Database {
 
         USER_DATA = (HashMap<String, User>) deserializeObject("Users.dat");
         CAMP_DATA = (HashMap<UUID, Camp>) deserializeObject("Camps.dat");
-        ENQUIRY_DATA = (HashMap<UUID, Enquiry>) deserializeObject("Suggestions.dat");
-        SUGGESTION_DATA = (HashMap<UUID, Suggestion>) deserializeObject("Enquiries.dat");
+        ENQUIRY_DATA = (HashMap<UUID, Enquiry>) deserializeObject("Enquiries.dat");
+        SUGGESTION_DATA = (HashMap<UUID, Suggestion>) deserializeObject("Suggestions.dat");
     }
 
     public void saveToDatabase(){

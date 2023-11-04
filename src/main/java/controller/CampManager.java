@@ -89,7 +89,7 @@ public class CampManager {
         HashMap<UUID, Camp> filteredCamps = new HashMap<>();
         for(UUID key : getAllCamps().keySet()){
             Camp camp = getCamp(key);
-            if(camp.getUserGroup() == faculty){
+            if(camp.getUserGroup() == faculty || camp.getUserGroup() == UserGroup.NTU){
                 filteredCamps.put(key, camp);
             }
         }
@@ -135,5 +135,16 @@ public class CampManager {
     public static void updateDescription(UUID campUID, String description){
         Camp camp = getCamp(campUID);
         camp.setDescription(description);
+    }
+
+    public static void updateVisibility(UUID campUID){
+        Camp camp = getCamp(campUID);
+        boolean visible = camp.isVisible();
+        camp.setVisible(!visible);
+    }
+
+    public static void updateEnquiry(UUID campUID, UUID enquiryUID){
+        Camp camp = getCamp(campUID);
+        camp.addEnquiry(enquiryUID);
     }
 }

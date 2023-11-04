@@ -22,12 +22,13 @@ public class CampEditView {
                 System.out.println("6) Change Location");
                 System.out.println("7) Change Number of Slots");
                 System.out.println("8) Change Description");
-                System.out.println("9) Cancel Editing");
+                System.out.println("9) Change Visibility");
+                System.out.println("10) Cancel Editing");
                 System.out.println("=========================================================\n");
 
                 System.out.print("Select an action: ");
 
-                int choice = UserIO.getSelection(1, 9);
+                int choice = UserIO.getSelection(1, 10);
 
                 switch (choice){
                     case 1:
@@ -55,6 +56,9 @@ public class CampEditView {
                         changeDescriptionView(campUID);
                         break;
                     case 9:
+                        changeVisibilityView(campUID);
+                        break;
+                    case 10:
                         System.out.println("Cancelling Editing...");
                         return;
                     default:
@@ -117,5 +121,10 @@ public class CampEditView {
         System.out.print("Enter camp description: ");
         String description = UserIO.getStringResponse();
         CampManager.updateDescription(campUID, description);
+    }
+
+    public static void changeVisibilityView(UUID campUID){
+        System.out.print("Toggled Visibility");
+        CampManager.updateVisibility(campUID);
     }
 }
