@@ -50,7 +50,7 @@ public class Camp implements Serializable {
         System.out.println("Registration closing date: " + closingDate.toString());
         System.out.println("User Group: " + userGroup);
         System.out.println("Location: " + location);
-        System.out.println("Total Slots: " + totalSlots);
+        System.out.println("Remaining Slots: " + getRemainingSlots());
         System.out.println("Number of Committee Members: " + registeredCommMemID.size());
         System.out.println("Description: " + description);
         System.out.println("Staff in charge: " + staffInCharge.getName() + " | " + staffInCharge.getFaculty());

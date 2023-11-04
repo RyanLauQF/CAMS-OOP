@@ -9,6 +9,7 @@ import model.Student;
 import model.User;
 
 import java.util.HashMap;
+import java.util.Set;
 import java.util.UUID;
 
 public class StudentView {
@@ -71,9 +72,13 @@ public class StudentView {
         HashMap<UUID, Camp> filteredCamps = CampManager.getCampInFaculty(student.getFaculty());
 
         // TODO: make this look better
+        int count = 1;
         for(UUID key : filteredCamps.keySet()){
+            System.out.println("Camp: " + count);
             Camp camp = CampManager.getCamp(key);
             camp.printCampDetails();
+            System.out.println("\n---------------------------------------------------------\n");
+            count++;
         }
     }
 
@@ -125,6 +130,55 @@ public class StudentView {
     }
 
     public static void registeredCampsView(Student student){
+        Set<UUID> campKeys = student.getRegisteredCamps();
+        HashMap<UUID, Camp> allCamps = CampManager.getAllCamps();
 
+        // maps choice to UID of camp in hashmap
+        HashMap<Integer, UUID> campSelection = new HashMap<>();
+
+        // prints all camp student is registered
+        System.out.println("\n=========================================================\n");
+
+        int count = 1;
+        for(UUID key : campKeys){
+            System.out.println("Camp Number: " + count);
+            System.out.println(key);
+            allCamps.get(key).printCampDetails();
+            campSelection.put(count, key);
+            count++;
+        }
+
+        System.out.println("\n=========================================================\n");
+
+        System.out.print("Select a camp: ");
+        int choice = UserIO.getSelection(1, count);
+
+        UUID campUID = campSelection.get(choice);
+
+        while(true){
+            try{
+                System.out.println("Select action:");
+                System.out.println("1) Withdraw from camp");
+                System.out.println("2) Quit\n");
+
+                System.out.print("Enter selection: ");
+                int selection = UserIO.getSelection(1, 2);
+
+                switch (selection){
+                    case 1:
+                        CampManager.withdrawStudent(student, campUID);
+                        return;
+                    case 2:
+                        System.out.println("Quitting...");
+                        return;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception e){
+                System.out.println("Error! " + e.getMessage());
+                return;
+            }
+        }
     }
 }

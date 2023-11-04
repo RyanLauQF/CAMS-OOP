@@ -87,17 +87,19 @@ public class StaffView {
         // prints all camp staff has created
         System.out.println("\n=========================================================\n");
 
-        int count = 1;
+        int count = 0;
         for(UUID key : campKeys){
+            count++;
             System.out.println("Camp Number: " + count);
             System.out.println(key);
             allCamps.get(key).printCampDetails();
             campSelection.put(count, key);
-            count++;
         }
 
         System.out.println("\n=========================================================\n");
-
+        if (count == 0){
+            return;
+        }
         System.out.print("Select a camp: ");
         int choice = UserIO.getSelection(1, count);
 
@@ -114,13 +116,15 @@ public class StaffView {
                 System.out.println("======================= SELECT MENU =======================");
                 System.out.println("1) Edit Camp Details");
                 System.out.println("2) View Registered Attendees");
-                System.out.println("3) Delete Camp");
-                System.out.println("4) Cancel Selection");
+                System.out.println("3) View Enquiries");
+                System.out.println("4) View Suggestions");
+                System.out.println("5) Delete Camp");
+                System.out.println("6) Cancel Selection");
                 System.out.println("===========================================================\n");
 
                 System.out.print("Select an action: ");
 
-                int choice = UserIO.getSelection(1, 4);
+                int choice = UserIO.getSelection(1, 6);
 
                 switch (choice){
                     case 1:
@@ -130,9 +134,15 @@ public class StaffView {
                         allAttendeesView(campUID);
                         break;
                     case 3:
-                        deleteCampView(campUID);
+                        EnquiryView.staffEnquiryView(campUID);
                         break;
                     case 4:
+                        allSuggestionsView(staff);
+                        return;
+                    case 5:
+                        deleteCampView(campUID);
+                        return;
+                    case 6:
                         System.out.println("Cancelling Selection...");
                         return;
                     default:
@@ -196,10 +206,12 @@ public class StaffView {
     }
 
     public static void allSuggestionsView(Staff staff){
+
         System.out.println("show all suggestions");
     }
 
     public static void processSuggestionView(Staff staff){
+
         System.out.println("accept/reject suggestions");
     }
 }
