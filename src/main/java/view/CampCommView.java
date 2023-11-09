@@ -1,6 +1,7 @@
 package view;
 
 import controller.CampManager;
+import controller.SuggestionManager;
 import helper.UserIO;
 import model.CampCommMember;
 
@@ -16,17 +17,15 @@ public class CampCommView {
 
                 System.out.println("\n------------- CAMP COMMITTEE MEMBER MENU -------------");
                 System.out.println("Camp Committee Member of: " + CampManager.getCamp(student.getCommCampID()).getName());
-                System.out.println("5) View all suggestions made");
-                System.out.println("6) Submit suggestion to update camp details");
-                System.out.println("7) Edit Suggestions");
-                System.out.println("8) View all enquiries for camp");
-                System.out.println("9) Reply to enquiry");
-                System.out.println("10) Generate camp report");
-                System.out.println("11) Generate enquiry report");
+                System.out.println("5) View your suggestions");
+                System.out.println("6) View all enquiries for camp");
+                System.out.println("7) Reply to enquiry");
+                System.out.println("8) Generate camp report");
+                System.out.println("9) Generate enquiry report");
                 System.out.println("------------------------------------------------------\n");
 
-                System.out.println("12) Change Password");
-                System.out.println("13) Logout");
+                System.out.println("10) Change Password");
+                System.out.println("11) Logout");
                 System.out.println("=========================================================\n");
 
                 System.out.print("Select an action: ");
@@ -46,6 +45,7 @@ public class CampCommView {
                         EnquiryView.studentEnquiryView(student);
                         break;
                     case 5:
+                        SuggestionView.ccmSuggestionView(student);
                         break;
                     case 6:
                         break;
@@ -56,13 +56,9 @@ public class CampCommView {
                     case 9:
                         break;
                     case 10:
-                        break;
-                    case 11:
-                        break;
-                    case 12:
                         AppView.changePasswordView(student);
                         break;
-                    case 13:
+                    case 11:
                         System.out.println("Logging Out...");
                         return;
                     default:

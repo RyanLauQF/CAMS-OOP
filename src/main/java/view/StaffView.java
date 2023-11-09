@@ -206,12 +206,10 @@ public class StaffView {
     }
 
     public static void allSuggestionsView(Staff staff){
-
-        System.out.println("show all suggestions");
+        SuggestionView.showStaffSuggestionView(staff);
     }
 
     public static void processSuggestionView(Staff staff){
-
-        System.out.println("accept/reject suggestions");
+        SuggestionView.approveSuggestionView(staff);
     }
 }

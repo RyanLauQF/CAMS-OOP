@@ -33,4 +33,10 @@ public class CampCommMember extends Student {
     public UUID getCommCampID() {
         return commCampID;
     }
+    public void submitCampSuggestion(UUID suggestionID) {
+        campSuggestions.add(suggestionID);
+    }
+    public void deleteCampSuggestion(UUID suggestionID){
+        campSuggestions.remove(suggestionID);
+    }
 }
