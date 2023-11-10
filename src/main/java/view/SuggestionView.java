@@ -70,7 +70,7 @@ public class SuggestionView {
         System.out.println("\n=========================================================\n");
     }
 
-    // idk if we should limit each CCM studnet to one suggestion, bc they only can suggest to the camp they are in charge of
+    // idk if we should limit each CCM student to one suggestion, bc they only can suggest to the camp they are in charge of
     public static void createSuggestionView(CampCommMember student) {
         UUID campUID = CampCommMemberManager.getCampID(student);
         Camp camp = CampManager.getCamp(campUID);
@@ -94,12 +94,15 @@ public class SuggestionView {
             System.out.print("Select an action: ");
 
             int choice = UserIO.getSelection(1, 8);
-//            SuggestionType typeEnum = SuggestionType.values()[choice - 1];
+            SuggestionType typeEnum = SuggestionType.values()[choice - 1];
 
             System.out.println("Enter suggestion: ");
             String suggestion = UserIO.getStringResponse();
-            Suggestion newSugggestion = new Suggestion(suggestion, student, student.getCommCampID());
+            Suggestion newSugggestion = new Suggestion(suggestion, student, student.getCommCampID(), typeEnum);
             SuggestionManager.addSuggestion(newSugggestion, student);
+            CampCommMemberManager.addPoint(student);
+            System.out.println("\nSuggestion submitted!");
+            System.out.println("Camp Comm Member Points: " + CampCommMemberManager.getPoints(student));
         } catch (Exception e) {
             System.out.println("Error! " + e.getMessage());
         }

@@ -18,4 +18,10 @@ public class CampCommMemberManager {
     public static void removeSuggestionfromCCM(CampCommMember student, UUID suggestionID) {
         student.deleteCampSuggestion(suggestionID);
     }
+    public static void addPoint(CampCommMember student) {
+        student.addPoint();
+    }
+    public static int getPoints(CampCommMember student) {
+        return student.getPoints();
+    }
 }

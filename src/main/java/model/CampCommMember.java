@@ -9,6 +9,8 @@ public class CampCommMember extends Student {
     private final Set<UUID> campSuggestions;
     private UUID commCampID;
 
+    private int points;
+
     public CampCommMember(Student student, UUID campID){
         // deep copy student class
         super(student.getName(), student.getEmail(), student.getFaculty());
@@ -20,6 +22,7 @@ public class CampCommMember extends Student {
         // variables unique to camp committee members
         this.campSuggestions = new HashSet<>();
         this.commCampID = campID;
+        this.points = 0;
     }
 
     public Set<UUID> getCampSuggestions(){
@@ -39,4 +42,6 @@ public class CampCommMember extends Student {
     public void deleteCampSuggestion(UUID suggestionID){
         campSuggestions.remove(suggestionID);
     }
+    public int getPoints() {return points;}
+    public void addPoint() {this.points++;}
 }
