@@ -9,6 +9,7 @@ import model.UserGroup;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.Set;
 
 public class CampManager {
 
@@ -95,6 +96,10 @@ public class CampManager {
         }
         return filteredCamps;
     }
+    public static Set<UUID> getCampSuggestions(UUID campUID) {
+        Camp camp = getCamp(campUID);
+        return camp.getSuggestionID();
+    }
 
     // ================== FUNCTIONS TO EDIT CAMP DETAILS ================== //
     public static void updateCampName(UUID campUID, String name){
@@ -146,5 +151,14 @@ public class CampManager {
     public static void updateEnquiry(UUID campUID, UUID enquiryUID){
         Camp camp = getCamp(campUID);
         camp.addEnquiry(enquiryUID);
+    }
+    public static void updateSuggestion(UUID campUID, UUID suggestionUID){
+        Camp camp = getCamp(campUID);
+        camp.addSuggestion(suggestionUID);
+    }
+
+    public static void removeSuggestionfromCamp(UUID campUID, UUID suggestionUID) {
+        Camp camp = getCamp(campUID);
+        camp.removeSuggestion(suggestionUID);
     }
 }
