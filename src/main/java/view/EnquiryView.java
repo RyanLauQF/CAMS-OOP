@@ -1,5 +1,6 @@
 package view;
 
+import controller.CampCommMemberManager;
 import controller.CampManager;
 import controller.EnquiryManager;
 import helper.UserIO;

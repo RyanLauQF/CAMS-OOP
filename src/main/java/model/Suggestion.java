@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Suggestion {
+public class Suggestion implements Serializable {
     private String suggestion;
 
     private final CampCommMember createdBy;
@@ -11,16 +12,15 @@ public class Suggestion {
 
     private boolean isViewed;
     private boolean isAccepted;
+    private SuggestionType type;
 
-//    private SuggestionType type;
-
-    public Suggestion(String suggestion, CampCommMember createdBy, UUID campID) {
+    public Suggestion(String suggestion, CampCommMember createdBy, UUID campID, SuggestionType type) {
         this.suggestion = suggestion;
         this.createdBy = createdBy;
         this.campID = campID;
         this.isViewed = false;
         this.isAccepted = false;
-//        this.type = type;
+        this.type = type;
     }
 
     public String getSuggestion() {
@@ -30,7 +30,7 @@ public class Suggestion {
     public void printSuggestionDetails() {
         System.out.println("Suggestion: " + suggestion);
         System.out.println("Created by: " + createdBy.getName());
-//        System.out.println("Type: " + type);
+        System.out.println("Type: " + type);
         System.out.println("Viewed: " + isViewed);
         System.out.println("Approved: " + isAccepted);
     }
@@ -60,9 +60,9 @@ public class Suggestion {
     public void setAccepted(boolean accepted) {
         isAccepted = accepted;
     }
-//
-//    public SuggestionType getType() {return type;}
-//    public void setType(SuggestionType type) {this.type = type;}
+
+    public SuggestionType getType() {return type;}
+    public void setType(SuggestionType type) {this.type = type;}
 
 }
 
