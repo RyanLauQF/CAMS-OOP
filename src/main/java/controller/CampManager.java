@@ -152,6 +152,10 @@ public class CampManager {
         Camp camp = getCamp(campUID);
         camp.addEnquiry(enquiryUID);
     }
+    public static void deleteEnquiry(UUID campUID, UUID enquiryUID){
+        Camp camp = getCamp(campUID);
+        camp.removeEnquiry(enquiryUID);
+    }
     public static void updateSuggestion(UUID campUID, UUID suggestionUID){
         Camp camp = getCamp(campUID);
         camp.addSuggestion(suggestionUID);

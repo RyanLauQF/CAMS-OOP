@@ -134,7 +134,7 @@ public class StaffView {
                         allAttendeesView(campUID);
                         break;
                     case 3:
-                        EnquiryView.staffEnquiryView(campUID);
+                        EnquiryView.viewEnquiryView(campUID);
                         break;
                     case 4:
                         allSuggestionsView(staff);

@@ -30,6 +30,13 @@ public class EnquiryManager {
         CampManager.updateEnquiry(enquiry.getCampID(), uid);
     }
 
+    public static void deleteEnquiry(UUID enquiryUID, Student student){
+        Enquiry enquiry = getEnquiry(enquiryUID);
+        StudentManager.deleteEnquiryToStudent(enquiryUID, student);
+        CampManager.deleteEnquiry(enquiry.getCampID(), enquiryUID);
+        enquiryData.remove(enquiry);
+    }
+
     public static void updateEnquiryQuery(String query, UUID enquiryUID){
         Enquiry enquiry = getEnquiry(enquiryUID);
         enquiry.setQuery(query);
