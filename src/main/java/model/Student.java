@@ -35,6 +35,10 @@ public class Student extends User {
         submittedEnquiries.add(enquiryID);
     }
 
+    public void deleteEnquiry(UUID enquiryID){
+        submittedEnquiries.remove(enquiryID);
+    }
+
     public boolean isCampCommitteeMember() {
         return isCampCommitteeMember;
     }

@@ -2,6 +2,7 @@ package view;
 
 import controller.CampManager;
 import controller.SuggestionManager;
+import java.util.UUID;
 import helper.UserIO;
 import model.CampCommMember;
 
@@ -19,7 +20,7 @@ public class CampCommView {
                 System.out.println("Camp Committee Member of: " + CampManager.getCamp(student.getCommCampID()).getName());
                 System.out.println("5) View your suggestions");
                 System.out.println("6) View all enquiries for camp");
-                System.out.println("7) Reply to enquiry");
+                System.out.println("7) View your points");
                 System.out.println("8) Generate camp report");
                 System.out.println("9) Generate enquiry report");
                 System.out.println("------------------------------------------------------\n");
@@ -29,7 +30,7 @@ public class CampCommView {
                 System.out.println("=========================================================\n");
 
                 System.out.print("Select an action: ");
-                int choice = UserIO.getSelection(1, 14);
+                int choice = UserIO.getSelection(1, 11);
 
                 switch (choice){
                     case 1:
@@ -48,8 +49,11 @@ public class CampCommView {
                         SuggestionView.ccmSuggestionView(student);
                         break;
                     case 6:
+                        UUID campID = student.getCommCampID();
+                        EnquiryView.ccmViewEnquiryView(campID, student);
                         break;
                     case 7:
+                        System.out.println("You have: " + student.getPoints() + " point(s)");
                         break;
                     case 8:
                         break;
