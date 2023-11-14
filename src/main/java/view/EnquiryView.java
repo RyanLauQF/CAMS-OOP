@@ -10,7 +10,22 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * View class for rendering the enquiry menu and managing interactions related to camp enquiries.
+ * Provides views for students to view, create, edit, and delete their enquiries.
+ * Additionally, it contains views for Camp Committee Members to view, reply to, and generate reports for camp enquiries.
+ *
+ * @author Tong Ying
+ * @version 1.0
+ * @since 2023-11-14
+ */
 public class EnquiryView {
+
+    /**
+     * Renders the enquiry menu for students and manages user selections to render various views.
+     *
+     * @param student The Student for whom the enquiry menu is rendered.
+     */
     public static void studentEnquiryView(Student student){
         while(true){
             try{
@@ -46,11 +61,16 @@ public class EnquiryView {
                 }
             }
             catch (Exception e){
-                System.out.println(e.toString());
+                System.out.println(e.getMessage());
             }
         }
     }
 
+    /**
+     * Renders all the enquiries submitted by the student
+     *
+     * @param student The student whose enquiries are being displayed.
+     */
     public static void showAllSubmittedEnquiry(Student student){
         HashMap<UUID, Enquiry> allEnquiries = EnquiryManager.getAllEnquiries();
         Set<UUID> enquiryKeys = student.getSubmittedEnquiries();
@@ -74,6 +94,11 @@ public class EnquiryView {
         System.out.println("\n=========================================================\n");
     }
 
+    /**
+     * Renders view for student to create a new enquiry for a selected camp.
+     *
+     * @param student The student creating the enquiry.
+     */
     public static void createEnquiryView(Student student){
         HashMap<UUID, Camp> filteredCamps = CampManager.getCampInFaculty(student.getFaculty());
         HashMap<Integer, UUID> selection = new HashMap<>();
@@ -102,6 +127,12 @@ public class EnquiryView {
         }
     }
 
+    /**
+     * Renders view for student to edit one of their submitted enquiries that have not been
+     * processed by the camp committee.
+     *
+     * @param student The student editing the enquiry.
+     */
     public static void editEnquiryView(Student student){
         HashMap<UUID, Enquiry> allEnquiries = EnquiryManager.getAllEnquiries();
         Set<UUID> enquiryKeys = student.getSubmittedEnquiries();
@@ -139,6 +170,12 @@ public class EnquiryView {
         EnquiryManager.updateEnquiryQuery(query, enquiryUID);
     }
 
+    /**
+     * Renders view for student to delete one of their submitted enquiries that have
+     * not been processed by the camp committee.
+     *
+     * @param student The student deleting the enquiry.
+     */
     public static void deleteEnquiryView(Student student){
         HashMap<UUID, Enquiry> allEnquiries = EnquiryManager.getAllEnquiries();
         Set<UUID> enquiryKeys = student.getSubmittedEnquiries();
@@ -174,6 +211,11 @@ public class EnquiryView {
         EnquiryManager.deleteEnquiry(enquiryUID, student);
     }
 
+    /**
+     * Renders all enquiries for a specific camp, allowing the user to choose an action such as replying to enquiries.
+     *
+     * @param campUID The UUID of the camp for which enquiries are being displayed.
+     */
     public static void viewEnquiryView(UUID campUID){
         //show all enquiries of chosen camp
         try{
@@ -213,10 +255,15 @@ public class EnquiryView {
             }
         }
         catch (Exception e){
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
     }
 
+    /**
+     * Renders view for users to reply to enquiries for a specific camp and update the status of the replied enquiries.
+     *
+     * @param campUID The UUID of the camp for which enquiries are being replied to.
+     */
     public static void replyEnquiryView(UUID campUID){
         Camp camp = CampManager.getCamp(campUID);
         System.out.println("======================= ENQUIRIES: TO BE REPLIED =======================");
@@ -251,6 +298,12 @@ public class EnquiryView {
         EnquiryManager.updateEnquiryStatus(enquiryUID);
     }
 
+    /**
+     * Renders view for camp committee members to reply to enquiries and update enquiry status.
+     *
+     * @param campUID The UUID of camp for which the enquiries are being replied to.
+     * @param student The Camp Committee Member who is replying to the enquiries.
+     */
     public static void ccmViewEnquiryView(UUID campUID, CampCommMember student){
         //show all enquiries of chosen camp
         try{
@@ -289,10 +342,17 @@ public class EnquiryView {
             }
         }
         catch (Exception e){
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
     }
 
+    /**
+     * Renders view for camp committee members to reply to a specific enquiry and updates the enquiry status.
+     * Additionally, adds points to the Camp Committee Member for replying to the enquiry.
+     *
+     * @param campUID The UUID of camp for which the enquiry is being replied to.
+     * @param student The Camp Committee Member who is replying to the enquiry.
+     */
     public static void replyEnquiryView(UUID campUID, CampCommMember student){
         Camp camp = CampManager.getCamp(campUID);
         System.out.println("======================= ENQUIRIES: TO BE REPLIED =======================");
