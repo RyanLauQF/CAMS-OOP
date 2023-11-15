@@ -232,12 +232,15 @@ public class StaffView {
 
                 switch (choice){
                     case 1:
+                        System.out.println("Generating Report for Attendees");
                         staff.generateReport(1);
                         return;
                     case 2:
+                        System.out.println("Generating Report for Camp Committee Members");
                         staff.generateReport(2);
                         return;
                     case 3:
+                        System.out.println("Generating Report for Location");
                         staff.generateReport(3);
                         return;
                     case 4:
@@ -248,7 +251,7 @@ public class StaffView {
                 }
 
             } catch (Exception e) {
-                System.out.println(e.toString());
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -256,6 +259,7 @@ public class StaffView {
 
     public static void generatePerformanceReportView(Staff staff) {
         //prints the camp that they wanna see, print the points of the camp committee member
+        System.out.println("Generating Performance Report for Camp Committee Members");
         staff.generatePerformanceReport();
     }
 
