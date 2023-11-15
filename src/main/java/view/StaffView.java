@@ -3,10 +3,7 @@ package view;
 import controller.CampManager;
 import controller.UserManager;
 import helper.UserIO;
-import model.Camp;
-import model.Staff;
-import model.User;
-import model.UserGroup;
+import model.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -27,10 +24,8 @@ public class StaffView {
                 System.out.println("3) Create new Camp");
                 System.out.println("4) View all Suggestions");
                 System.out.println("5) Accept/Reject Suggestions");
-                System.out.println("6) Generate Camp Report");
-                System.out.println("7) Generate Performance Report");
-                System.out.println("8) Change Password");
-                System.out.println("9) Logout");
+                System.out.println("6) Change Password");
+                System.out.println("7) Logout");
                 System.out.println("=========================================================\n");
 
                 System.out.print("Select an action: ");
@@ -54,15 +49,9 @@ public class StaffView {
                         processSuggestionView(staff);
                         break;
                     case 6:
-                        generateReportView(staff);
-                        break;
-                    case 7:
-                        generatePerformanceReportView(staff);
-                        break;
-                    case 8:
                         AppView.changePasswordView(staff);
                         break;
-                    case 9:
+                    case 7:
                         System.out.println("Logging Out...");
                         return;
                     default:
@@ -214,49 +203,6 @@ public class StaffView {
 
         Camp newCamp = new Camp(name, startDate, endDate,  closingDate,  userGroup,  location,  totalSlots,  description,  staff,  isVisible);
         CampManager.addNewCamp(newCamp, staff);
-    }
-
-    public static void generateReportView(Staff staff) {  //if i want to allow them to search by name, location, faculty????
-        while (true) {
-            try {
-                System.out.println("======================= SELECT FILTERS =======================");
-                System.out.println("1) Attendee");
-                System.out.println("2) Camp Committee Member");
-                System.out.println("3) ....");
-                System.out.println("4) Quit");
-                System.out.println("===========================================================\n");
-
-                System.out.print("Select an action: ");
-
-                int choice = UserIO.getSelection(1, 3);
-
-                switch (choice){
-                    case 1:
-                        staff.generateReport(1);
-                        return;
-                    case 2:
-                        staff.generateReport(2);
-                        return;
-                    case 3:
-                        staff.generateReport(3);
-                        return;
-                    case 4:
-                        System.out.println("Cancelling Report...");
-                        return;
-                    default:
-                        break;
-                }
-
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            }
-        }
-    }
-
-
-    public static void generatePerformanceReportView(Staff staff) {
-        //prints the camp that they wanna see, print the points of the camp committee member
-       staff.generatePerformanceReport();
     }
 
     public static void allSuggestionsView(Staff staff){
