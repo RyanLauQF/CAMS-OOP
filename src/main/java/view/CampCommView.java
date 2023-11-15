@@ -1,11 +1,22 @@
 package view;
 
 import controller.CampManager;
-import controller.SuggestionManager;
 import java.util.UUID;
 import helper.UserIO;
 import model.CampCommMember;
 
+/**
+ * View class for rendering the home menu and managing interactions for Camp Committee Members.
+ * Provides standard student view options such as to view available camps, register for camps,
+ * view registered camps and view enquiries, change password and logout.
+ *
+ * Additional options under camp committee member menu including: view suggestions, view all enquiries, view points,
+ * generate camp reports, generate enquiry reports.
+ *
+ * @author Ryan Lau
+ * @version 1.0
+ * @since 2023-11-14
+ */
 public class CampCommView {
     public static void renderView(CampCommMember student){
         while(true){
@@ -70,9 +81,8 @@ public class CampCommView {
                 }
             }
             catch (Exception e){
-                System.out.println(e.toString());
+                System.out.println(e.getMessage());
             }
         }
-
     }
 }

@@ -57,14 +57,6 @@ public class Camp implements Serializable {
         System.out.println("-----------------------");
     }
 
-    public void printAttendees() {
-        System.out.println("----- ATTENDEE LIST -----");
-//        for (Student attendee :
-//                registeredStudents) {
-//
-//        }
-    }
-
     public void generateReport() {
         printCampDetails();
     }

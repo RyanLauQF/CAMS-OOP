@@ -5,8 +5,20 @@ import helper.UserIO;
 import model.Staff;
 import model.User;
 
-
+/**
+ * View class for rendering the main application interface.
+ * Handles user login, authentication, password reset, and navigation to specific views based on user roles.
+ *
+ * @author Ryan Lau
+ * @version 1.0
+ * @since 2023-11-14
+ */
 public class AppView {
+
+    /**
+     * Renders the main login interface.
+     * Allows users to log in, quit the program, and navigates to specific views based on their roles upon login.
+     */
     public static void renderView(){
         while(true){
             // system login
@@ -56,6 +68,12 @@ public class AppView {
         }
     }
 
+    /**
+     * Renders view for changing user's password.
+     *
+     * @param user The User object for whom the password is to be changed.
+     * @throws Exception If an error occurs during the password change process.
+     */
     public static void changePasswordView(User user) throws Exception {
         System.out.print("Enter new password: ");
         String newPassword = UserIO.getStringResponse();
