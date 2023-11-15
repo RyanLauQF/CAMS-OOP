@@ -245,13 +245,20 @@ public class EnquiryView {
             }
             System.out.println("Choose action:");
             System.out.println("1) Reply enquiries");
-            System.out.println("2) Exit");
+            System.out.println("2) Print enquiry report");
+            System.out.println("3) Exit");
             int select = UserIO.getSelection(1, 2);
-            if (select == 1){
-                replyEnquiryView(campUID);
-            }
-            else {
-                return;
+            switch (select) {
+                case 1:
+                    replyEnquiryView(campUID);
+                    break;
+                case 2:
+                    generateEnquiryReportView(campUID);
+                    break;
+                case 3:
+                    return;
+                default:
+                    break;
             }
         }
         catch (Exception e){
@@ -332,13 +339,20 @@ public class EnquiryView {
             }
             System.out.println("Choose action:");
             System.out.println("1) Reply enquiries");
-            System.out.println("2) Exit");
+            System.out.println("2) Print enquiry report");
+            System.out.println("3) Exit");
             int select = UserIO.getSelection(1, 2);
-            if (select == 1){
-                replyEnquiryView(campUID, student);
-            }
-            else {
-                return;
+            switch (select) {
+                case 1:
+                    replyEnquiryView(campUID);
+                    break;
+                case 2:
+                    generateEnquiryReportView(campUID);
+                    break;
+                case 3:
+                    return;
+                default:
+                    break;
             }
         }
         catch (Exception e){
@@ -374,7 +388,7 @@ public class EnquiryView {
         }
         System.out.println("\n=========================================================\n");
 
-        if (count == 0){
+        if (count == 0) {
             System.out.println("No camp enquiries to be replied.");
             return;
         }
@@ -386,5 +400,45 @@ public class EnquiryView {
         EnquiryManager.updateEnquiryReply(reply, enquiryUID);
         EnquiryManager.updateEnquiryStatus(enquiryUID);
         CampCommMemberManager.addPoint(student);
+    }
+    public static void generateEnquiryReportView(UUID campUID) {
+        //for each camp -> show few details -> show the enquiries
+        Camp camp = CampManager.getCamp(campUID);
+        while (true) {
+            try {
+                System.out.println("======================= SELECT FILTERS =======================");
+                System.out.println("1) All Enquiries");
+                System.out.println("2) Enquiries to be replied");
+                System.out.println("3) Replied Enquiries");
+                System.out.println("4) Quit");
+                System.out.println("==============================================================\n");
+
+                System.out.print("Select an action: ");
+
+                int choice = UserIO.getSelection(1, 4);
+
+                switch (choice){
+                    case 1:
+                        System.out.println("Generating All Enquiries\n");
+                        Enquiry.generateEnquiryReport(camp, 1);
+                        return;
+                    case 2:
+                        System.out.println("Generating Enquiries To Be Replied\n");
+                        Enquiry.generateEnquiryReport(camp, 2);
+                        return;
+                    case 3:
+                        System.out.println("Generating Replied Enquiries\n");
+                        Enquiry.generateEnquiryReport(camp, 3);
+                        return;
+                    case 4:
+                        System.out.println("Cancelling Report...\n");
+                        return;
+                    default:
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

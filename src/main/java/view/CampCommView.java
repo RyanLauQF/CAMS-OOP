@@ -1,9 +1,10 @@
 package view;
 
 import controller.CampManager;
-import java.util.UUID;
 import helper.UserIO;
 import model.CampCommMember;
+
+import java.util.UUID;
 
 /**
  * View class for rendering the home menu and managing interactions for Camp Committee Members.
@@ -19,6 +20,7 @@ import model.CampCommMember;
  */
 public class CampCommView {
     public static void renderView(CampCommMember student){
+
         while(true){
             try{
                 System.out.println("======================= HOME MENU =======================");
@@ -33,11 +35,11 @@ public class CampCommView {
                 System.out.println("6) View all enquiries for camp");
                 System.out.println("7) View your points");
                 System.out.println("8) Generate camp report");
-                System.out.println("9) Generate enquiry report");
+//                System.out.println("9) Generate enquiry report");
                 System.out.println("------------------------------------------------------\n");
 
-                System.out.println("10) Change Password");
-                System.out.println("11) Logout");
+                System.out.println("9) Change Password");
+                System.out.println("10) Logout");
                 System.out.println("=========================================================\n");
 
                 System.out.print("Select an action: ");
@@ -67,13 +69,14 @@ public class CampCommView {
                         System.out.println("You have: " + student.getPoints() + " point(s)");
                         break;
                     case 8:
+                        generateCampReportView(student);
                         break;
+//                    case 9:
+//                        break;
                     case 9:
-                        break;
-                    case 10:
                         AppView.changePasswordView(student);
                         break;
-                    case 11:
+                    case 10:
                         System.out.println("Logging Out...");
                         return;
                     default:
@@ -81,6 +84,45 @@ public class CampCommView {
                 }
             }
             catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public static void generateCampReportView(CampCommMember campCommMember) {
+        while (true) {
+            try {
+                System.out.println("======================= SELECT FILTERS =======================");
+                System.out.println("1) Overall");
+                System.out.println("2) Attendee");
+                System.out.println("3) Camp Committee Member");
+                System.out.println("4) Quit");
+                System.out.println("==============================================================\n");
+
+                System.out.print("Select an action: ");
+
+                int choice = UserIO.getSelection(1, 3);
+
+                switch (choice){
+                    case 1:
+                        System.out.println("Generating Overall Report\n");
+                        campCommMember.generateReport(1);
+                        return;
+                    case 2:
+                        System.out.println("Generating Report for All Attendees\n");
+                        campCommMember.generateReport(2);
+                        return;
+                    case 3:
+                        System.out.println("Generating Report for Camp Committee Members\n");
+                        campCommMember.generateReport(3);
+                        return;
+                    case 4:
+                        System.out.println("Cancelling Report...\n");
+                        return;
+                    default:
+                        break;
+                }
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }

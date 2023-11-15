@@ -3,10 +3,7 @@ package view;
 import controller.CampManager;
 import controller.UserManager;
 import helper.UserIO;
-import model.Camp;
-import model.Staff;
-import model.User;
-import model.UserGroup;
+import model.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
