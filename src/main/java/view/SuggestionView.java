@@ -8,10 +8,12 @@ import helper.UserIO;
 import model.*;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 public class  SuggestionView {
+
     public static void ccmSuggestionView(CampCommMember student) {
         while (true) {
             try {
@@ -21,7 +23,7 @@ public class  SuggestionView {
                 System.out.println("3) Edit Suggestions");
                 System.out.println("4) Delete Suggestion");
                 System.out.println("5) Exit Suggestion Menu");
-                System.out.println("=========================================================\n");
+                System.out.println("================================================================\n");
 
                 System.out.print("Select an action: ");
 
@@ -47,7 +49,7 @@ public class  SuggestionView {
                         break;
                 }
             } catch (Exception e) {
-                System.out.println(e.toString());
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -176,28 +178,46 @@ public class  SuggestionView {
 
     public static void showStaffSuggestionView(Staff staff) {
         Set<UUID> camps = StaffManager.getAllCamps(staff);
+        Set<UUID> campSuggestions = new HashSet<>();
+
+        if(camps.isEmpty()){
+            System.out.println("You currently have no camps tagged to you!");
+            return;
+        }
+
+        // get all suggestions
+        for(UUID key : camps){
+            Set<UUID> suggestions = CampManager.getCampSuggestions(key);
+            campSuggestions.addAll(suggestions);
+        }
+
+        if(campSuggestions.isEmpty()){
+            System.out.println("There are currently no suggestions for your camps.\n");
+            return;
+        }
 
         // prints all suggestions for camps staff is in charge of
         System.out.println("\n=========================================================\n");
 
         int count = 0;
-        for (UUID key : camps) {
+        for (UUID key : campSuggestions) {
             count++;
-            System.out.println("Camp Number: " + count);
-            Camp camp = CampManager.getCamp(key);
-            camp.printCampDetails();
-            Set<UUID> campSuggestions = CampManager.getCampSuggestions(key);
-
-            for (UUID id : campSuggestions) {
-                Suggestion suggestion = SuggestionManager.getSuggestion(id);
-                suggestion.printSuggestionDetails();
-            }
-            System.out.println("\n-----------------------\n");
+            System.out.println("Suggestion No.: " + count);
+            Suggestion suggestion = SuggestionManager.getSuggestion(key);
+            suggestion.printSuggestionDetails();
+            System.out.println("\n--------------------------------\n");
         }
+
+        System.out.println("\n=========================================================\n");
     }
 
     public static void approveSuggestionView(Staff staff) {
         Set<UUID> camps = StaffManager.getAllCamps(staff);
+
+        if(camps.isEmpty()){
+            System.out.println("You currently have no camps tagged to you!");
+            return;
+        }
 
         HashMap<Integer, UUID> campSelection = new HashMap<>();
         HashMap<Integer, UUID> suggestionSelection = new HashMap<>();

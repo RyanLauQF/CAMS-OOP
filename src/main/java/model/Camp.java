@@ -44,17 +44,20 @@ public class Camp implements Serializable {
     // ----- GENERATE REPORT -----
 
     public void printCampDetails() {
-        System.out.println("----- CAMP DETAILS -----");
-        System.out.println("Name: " + name);
-        System.out.println("Date: " + startDate.toString() + " - " + endDate.toString());
-        System.out.println("Registration closing date: " + closingDate.toString());
-        System.out.println("User Group: " + userGroup);
-        System.out.println("Location: " + location);
-        System.out.println("Remaining Slots: " + getRemainingSlots());
-        System.out.println("Number of Committee Members: " + registeredCommMemID.size());
-        System.out.println("Description: " + description);
-        System.out.println("Staff in charge: " + staffInCharge.getName() + " | " + staffInCharge.getFaculty());
-        System.out.println("-----------------------");
+        System.out.println("------------------------------------------------------");
+        System.out.println("|                    CAMP DETAILS                    |");
+        System.out.println("------------------------------------------------------");
+        System.out.printf("| %-26s | %-21s |\n", "Name:", name);
+        System.out.printf("| %-26s | %-21s |\n", "Start Date:", startDate.toString());
+        System.out.printf("| %-26s | %-21s |\n", "End Date:", endDate.toString());
+        System.out.printf("| %-26s | %-21s |\n", "Registration Closing Date:", closingDate.toString());
+        System.out.printf("| %-26s | %-21s |\n", "User Group:", userGroup);
+        System.out.printf("| %-26s | %-21s |\n", "Location:", location);
+        System.out.printf("| %-26s | %-21s |\n", "Remaining Slots:", getRemainingSlots());
+        System.out.printf("| %-26s | %-21s |\n", "Committee Members:", registeredCommMemID.size());
+        System.out.printf("| %-26s | %-21s |\n", "Description:", description);
+        System.out.printf("| %-26s | %-21s |\n", "Staff in Charge:", staffInCharge.getName() + " (" + staffInCharge.getFaculty() + ") ");
+        System.out.println("------------------------------------------------------");
     }
 
     public void generateReport() {
