@@ -7,7 +7,21 @@ import model.UserGroup;
 import java.time.LocalDate;
 import java.util.UUID;
 
+/**
+ * View class for rendering the camp editing interface and managing interactions related to camp modifications.
+ * Provides methods for editing various camp details such as name, dates, location, and visibility.
+ *
+ * @author Ryan Lau
+ * @version 1.0
+ * @since 2023-11-14
+ */
 public class CampEditView {
+
+    /**
+     * Renders camp editing interface and providing selection menu for modifying camp details.
+     *
+     * @param campUID The UUID of camp to be edited.
+     */
     public static void editCampView(UUID campUID){
         while(true){
             try{
@@ -66,17 +80,27 @@ public class CampEditView {
                 }
             }
             catch (Exception e){
-                System.out.println(e.toString());
+                System.out.println(e.getMessage());
             }
         }
     }
 
+    /**
+     * Renders view for changing the camp name.
+     *
+     * @param campUID The UUID of camp to be edited.
+     */
     public static void changeNameView(UUID campUID){
         System.out.print("Enter camp name: ");
         String campName = UserIO.getStringResponse();
         CampManager.updateCampName(campUID, campName);
     }
 
+    /**
+     * Renders view for changing the camp start date.
+     *
+     * @param campUID The UUID of camp to be edited.
+     */
     public static void changeStartDateView(UUID campUID){
         System.out.print("Enter camp start date: ");
         String date = UserIO.getStringResponse();
@@ -84,6 +108,11 @@ public class CampEditView {
         CampManager.updateStartDate(campUID, startDate);
     }
 
+    /**
+     * Renders view for changing the camp end date.
+     *
+     * @param campUID The UUID of camp to be edited.
+     */
     public static void changeEndDateView(UUID campUID){
         System.out.print("Enter camp end date: ");
         String date = UserIO.getStringResponse();
@@ -91,6 +120,11 @@ public class CampEditView {
         CampManager.updateEndDate(campUID, endDate);
     }
 
+    /**
+     * Renders view for changing the camp registration closing date.
+     *
+     * @param campUID The UUID of camp to be edited.
+     */
     public static void changeClosingDateView(UUID campUID){
         System.out.print("Enter camp registration closing date: ");
         String date = UserIO.getStringResponse();
@@ -98,6 +132,11 @@ public class CampEditView {
         CampManager.updateClosingDate(campUID, closingDate);
     }
 
+    /**
+     * Renders view for changing the camp's student group.
+     *
+     * @param campUID The UUID of camp to be edited.
+     */
     public static void changeStudentGroupView(UUID campUID){
         System.out.print("Enter student group: ");
         String group = UserIO.getStringResponse();
@@ -105,24 +144,44 @@ public class CampEditView {
         CampManager.updateStudentGroup(campUID, userGroup);
     }
 
+    /**
+     * Renders view for changing the camp location.
+     *
+     * @param campUID The UUID of camp to be edited.
+     */
     public static void changeLocationView(UUID campUID){
         System.out.print("Enter camp location: ");
         String location = UserIO.getStringResponse();
         CampManager.updateLocation(campUID, location);
     }
 
+    /**
+     * Renders view for changing the number of slots available in the camp.
+     *
+     * @param campUID The UUID of camp to be edited.
+     */
     public static void changeSlotsView(UUID campUID){
         System.out.print("Enter number of slots: ");
         int numSlots = UserIO.getIntResponse();
         CampManager.updateNumSlots(campUID, numSlots);
     }
 
+    /**
+     * Renders view for changing the camp description.
+     *
+     * @param campUID The UUID of camp to be edited.
+     */
     public static void changeDescriptionView(UUID campUID){
         System.out.print("Enter camp description: ");
         String description = UserIO.getStringResponse();
         CampManager.updateDescription(campUID, description);
     }
 
+    /**
+     * Renders view for toggling the camp visibility.
+     *
+     * @param campUID The UUID of camp to be edited.
+     */
     public static void changeVisibilityView(UUID campUID){
         System.out.print("Toggled Visibility");
         CampManager.updateVisibility(campUID);
