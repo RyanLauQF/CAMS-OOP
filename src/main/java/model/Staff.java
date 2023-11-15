@@ -38,9 +38,10 @@ public class Staff extends User {
         String x = choice == 1 ? "Attendees" : "Camp Committee Members";
         try {
             if (campIDs.size() == 0) {
-                System.out.println("Staff has no camp created");
+                System.out.println("Staff has no camp created!\n");
                 return;
             }
+            System.out.println("Generating Report for " + x + "...\n");
             writer = new BufferedWriter(new FileWriter("OverallReport.txt"));
             writer.write("============================================== " + "\n");
             writer.write("===== OVERALL CAMP REPORT FOR " + x + " =====\n");
@@ -114,9 +115,10 @@ public class Staff extends User {
         BufferedWriter writer = null;
         try{
             if (campIDs.size() == 0) {
-                System.out.println("Staff has no camp created");
+                System.out.println("Staff has no camp created!\n");
                 return;
             }
+            System.out.println("Generating Performance Report for Camp Committee Members...\n");
             writer = new BufferedWriter(new FileWriter("PerformanceReport.txt"));
             writer.write("================================================ " + "\n");
             writer.write(" PERFORMANCE REPORT FOR CAMP COMMITTEE MEMBERS " + "\n");

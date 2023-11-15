@@ -217,41 +217,34 @@ public class EnquiryView {
      * @param campUID The UUID of the camp for which enquiries are being displayed.
      */
     public static void viewEnquiryView(UUID campUID){
-        //show all enquiries of chosen camp
         try{
             Camp camp = CampManager.getCamp(campUID);
-            System.out.println("======================= ENQUIRIES =======================");
             Set<UUID> enquiryKeys = camp.getEnquiryID();
-            HashMap<UUID, Enquiry> allEnquiries = EnquiryManager.getAllEnquiries();
-            // maps choice to UID of camp in hashmap
             HashMap<Integer, UUID> enquirySelection = new HashMap<>();
 
-            // prints all enquiries for this camp
+            if(enquiryKeys.isEmpty()){
+                System.out.println("There are no enquiries for this camp.\n");
+                return;
+            }
 
-            int count = 0;
+            // prints all enquiries for this camp
+            System.out.println("======================= ENQUIRIES =======================");
+            int count = 1;
             for(UUID key : enquiryKeys){
-                count++;
-                System.out.println("Enquiry Number: " + count);
-                System.out.println(key);
-                allEnquiries.get(key).printEnquiryDetails();
+                System.out.println("Enquiry No.: " + count);
+                EnquiryManager.getEnquiry(key).printEnquiryDetails();
                 System.out.println("\n-----------------------\n");
                 enquirySelection.put(count, key);
+                count++;
             }
 
             System.out.println("\n=========================================================\n");
-            if (count == 0){
-                System.out.print("No camp enquiries.");
-                return;
-            }
             System.out.println("Choose action:");
             System.out.println("1) Reply enquiries");
             System.out.println("2) Exit");
             int select = UserIO.getSelection(1, 2);
             if (select == 1){
-                replyEnquiryView(campUID);
-            }
-            else {
-                return;
+                replyEnquiryView(enquirySelection);
             }
         }
         catch (Exception e){
@@ -264,33 +257,9 @@ public class EnquiryView {
      *
      * @param campUID The UUID of the camp for which enquiries are being replied to.
      */
-    public static void replyEnquiryView(UUID campUID){
-        Camp camp = CampManager.getCamp(campUID);
-        System.out.println("======================= ENQUIRIES: TO BE REPLIED =======================");
-        Set<UUID> enquiryKeys = camp.getEnquiryID();
-        HashMap<UUID, Enquiry> allEnquiries = EnquiryManager.getAllEnquiries();
-        // maps choice to UID of camp in hashmap
-        HashMap<Integer, UUID> enquirySelection = new HashMap<>();
-        int count = 0;
-        for(UUID key : enquiryKeys){
-            if (allEnquiries.get(key).getIsProcessed()) {
-                continue;
-            }
-            count++;
-            System.out.println("Enquiry Number: " + count);
-            System.out.println(key);
-            allEnquiries.get(key).printEnquiryDetails();
-            System.out.println("\n-----------------------\n");
-            enquirySelection.put(count, key);
-        }
-        System.out.println("\n=========================================================\n");
-
-        if (count == 0){
-            System.out.println("No camp enquiries to be replied.");
-            return;
-        }
+    public static void replyEnquiryView(HashMap<Integer, UUID> enquirySelection){
         System.out.print("Select enquiry to reply to: ");
-        int choice = UserIO.getSelection(1, count);
+        int choice = UserIO.getSelection(1, enquirySelection.size());
         UUID enquiryUID = enquirySelection.get(choice);
         System.out.print("Enter reply: ");
         String reply = UserIO.getStringResponse();
