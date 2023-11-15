@@ -1,11 +1,11 @@
 package controller;
 
 import database.Database;
-import model.Camp;
-import model.Staff;
-import model.Student;
-import model.UserGroup;
+import model.*;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.UUID;
@@ -77,7 +77,7 @@ public class CampManager {
 
         if (!camp.hasRegistered(studentID)) {
             throw new Exception("You are not registered");
-        } else if (student.isCampCommitteeMember()) {
+        } else if (camp.getRegisteredCommMembers().contains(studentID)) {
             throw new Exception("Camp Committee Members cannot withdraw");
         } else {
             camp.removeAttendee(studentID);
@@ -192,5 +192,60 @@ public class CampManager {
             }
         }
         return false;
+    }
+
+    public static void generateReport(UUID campID, int filter) throws IOException {
+        Camp camp = getCamp((campID));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("OverallReport.txt"));
+        writer.write("============================================== " + "\n");
+        writer.write("===== OVERALL CAMP REPORT FOR " + "Attendees" + " =====\n");
+        writer.write("============================================== " + "\n\n");
+        writer.write("Camp Name: " + camp.getName() + "\n");
+        writer.write("Camp Description: " + camp.getDescription() + "\n");
+        writer.write("Camp Start Date: " + camp.getStartDate().toString() + "\n");
+        writer.write("Camp End Date: " + camp.getEndDate().toString() + "\n");
+        writer.write("Total Camp Slots: " + camp.getTotalSlots() + "\n");
+        writer.write("Camp User Group: " + camp.getUserGroup() + "\n");
+        writer.write("Camp Staff in Charge: " + camp.getStaffInCharge().getName() + "\n");
+        writer.write("============================================== " + "\n");
+        if (filter == 0 || filter == 1) {
+            writer.write("============================================== " + "\n");
+            writer.write("List of all registered attendees: " + "\n");
+            if (camp.getRegisteredAttendees().isEmpty()) {
+                writer.write("No current Attendees \n");
+            } else {
+                int count = 0;
+                for (String studentId : camp.getRegisteredAttendees()) {
+                    //how to get the list of all students and check here?
+                    count++;
+                    User user = UserManager.getUser(studentId);
+                    writer.write(count + ": " + user.getName() + '\n');
+                }
+            }
+            writer.write("============================================== " + "\n");
+        }
+        if (filter == 0 || filter == 2) {
+            writer.write("============================================== " + "\n");
+            writer.write("List of all registered committee members: " + "\n");
+            if (camp.getRegisteredCommMembers().isEmpty()) {
+                writer.write("No current Committee Members \n");
+            } else {
+
+                int count = 0;
+                for (String studentId : camp.getRegisteredCommMembers()) {
+                    //how to get the list of all students and check here?
+                    count++;
+                    User user = UserManager.getUser(studentId);
+                    writer.write(user.getName() + '\n');
+                }
+            }
+            writer.write("============================================== " + "\n\n");
+        }
+        writer.close();
+    }
+
+    // ----- UNIMPLEMENTED METHODS -----
+    public static void generatePerformanceReport() throws Exception {
+        throw new Exception("generatePerformanceReport has no implementation");
     }
 }

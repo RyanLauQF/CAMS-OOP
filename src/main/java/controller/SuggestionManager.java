@@ -18,7 +18,7 @@ public class SuggestionManager {
 
     public static void addSuggestion(Suggestion suggestion, CampCommMember student) {
         UUID uid = UUID.randomUUID();
-        while(suggestionData.containsKey(uid)){
+        while (suggestionData.containsKey(uid)) {
             uid = UUID.randomUUID();
         }
         suggestionData.put(uid, suggestion);
@@ -32,7 +32,7 @@ public class SuggestionManager {
 
     public static void removeSuggestion(UUID suggestionUID, CampCommMember student) {
         Suggestion suggestion = getSuggestion(suggestionUID);
-        CampManager.removeSuggestionfromCamp(suggestion.getCampID(),suggestionUID);
+        CampManager.removeSuggestionfromCamp(suggestion.getCampID(), suggestionUID);
         CampCommMemberManager.removeSuggestionfromCCM(student, suggestionUID);
         suggestionData.remove(suggestionUID);
     }
@@ -41,6 +41,9 @@ public class SuggestionManager {
         Suggestion suggestion = getSuggestion(suggestionUID);
         suggestion.setViewed(true);
         suggestion.setAccepted(status);
+        if (status) {
+            suggestion.getCreatedBy().addPoint();
+        }
     }
 }
 

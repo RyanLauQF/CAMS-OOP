@@ -1,5 +1,11 @@
 package model;
 
+import controller.CampManager;
+import controller.UserManager;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -67,23 +73,6 @@ public class Camp implements Serializable {
     }
 
     // to discuss on filters
-    public void generateReport(String filter) {
-        switch (filter) {
-            case "attendee": {
-
-            }
-            case "camp committee": {
-
-            }
-            default:
-                throw new IllegalStateException("Unexpected value: " + filter);
-        }
-    }
-
-    // ----- UNIMPLEMENTED METHODS -----
-    public void generatePerformanceReport() throws Exception {
-        throw new Exception("generatePerformanceReport has no implementation");
-    }
 
     // =========================== GETTER AND SETTER FUNCTIONS =========================== //
     public int getRemainingSlots() {
