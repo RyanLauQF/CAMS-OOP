@@ -1,15 +1,17 @@
 package view;
 
-import controller.*;
+import controller.CampCommMemberManager;
+import controller.CampManager;
+import controller.StaffManager;
+import controller.SuggestionManager;
 import helper.UserIO;
 import model.*;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 
-public class SuggestionView {
+public class  SuggestionView {
     public static void ccmSuggestionView(CampCommMember student) {
         while (true) {
             try {

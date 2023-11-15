@@ -58,7 +58,7 @@ public class Database {
         // IF THE USER/CAMP OBJECTS ARE CHANGED, YOU WILL PROBABLY NEED THIS FUNCTION TO RELOAD THE DATABASE
 //        processCSV(USER_DATA, STAFF_LIST_FILEPATH, false);
 //        processCSV(USER_DATA, STUDENT_LIST_FILEPATH, true);
-
+//
         USER_DATA = (HashMap<String, User>) deserializeObject("Users.dat");
         CAMP_DATA = (HashMap<UUID, Camp>) deserializeObject("Camps.dat");
         ENQUIRY_DATA = (HashMap<UUID, Enquiry>) deserializeObject("Enquiries.dat");
