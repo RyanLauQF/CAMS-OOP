@@ -21,6 +21,7 @@ public class Camp implements Serializable {
 
     private final Set<String> registeredAttendeeID;
     private final Set<String> registeredCommMemID;
+    private final Set<String> withdrawnID;
     private final Set<UUID> enquiryID;
     private final Set<UUID> suggestionID;
 
@@ -37,6 +38,7 @@ public class Camp implements Serializable {
         this.isVisible = isVisible;
         this.registeredAttendeeID = new HashSet<>();
         this.registeredCommMemID = new HashSet<>();
+        this.withdrawnID = new HashSet<>();
         this.enquiryID = new HashSet<>();
         this.suggestionID = new HashSet<>();
     }
@@ -87,18 +89,20 @@ public class Camp implements Serializable {
     public int getRemainingSlots() {
         return totalSlots - registeredAttendeeID.size() - registeredCommMemID.size();
     }
+
     public Set<String> getRegisteredAttendees() {
         return registeredAttendeeID;
     }
 
-    public boolean hasRegistered(String userID){
+    public boolean hasRegistered(String userID) {
         return registeredAttendeeID.contains(userID) || registeredCommMemID.contains(userID);
     }
-    public void addAttendee(String attendeeID){
+
+    public void addAttendee(String attendeeID) {
         registeredAttendeeID.add(attendeeID);
     }
 
-    public void removeAttendee(String attendeeID){
+    public void removeAttendee(String attendeeID) {
         registeredAttendeeID.remove(attendeeID);
     }
 
@@ -106,11 +110,11 @@ public class Camp implements Serializable {
         return registeredCommMemID;
     }
 
-    public void addCommMember(String commMemberID){
+    public void addCommMember(String commMemberID) {
         registeredCommMemID.add(commMemberID);
     }
 
-    public void removeCommMember(String commMemberID){
+    public void removeCommMember(String commMemberID) {
         registeredCommMemID.remove(commMemberID);
     }
 
@@ -186,8 +190,13 @@ public class Camp implements Serializable {
         this.location = location;
     }
 
-    public int getTotalSlots() { return totalSlots; }
-    public void setTotalSlots(int totalSlots) { this.totalSlots = totalSlots; }
+    public int getTotalSlots() {
+        return totalSlots;
+    }
+
+    public void setTotalSlots(int totalSlots) {
+        this.totalSlots = totalSlots;
+    }
 
     public String getDescription() {
         return description;
@@ -211,5 +220,13 @@ public class Camp implements Serializable {
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    public Set<String> getBlacklist() {
+        return withdrawnID;
+    }
+
+    public void blacklist(String studentID) {
+        withdrawnID.add(studentID);
     }
 }

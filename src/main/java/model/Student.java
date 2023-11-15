@@ -10,14 +10,14 @@ public class Student extends User {
 
     private boolean isCampCommitteeMember;
 
-    public Student(String name, String email, UserGroup faculty){
+    public Student(String name, String email, UserGroup faculty) {
         super(name, email, faculty);
         this.isCampCommitteeMember = false;
         this.registeredCamps = new HashSet<>();
         this.submittedEnquiries = new HashSet<>();
     }
 
-    public void registerForCamp(UUID campID){
+    public void registerForCamp(UUID campID) {
         registeredCamps.add(campID);
     }
 
@@ -27,15 +27,15 @@ public class Student extends User {
         return registeredCamps;
     }
 
-    public Set<UUID> getSubmittedEnquiries(){
+    public Set<UUID> getSubmittedEnquiries() {
         return submittedEnquiries;
     }
 
-    public void submitEnquiry(UUID enquiryID){
+    public void submitEnquiry(UUID enquiryID) {
         submittedEnquiries.add(enquiryID);
     }
 
-    public void deleteEnquiry(UUID enquiryID){
+    public void deleteEnquiry(UUID enquiryID) {
         submittedEnquiries.remove(enquiryID);
     }
 
@@ -45,5 +45,9 @@ public class Student extends User {
 
     public void setCampCommitteeMember(boolean isCampComm) {
         isCampCommitteeMember = isCampComm;
+    }
+
+    public void withdrawFromCamp(UUID campID) {
+        registeredCamps.remove(campID);
     }
 }
