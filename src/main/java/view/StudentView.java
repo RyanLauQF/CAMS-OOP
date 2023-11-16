@@ -13,19 +13,18 @@ import java.util.Set;
 import java.util.UUID;
 
 public class StudentView {
-    public static void renderView(String studentID){
+    public static void renderView(String studentID) {
         System.out.println("\nLogged in as " + studentID);
 
-        while(true){
+        while (true) {
             User user = UserManager.getUser(studentID);
-            if(user instanceof CampCommMember){
+            if (user instanceof CampCommMember) {
                 // go to camp committee member view
                 CampCommView.renderView((CampCommMember) user);
                 return;
-            }
-            else{
+            } else {
                 Student student = (Student) user;
-                try{
+                try {
                     System.out.println("======================= HOME MENU =======================");
                     System.out.println("1) View all available camps within faculty");
                     System.out.println("2) Register for camp");
@@ -38,7 +37,7 @@ public class StudentView {
                     System.out.print("Select an action: ");
                     int choice = UserIO.getSelection(1, 7);
 
-                    switch (choice){
+                    switch (choice) {
                         case 1:
                             availableCampsView(student);
                             break;
@@ -60,20 +59,25 @@ public class StudentView {
                         default:
                             break;
                     }
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     System.out.println(e.toString());
                 }
             }
         }
     }
 
-    public static void availableCampsView(Student student){
+    public static void availableCampsView(Student student) {
         HashMap<UUID, Camp> filteredCamps = CampManager.getCampInFaculty(student.getFaculty());
+
+        if (filteredCamps.isEmpty()) {
+            System.out.println("\nNo camps available");
+            System.out.println("\nBringing you back to the home menu...\n");
+            return;
+        }
 
         // TODO: make this look better
         int count = 1;
-        for(UUID key : filteredCamps.keySet()){
+        for (UUID key : filteredCamps.keySet()) {
             System.out.println("Camp: " + count);
             Camp camp = CampManager.getCamp(key);
             camp.printCampDetails();
@@ -82,12 +86,18 @@ public class StudentView {
         }
     }
 
-    public static void registerCampView(Student student){
+    public static void registerCampView(Student student) {
         HashMap<UUID, Camp> filteredCamps = CampManager.getCampInFaculty(student.getFaculty());
         HashMap<Integer, UUID> selection = new HashMap<>();
 
+        if (filteredCamps.isEmpty()) {
+            System.out.println("\nNo camps available");
+            System.out.println("\nBringing you back to the home menu...\n");
+            return;
+        }
+
         int count = 1;
-        for(UUID key : filteredCamps.keySet()){
+        for (UUID key : filteredCamps.keySet()) {
             System.out.println("Camp: " + count);
             Camp camp = CampManager.getCamp(key);
             camp.printCampDetails();
@@ -98,8 +108,8 @@ public class StudentView {
         int selected = UserIO.getSelection(1, count);
         UUID selectedCampID = selection.get(selected);
 
-        while(true){
-            try{
+        while (true) {
+            try {
                 System.out.println("Would you like to register as a:");
                 System.out.println("1) Attendee");
                 System.out.println("2) Camp Committee Member");
@@ -108,7 +118,7 @@ public class StudentView {
                 System.out.print("Enter selection: ");
                 int choice = UserIO.getSelection(1, 3);
 
-                switch (choice){
+                switch (choice) {
                     case 1:
                         CampManager.registerStudent(student, selectedCampID);
                         return;
@@ -121,17 +131,23 @@ public class StudentView {
                     default:
                         break;
                 }
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Error! " + e.getMessage());
                 return;
             }
         }
     }
 
-    public static void registeredCampsView(Student student){
+    public static void registeredCampsView(Student student) {
         Set<UUID> campKeys = student.getRegisteredCamps();
         HashMap<UUID, Camp> allCamps = CampManager.getAllCamps();
+
+        // handle case where there are no registered camps
+        if (campKeys.isEmpty()) {
+            System.out.println("\nYou have not registered for any camps");
+            System.out.println("\nBringing you back to the home menu...\n");
+            return;
+        }
 
         // maps choice to UID of camp in hashmap
         HashMap<Integer, UUID> campSelection = new HashMap<>();
@@ -140,7 +156,7 @@ public class StudentView {
         System.out.println("\n=========================================================\n");
 
         int count = 1;
-        for(UUID key : campKeys){
+        for (UUID key : campKeys) {
             System.out.println("Camp Number: " + count);
             System.out.println(key);
             allCamps.get(key).printCampDetails();
@@ -155,8 +171,8 @@ public class StudentView {
 
         UUID campUID = campSelection.get(choice);
 
-        while(true){
-            try{
+        while (true) {
+            try {
                 System.out.println("Select action:");
                 System.out.println("1) Withdraw from camp");
                 System.out.println("2) Quit\n");
@@ -164,7 +180,7 @@ public class StudentView {
                 System.out.print("Enter selection: ");
                 int selection = UserIO.getSelection(1, 2);
 
-                switch (selection){
+                switch (selection) {
                     case 1:
                         CampManager.withdrawStudent(student, campUID);
                         return;
@@ -174,8 +190,7 @@ public class StudentView {
                     default:
                         break;
                 }
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Error! " + e.getMessage());
                 return;
             }
