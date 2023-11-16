@@ -3,10 +3,11 @@ package view;
 import controller.CampManager;
 
 import java.util.UUID;
-
 import helper.UserIO;
 import model.CampCommMember;
 import model.Staff;
+
+import java.util.UUID;
 
 /**
  * View class for rendering the home menu and managing interactions for Camp Committee Members.
@@ -36,11 +37,11 @@ public class CampCommView {
                 System.out.println("6) View all enquiries for camp");
                 System.out.println("7) View your points");
                 System.out.println("8) Generate camp report");
-                System.out.println("9) Generate enquiry report");
+//                System.out.println("9) Generate enquiry report");
                 System.out.println("------------------------------------------------------\n");
 
-                System.out.println("10) Change Password");
-                System.out.println("11) Logout");
+                System.out.println("9) Change Password");
+                System.out.println("10) Logout");
                 System.out.println("=========================================================\n");
 
                 System.out.print("Select an action: ");
@@ -75,11 +76,9 @@ public class CampCommView {
                         break;
                     }
                     case 9:
-                        break;
-                    case 10:
                         AppView.changePasswordView(student);
                         break;
-                    case 11:
+                    case 10:
                         System.out.println("Logging Out...");
                         return;
                     default:

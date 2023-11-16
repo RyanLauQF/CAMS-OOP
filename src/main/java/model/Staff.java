@@ -34,14 +34,16 @@ public class Staff extends User {
 
     public void generateReport(int choice) {
         // For each camp that the staff has created, print a view for it
+        if (campIDs.size() == 0) {
+            System.out.println("Staff has no camp created");
+            return;
+        }
         BufferedWriter writer = null;
         String x = choice == 1 ? "Attendees" : "Camp Committee Members";
         try {
-            if (campIDs.size() == 0) {
-                System.out.println("Staff has no camp created!\n");
-                return;
-            }
+
             System.out.println("Generating Report for " + x + "...\n");
+
             writer = new BufferedWriter(new FileWriter("OverallReport.txt"));
             writer.write("============================================== " + "\n");
             writer.write("===== OVERALL CAMP REPORT FOR " + x + " =====\n");
@@ -76,7 +78,6 @@ public class Staff extends User {
                         }
                         break;
                     case 2:
-                        System.out.println("Printing Comm Member Report for All Camps");
                         if (curCamp.getRegisteredCommMembers().isEmpty()) {
                             writer.write("No current Committee Members \n");
                             writer.write("============================================== " + "\n\n");
@@ -112,13 +113,15 @@ public class Staff extends User {
     }
 
     public void generatePerformanceReport() {
+        if (campIDs.size() == 0) {
+            System.out.println("Staff has no camp created");
+            return;
+        }
         BufferedWriter writer = null;
         try{
-            if (campIDs.size() == 0) {
-                System.out.println("Staff has no camp created!\n");
-                return;
-            }
+          
             System.out.println("Generating Performance Report for Camp Committee Members...\n");
+
             writer = new BufferedWriter(new FileWriter("PerformanceReport.txt"));
             writer.write("================================================ " + "\n");
             writer.write(" PERFORMANCE REPORT FOR CAMP COMMITTEE MEMBERS " + "\n");
