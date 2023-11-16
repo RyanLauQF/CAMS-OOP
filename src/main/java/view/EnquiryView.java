@@ -247,7 +247,7 @@ public class EnquiryView {
 
             switch (select) {
                 case 1:
-                    replyEnquiryView(campUID);
+                    replyEnquiryView(enquirySelection);
                     break;
                 case 2:
                     generateEnquiryReportView(campUID);
@@ -317,7 +317,7 @@ public class EnquiryView {
             int select = UserIO.getSelection(1, 2);
             switch (select) {
                 case 1:
-                    replyEnquiryView(campUID);
+                    replyEnquiryView(enquirySelection);
                     break;
                 case 2:
                     generateEnquiryReportView(campUID);
