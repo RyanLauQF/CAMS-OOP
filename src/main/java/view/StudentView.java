@@ -12,7 +12,23 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * View class for rendering and managing interactions related to student-specific functionalities.
+ * Provides views for students to view available camps, register for camps, view registered camps,
+ * view enquiries, change password, and logout.
+ *
+ * @author Ryan Lau, Tong Ying, Shao Chong, Seung Yeon, Markus Lim
+ * @version 1.0
+ * @since 2023-11-14
+ */
 public class StudentView {
+    /**
+     * Renders the main menu for students
+     * Allows students to perform actions such as viewing available camps, registering for camps,
+     * viewing registered camps, viewing enquiries, changing passwords, and logging out.
+     *
+     * @param studentID The ID of the logged-in student.
+     */
     public static void renderView(String studentID) {
         System.out.println("\nLogged in as " + studentID);
 
@@ -66,6 +82,11 @@ public class StudentView {
         }
     }
 
+    /**
+     * Displays the available camps that is open to the student.
+     *
+     * @param student The student for whom the available camps are displayed.
+     */
     public static void availableCampsView(Student student) {
         HashMap<UUID, Camp> filteredCamps = CampManager.getCampInFaculty(student.getFaculty());
 
@@ -86,6 +107,11 @@ public class StudentView {
         }
     }
 
+    /**
+     * Displays the view for a student to register for a camp.
+     *
+     * @param student The student registering for the camp.
+     */
     public static void registerCampView(Student student) {
         HashMap<UUID, Camp> filteredCamps = CampManager.getCampInFaculty(student.getFaculty());
         HashMap<Integer, UUID> selection = new HashMap<>();
@@ -137,7 +163,12 @@ public class StudentView {
             }
         }
     }
-
+    /**
+     * Displays the view for a student to view their registered camps.
+     * Allows student to take action (withdraw from camps) after selecting the camp.
+     *
+     * @param student The student viewing their registered camps.
+     */
     public static void registeredCampsView(Student student) {
         Set<UUID> campKeys = student.getRegisteredCamps();
         HashMap<UUID, Camp> allCamps = CampManager.getAllCamps();
