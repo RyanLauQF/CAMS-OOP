@@ -67,13 +67,18 @@ public class StaffView {
                 }
             }
             catch (Exception e){
-                System.out.println(e.toString());
+                System.out.println(e.getMessage());
             }
         }
     }
 
     public static void allCampView(){
         HashMap<UUID, Camp> allCamps = CampManager.getAllCamps();
+
+        if(allCamps.size() == 0){
+            System.out.println("There are no available camps!\n");
+            return;
+        }
 
         System.out.println("\n=========================================================\n");
 
@@ -89,6 +94,11 @@ public class StaffView {
         Set<UUID> campKeys = staff.getCampIDs();
         HashMap<UUID, Camp> allCamps = CampManager.getAllCamps();
 
+        if(allCamps.size() == 0){
+            System.out.println("No available camps to select!\n");
+            return;
+        }
+
         // maps choice to UID of camp in hashmap
         HashMap<Integer, UUID> campSelection = new HashMap<>();
 
@@ -98,8 +108,7 @@ public class StaffView {
         int count = 0;
         for(UUID key : campKeys){
             count++;
-            System.out.println("Camp Number: " + count);
-            System.out.println(key);
+            System.out.println("Camp No.: " + count);
             allCamps.get(key).printCampDetails();
             campSelection.put(count, key);
         }
@@ -112,7 +121,6 @@ public class StaffView {
         int choice = UserIO.getSelection(1, count);
 
         UUID campUID = campSelection.get(choice);
-        System.out.println(campUID);
 
         selectCampView(staff, campUID);
     }
@@ -146,19 +154,19 @@ public class StaffView {
                         break;
                     case 4:
                         allSuggestionsView(staff);
-                        return;
+                        break;
                     case 5:
                         deleteCampView(campUID);
                         return;
                     case 6:
-                        System.out.println("Cancelling Selection...");
+                        System.out.println("Cancelling Selection...\n");
                         return;
                     default:
                         break;
                 }
             }
             catch (Exception e){
-                System.out.println(e.toString());
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -183,7 +191,6 @@ public class StaffView {
         String name = UserIO.getStringResponse();
 
         System.out.print("Enter the start date of the camp(yyyy-MM-dd): ");
-//        String sDate = UserIO.getStringResponse();
         LocalDate startDate = UserIO.getDateResponse();
 
         System.out.print("Enter the end date of the camp(yyyy-MM-dd): ");
@@ -194,7 +201,7 @@ public class StaffView {
         String cDate = UserIO.getStringResponse();
         LocalDate closingDate = LocalDate.parse(cDate);
 
-        System.out.print("Enter group that camp is open to ");
+        System.out.print("Enter group that camp is open to: ");
         String group = UserIO.getStringResponse();
         UserGroup userGroup = UserGroup.valueOf(group.toUpperCase());
 
@@ -229,11 +236,9 @@ public class StaffView {
 
                 switch (choice){
                     case 1:
-                        System.out.println("Generating Report for Attendees");
                         staff.generateReport(1);
                         return;
                     case 2:
-                        System.out.println("Generating Report for Camp Committee Members");
                         staff.generateReport(2);
                         return;
                     case 3:
@@ -256,7 +261,6 @@ public class StaffView {
 
     public static void generatePerformanceReportView(Staff staff) {
         //prints the camp that they wanna see, print the points of the camp committee member
-        System.out.println("Generating Performance Report for Camp Committee Members");
         staff.generatePerformanceReport();
     }
 

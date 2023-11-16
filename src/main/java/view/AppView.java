@@ -81,5 +81,7 @@ public class AppView {
         // TODO: first time login needs a reset password flow
         // TODO: password checking? can throw exceptions if u want to
         UserManager.updatePassword(user, newPassword);
+
+        System.out.println("Successfully changed password!\n");
     }
 }

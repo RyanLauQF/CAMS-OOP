@@ -37,11 +37,14 @@ public class Database {
      */
     public static HashMap<UUID, Enquiry> ENQUIRY_DATA = new HashMap<>();
 
+    /**
+     * Filepath to data folder containing ".dat" files
+     */
+    public static final String filepath = "./src/main/java/database/data/";
+
     // FOR TESTING
     public static final String STAFF_LIST_FILEPATH = "src/main/resources/staff_list.csv";
     public static final String STUDENT_LIST_FILEPATH = "src/main/resources/student_list.csv";
-
-    public static final String filepath = "./src/main/java/database/data/";
 
     /**
      * Constructor for the Database class. Initializes the database by loading data from serialized files.
@@ -144,7 +147,7 @@ public class Database {
             }
         }
         catch (Exception e){
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
     }
 }
