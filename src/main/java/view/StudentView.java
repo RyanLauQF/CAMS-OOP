@@ -25,17 +25,21 @@ public class StudentView {
             } else {
                 Student student = (Student) user;
                 try {
-                    System.out.println("\nLOGGED IN AS " + "ID: " + studentID + ", NAME: " + student.getName() + ", FACULTY: " + student.getFaculty());
+                    System.out.println("\n=========================================================");
+                    System.out.println("Logged in as " + ConsoleColours.BLUE + student.getName() + " (" + studentID + ")" + ", " + student.getFaculty() + ConsoleColours.RESET);
+                    System.out.println("=========================================================");
                     System.out.println("======================= HOME MENU =======================");
+                    System.out.print(ConsoleColours.BLUE);
                     System.out.println("1) View all available camps within faculty");
                     System.out.println("2) Register for camp");
                     System.out.println("3) View registered camps");
-                    System.out.println("4) View your enquiries");
+                    System.out.println("4) Open Enquiry Menu");
                     System.out.println("5) Change password");
                     System.out.println("6) Logout");
-                    System.out.println("=========================================================\n");
+                    System.out.print(ConsoleColours.RESET);
+                    System.out.println("=========================================================");
 
-                    System.out.print("Select an action: ");
+                    System.out.print("\nSelect an action: ");
                     int choice = UserIO.getSelection(1, 7);
 
                     switch (choice) {
@@ -55,7 +59,7 @@ public class StudentView {
                             AppView.changePasswordView(student);
                             break;
                         case 6:
-                            System.out.println("Logging Out...");
+                            System.out.println("\nLogging Out...");
                             return;
                         default:
                             break;
@@ -71,18 +75,17 @@ public class StudentView {
         HashMap<UUID, Camp> filteredCamps = CampManager.getCampInFaculty(student.getFaculty());
 
         if (filteredCamps.isEmpty()) {
-            System.out.println("\nNo camps available");
-            System.out.println("\nBringing you back to the home menu...\n");
+            System.out.println(ConsoleColours.YELLOW + "\nThere are no available camps" + ConsoleColours.RESET);
             return;
         }
 
-        // TODO: make this look better
         int count = 1;
+        System.out.println("\n.........................................................");
         for (UUID key : filteredCamps.keySet()) {
             System.out.println(ConsoleColours.BLUE + "Camp No.: " + count + ConsoleColours.RESET);
             Camp camp = CampManager.getCamp(key);
             camp.printCampDetails();
-            System.out.println("\n---------------------------------------------------------\n");
+            System.out.println(".........................................................");
             count++;
         }
     }
@@ -92,25 +95,28 @@ public class StudentView {
         HashMap<Integer, UUID> selection = new HashMap<>();
 
         if (filteredCamps.isEmpty()) {
-            System.out.println(ConsoleColours.YELLOW + "\nThere are no available enquiries!" + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.YELLOW + "\nThere are no available camps!" + ConsoleColours.RESET);
             return;
         }
 
         int count = 1;
+        System.out.println("\n.........................................................");
         for (UUID key : filteredCamps.keySet()) {
             System.out.println(ConsoleColours.BLUE + "Camp No.: " + count + ConsoleColours.RESET);
             Camp camp = CampManager.getCamp(key);
             camp.printCampDetails();
             selection.put(count, key);
+            System.out.println(".........................................................");
             count++;
         }
-        System.out.print("Select camp you will like to register for: ");
-        int selected = UserIO.getSelection(1, count);
+        System.out.print("\nSelect the camp you would like to register for (0 to exit): ");
+        int selected = UserIO.getSelection(0, count);
+        if (selected == 0) return;
         UUID selectedCampID = selection.get(selected);
 
         while (true) {
             try {
-                System.out.println("Would you like to register as a:");
+                System.out.println("\nRegister as a: ");
                 System.out.println("1) Attendee");
                 System.out.println("2) Camp Committee Member");
                 System.out.println("3) Cancel Registration\n");
@@ -126,13 +132,13 @@ public class StudentView {
                         CampManager.registerCommMember(student, selectedCampID);
                         return;
                     case 3:
-                        System.out.println("Cancelling Registration...");
+                        System.out.println("\nCancelling Registration...");
                         return;
                     default:
                         break;
                 }
             } catch (Exception e) {
-                System.out.println("Error! " + e.getMessage());
+                System.out.println(ConsoleColours.RED + "\nError! " + e.getMessage() + ConsoleColours.RESET);
                 return;
             }
         }
@@ -145,7 +151,6 @@ public class StudentView {
         // handle case where there are no registered camps
         if (campKeys.isEmpty()) {
             System.out.println(ConsoleColours.YELLOW + "\nYou have not registered for any camps" + ConsoleColours.RESET);
-            System.out.println("\nBringing you back to the home menu...\n");
             return;
         }
 
@@ -153,22 +158,26 @@ public class StudentView {
         HashMap<Integer, UUID> campSelection = new HashMap<>();
 
         // prints all camp student is registered
-        System.out.println("\n=========================================================\n");
+        System.out.println("\n=========================================================");
 
         int count = 1;
+        System.out.println(".........................................................");
         for (UUID key : campKeys) {
             System.out.println(ConsoleColours.BLUE + "Camp No.: " + count + ConsoleColours.RESET);
-            System.out.println("ROLE: " + (CampManager.getCamp(key).getRegisteredAttendees().contains(student.getUserID()) ? "ATTENDEE" : "CAMP COMMITTEE MEMBER"));
+            System.out.println("Your role: " + (CampManager.getCamp(key).getRegisteredAttendees().contains(student.getUserID()) ? "Attendee" : "Camp Committee Member"));
             allCamps.get(key).printCampDetails();
             campSelection.put(count, key);
             count++;
+            System.out.println(".........................................................");
         }
 
-        System.out.println("\n=========================================================\n");
+        System.out.println("=========================================================\n");
 
-        System.out.print("Select a camp: ");
-        int choice = UserIO.getSelection(1, count);
-
+        System.out.print("Select a camp (0 to exit): ");
+        int choice = UserIO.getSelection(0, count);
+        if (choice == 0) {
+            return;
+        }
         UUID campUID = campSelection.get(choice);
 
         while (true) {
@@ -185,7 +194,7 @@ public class StudentView {
                         CampManager.withdrawStudent(student, campUID);
                         return;
                     case 2:
-                        System.out.println("Quitting...");
+                        System.out.println("\nQuitting...");
                         return;
                     default:
                         break;

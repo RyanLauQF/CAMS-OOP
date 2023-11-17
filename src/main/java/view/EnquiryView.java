@@ -10,6 +10,7 @@ import model.*;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * View class for rendering the enquiry menu and managing interactions related to camp enquiries.
@@ -30,15 +31,17 @@ public class EnquiryView {
     public static void studentEnquiryView(Student student) {
         while (true) {
             try {
-                System.out.println("\n======================= ENQUIRY MENU =======================");
+                System.out.println("\n===================== ENQUIRY MENU ======================");
+                System.out.print(ConsoleColours.BLUE);
                 System.out.println("1) Show all submitted enquiries");
                 System.out.println("2) Create new enquiry");
                 System.out.println("3) Edit enquiry");
                 System.out.println("4) Delete Enquiry");
                 System.out.println("5) Exit enquiry menu");
-                System.out.println("=========================================================\n");
+                System.out.print(ConsoleColours.RESET);
+                System.out.println("=========================================================");
 
-                System.out.print("Select an action: ");
+                System.out.print("\nSelect an action: ");
 
                 int choice = UserIO.getSelection(1, 5);
 
@@ -56,7 +59,7 @@ public class EnquiryView {
                         deleteEnquiryView(student);
                         break;
                     case 5:
-                        System.out.println("Exiting enquiry menu...");
+                        System.out.println("\nExiting enquiry menu...");
                         return;
                     default:
                         break;
@@ -85,13 +88,13 @@ public class EnquiryView {
 
         // prints all enquiry student has created
         System.out.println("\n=========================================================");
-        System.out.println("-----------------------");
+        System.out.println("---------------------------------------------------------");
         int count = 0;
         for (UUID key : enquiryKeys) {
             count++;
-            System.out.println("Enquiry Number: " + count);
+            System.out.println(ConsoleColours.BLUE + "Enquiry No.: " + count + ConsoleColours.RESET);
             allEnquiries.get(key).printEnquiryDetails();
-            System.out.println("-----------------------");
+            System.out.println("---------------------------------------------------------");
             enquirySelection.put(count, key);
         }
 
@@ -114,15 +117,18 @@ public class EnquiryView {
         HashMap<Integer, UUID> selection = new HashMap<>();
 
         int count = 1;
+        System.out.println("\n.........................................................");
         for (UUID key : filteredCamps.keySet()) {
-            System.out.println("Camp: " + count);
+            System.out.println(ConsoleColours.BLUE + "Camp No.: " + count + ConsoleColours.RESET);
             Camp camp = CampManager.getCamp(key);
             camp.printCampDetails();
             selection.put(count, key);
+            System.out.println(".........................................................");
             count++;
         }
-        System.out.print("Select camp you would like to submit enquiry for: ");
-        int selected = UserIO.getSelection(1, count);
+        System.out.print("\nSelect camp you would like to submit enquiry for (0 to exit): ");
+        int selected = UserIO.getSelection(0, count);
+        if (selected == 0) return;
         UUID selectedCampID = selection.get(selected);
 
         try {
@@ -146,8 +152,8 @@ public class EnquiryView {
         HashMap<UUID, Enquiry> allEnquiries = EnquiryManager.getAllEnquiries();
         Set<UUID> enquiryKeys = student.getSubmittedEnquiries();
 
-        if (enquiryKeys.isEmpty()) {
-            System.out.println(ConsoleColours.YELLOW + "\nThere are no available enquiries!" + ConsoleColours.RESET);
+        if (enquiryKeys.isEmpty() || enquiryKeys.stream().noneMatch(key -> !EnquiryManager.getEnquiry(key).getIsProcessed())) {
+            System.out.println(ConsoleColours.YELLOW + "\nThere are no editable enquiries!" + ConsoleColours.RESET);
             return;
         }
 
@@ -155,23 +161,25 @@ public class EnquiryView {
         HashMap<Integer, UUID> enquirySelection = new HashMap<>();
 
         // prints all enquiry student has created
-        System.out.println("\n=========================================================\n");
+        System.out.println("\n=========================================================");
 
         int count = 0;
+        System.out.println("---------------------------------------------------------");
         for (UUID key : enquiryKeys) {
             if (allEnquiries.get(key).getIsProcessed()) {
                 continue;
             }
             count++;
-            System.out.println("Enquiry Number: " + count);
+            System.out.println(ConsoleColours.BLUE + "Enquiry No.: " + count + ConsoleColours.RESET);
             allEnquiries.get(key).printEnquiryDetails();
-            System.out.println("\n-----------------------\n");
+            System.out.println("---------------------------------------------------------");
             enquirySelection.put(count, key);
         }
-        System.out.println("\n=========================================================\n");
+        System.out.println("=========================================================\n");
 
-        System.out.println("Select enquiry to edit: ");
-        int choice = UserIO.getSelection(1, count);
+        System.out.println("Select enquiry to edit (0 to exit): ");
+        int choice = UserIO.getSelection(0, count);
+        if (choice == 0) return;
         UUID enquiryUID = enquirySelection.get(choice);
         System.out.println("Enter new enquiry: ");
         String query = UserIO.getStringResponse();
@@ -188,7 +196,7 @@ public class EnquiryView {
         HashMap<UUID, Enquiry> allEnquiries = EnquiryManager.getAllEnquiries();
         Set<UUID> enquiryKeys = student.getSubmittedEnquiries();
 
-        if (enquiryKeys.isEmpty()) {
+        if (enquiryKeys.isEmpty() || enquiryKeys.stream().noneMatch(key -> !EnquiryManager.getEnquiry(key).getIsProcessed())) {
             System.out.println(ConsoleColours.YELLOW + "\nThere are no available enquiries!" + ConsoleColours.RESET);
             return;
         }
@@ -204,7 +212,7 @@ public class EnquiryView {
                 continue;
             }
             count++;
-            System.out.println("Enquiry Number: " + count);
+            System.out.println(ConsoleColours.BLUE + "Enquiry No.: " + count + ConsoleColours.RESET);
             allEnquiries.get(key).printEnquiryDetails();
             System.out.println("\n-----------------------\n");
             enquirySelection.put(count, key);
@@ -241,7 +249,7 @@ public class EnquiryView {
             int count = 0;
             for (UUID key : enquiryKeys) {
                 count++;
-                System.out.println("Enquiry Number: " + count);
+                System.out.println(ConsoleColours.BLUE + "Enquiry No.: " + count + ConsoleColours.RESET);
                 allEnquiries.get(key).printEnquiryDetails();
                 System.out.println("-----------------------");
                 enquirySelection.put(count, key);
@@ -296,7 +304,7 @@ public class EnquiryView {
                 continue;
             }
             count++;
-            System.out.println("Enquiry Number: " + count);
+            System.out.println(ConsoleColours.BLUE + "Enquiry No.: " + count + ConsoleColours.RESET);
             allEnquiries.get(key).printEnquiryDetails();
             System.out.println("-----------------------");
             enquirySelection.put(count, key);

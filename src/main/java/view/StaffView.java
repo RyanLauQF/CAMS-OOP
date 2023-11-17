@@ -21,8 +21,11 @@ public class StaffView {
             User user = UserManager.getUser(staffID);
             Staff staff = (Staff) user;
             try {
-                System.out.println("\nLOGGED IN AS " + "ID: " + staffID + ", NAME: " + staff.getName() + ", FACULTY: " + staff.getFaculty());
+                System.out.println("\n=========================================================");
+                System.out.println("Logged in as " + ConsoleColours.BLUE + staff.getName() + " (" + staffID + ")" + ", " + staff.getFaculty() + ConsoleColours.RESET);
+                System.out.println("=========================================================");
                 System.out.println("======================= HOME MENU =======================");
+                System.out.print(ConsoleColours.BLUE);
                 System.out.println("1) View All Camps");
                 System.out.println("2) Select Camp");
                 System.out.println("3) Create new Camp");
@@ -32,9 +35,9 @@ public class StaffView {
                 System.out.println("7) Generate Performance Report");
                 System.out.println("8) Change Password");
                 System.out.println("9) Logout");
-                System.out.println("=========================================================\n");
-
-                System.out.print("Select an action: ");
+                System.out.print(ConsoleColours.RESET);
+                System.out.println("=========================================================");
+                System.out.print("\nSelect an action: ");
 
                 int choice = UserIO.getSelection(1, 9);
 
@@ -64,7 +67,7 @@ public class StaffView {
                         AppView.changePasswordView(staff);
                         break;
                     case 9:
-                        System.out.println("Logging Out...");
+                        System.out.println("\nLogging Out...");
                         return;
                     default:
                         break;
