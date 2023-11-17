@@ -2,22 +2,26 @@ package view;
 
 import controller.CampManager;
 import controller.UserManager;
+import helper.ConsoleColours;
 import helper.UserIO;
 import model.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 
 public class StaffView {
-    public static void renderView(String staffID){
-        System.out.println("\nLogged in as " + staffID);
+    public static void renderView(String staffID) {
 
-        while(true){
+        while (true) {
             User user = UserManager.getUser(staffID);
             Staff staff = (Staff) user;
-            try{
+            try {
+                System.out.println("\nLOGGED IN AS " + "ID: " + staffID + ", NAME: " + staff.getName() + ", FACULTY: " + staff.getFaculty());
                 System.out.println("======================= HOME MENU =======================");
                 System.out.println("1) View All Camps");
                 System.out.println("2) Select Camp");
@@ -34,7 +38,7 @@ public class StaffView {
 
                 int choice = UserIO.getSelection(1, 9);
 
-                switch (choice){
+                switch (choice) {
                     case 1:
                         allCampView();
                         break;
@@ -65,37 +69,39 @@ public class StaffView {
                     default:
                         break;
                 }
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    public static void allCampView(){
+    public static void allCampView() {
         HashMap<UUID, Camp> allCamps = CampManager.getAllCamps();
 
-        if(allCamps.size() == 0){
-            System.out.println("There are no available camps!\n");
+        if (allCamps.isEmpty()) {
+            System.out.println(ConsoleColours.YELLOW + "There are no available camps!\n" + ConsoleColours.RESET);
             return;
         }
 
         System.out.println("\n=========================================================\n");
 
-        for(UUID key : allCamps.keySet()){
+        int count = 0;
+        for (UUID key : allCamps.keySet()) {
+            count++;
+            System.out.println("Camp No.: " + count);
             allCamps.get(key).printCampDetails();
         }
 
         System.out.println("\n=========================================================\n");
     }
 
-    public static void staffCampView(Staff staff){
+    public static void staffCampView(Staff staff) {
 
         Set<UUID> campKeys = staff.getCampIDs();
         HashMap<UUID, Camp> allCamps = CampManager.getAllCamps();
 
-        if(allCamps.size() == 0){
-            System.out.println("No available camps to select!\n");
+        if (allCamps.isEmpty()) {
+            System.out.println(ConsoleColours.YELLOW + "There are no available camps!\n" + ConsoleColours.RESET);
             return;
         }
 
@@ -106,7 +112,7 @@ public class StaffView {
         System.out.println("\n=========================================================\n");
 
         int count = 0;
-        for(UUID key : campKeys){
+        for (UUID key : campKeys) {
             count++;
             System.out.println("Camp No.: " + count);
             allCamps.get(key).printCampDetails();
@@ -114,21 +120,23 @@ public class StaffView {
         }
 
         System.out.println("\n=========================================================\n");
-        if (count == 0){
+        if (count == 0) {
             return;
         }
-        System.out.print("Select a camp: ");
-        int choice = UserIO.getSelection(1, count);
-
+        System.out.print("Select a camp (0 to return to previous menu): ");
+        int choice = UserIO.getSelection(0, count);
+        if (choice == 0) {
+            return;
+        }
         UUID campUID = campSelection.get(choice);
 
         selectCampView(staff, campUID);
     }
 
 
-    public static void selectCampView(Staff staff, UUID campUID){
-        while(true){
-            try{
+    public static void selectCampView(Staff staff, UUID campUID) {
+        while (true) {
+            try {
                 System.out.println("======================= SELECT MENU =======================");
                 System.out.println("1) Edit Camp Details");
                 System.out.println("2) View Registered Attendees");
@@ -142,7 +150,7 @@ public class StaffView {
 
                 int choice = UserIO.getSelection(1, 6);
 
-                switch (choice){
+                switch (choice) {
                     case 1:
                         CampEditView.editCampView(campUID);
                         break;
@@ -164,60 +172,93 @@ public class StaffView {
                     default:
                         break;
                 }
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    public static void allAttendeesView(UUID campUID){
+    public static void allAttendeesView(UUID campUID) {
         System.out.println("print all attendees in the selected camp");
     }
 
-    public static void deleteCampView(UUID campUID){
+    public static void deleteCampView(UUID campUID) {
         System.out.println("Are you sure you want to delete this camp?");
         System.out.print("Enter 'YES' to confirm deletion: ");
         String confirmation = UserIO.getStringResponse();
-        if(confirmation.equals("YES")){
+        if (confirmation.equals("YES")) {
             // TODO: DELETE CAMP FROM DB
             return;
         }
         System.out.println("Deletion Unsuccessful. Try again");
     }
 
-    public static void createCampView(Staff staff){
+    public static void createCampView(Staff staff) {
         System.out.print("Enter the name of camp: ");
         String name = UserIO.getStringResponse();
 
         System.out.print("Enter the start date of the camp(yyyy-MM-dd): ");
         LocalDate startDate = UserIO.getDateResponse();
 
-        System.out.print("Enter the end date of the camp(yyyy-MM-dd): ");
-        String eDate = UserIO.getStringResponse();
-        LocalDate endDate = LocalDate.parse(eDate);
+        LocalDate endDate;
+        while (true) {
+            System.out.print("Enter the end date of the camp(yyyy-MM-dd): ");
+            endDate = UserIO.getDateResponse();
+            if (!endDate.isAfter(startDate)) {
+                System.out.print(ConsoleColours.RED + "End date has to be after the start date!\n" + ConsoleColours.RESET);
+                continue;
+            }
+            break;
+        }
 
-        System.out.print("Enter the registration closing date of the camp(yyyy-MM-dd): ");
-        String cDate = UserIO.getStringResponse();
-        LocalDate closingDate = LocalDate.parse(cDate);
+        LocalDate closingDate;
+        while (true) {
+            System.out.print("Enter the registration closing date of the camp(yyyy-MM-dd): ");
+            closingDate = UserIO.getDateResponse();
+            if (!closingDate.isBefore(startDate)) {
+                System.out.print(ConsoleColours.RED + "Registration has to close before the start of the camp!\n" + ConsoleColours.RESET);
+                continue;
+            }
+            break;
+        }
 
-        System.out.print("Enter group that camp is open to: ");
-        String group = UserIO.getStringResponse();
-        UserGroup userGroup = UserGroup.valueOf(group.toUpperCase());
+        List<UserGroup> UserGroupList = new ArrayList<UserGroup>(Arrays.asList(UserGroup.values()));
+        System.out.print(ConsoleColours.BLUE);
+        for (int i = 0; i < UserGroupList.size(); i++) {
+            System.out.print((i + 1) + ") " + UserGroupList.get(i) + "    ");
+            if ((i + 1) % 4 == 0) {
+                System.out.print("\n");
+            }
+        }
+        System.out.print("\n" + ConsoleColours.RESET);
+        System.out.print("Enter group that camp is open to (1 - " + UserGroupList.size() + "): ");
+        int choice = UserIO.getSelection(1, UserGroupList.size());
+        UserGroup userGroup = UserGroupList.get(choice - 1);
 
         System.out.print("Enter the location of camp: ");
         String location = UserIO.getStringResponse();
 
-        System.out.print("Enter the number of slots: ");
-        int totalSlots = UserIO.getIntResponse();
+        int totalSlots;
+        while (true) {
+            System.out.print("Enter the number of slots: ");
+            totalSlots = UserIO.getIntResponse();
+            if (totalSlots < 1) {
+                System.out.print(ConsoleColours.RED + "Minimum number of slots is 1!\n" + ConsoleColours.RESET);
+                continue;
+            }
+            break;
+        }
 
         System.out.print("Enter the description of your camp: ");
         String description = UserIO.getStringResponse();
 
-        boolean isVisible = true;
+        System.out.print("Enter the visibility of your camp (Y/N): ");
+        boolean isVisible = UserIO.getBoolResponse();
 
-        Camp newCamp = new Camp(name, startDate, endDate,  closingDate,  userGroup,  location,  totalSlots,  description,  staff,  isVisible);
+        Camp newCamp = new Camp(name, startDate, endDate, closingDate, userGroup, location, totalSlots, description, staff, isVisible);
         CampManager.addNewCamp(newCamp, staff);
+
+        System.out.print(ConsoleColours.GREEN + "\n" + "Camp has been successfully created!\n" + ConsoleColours.RESET);
     }
 
     public static void generateReportView(Staff staff) {  //if i want to allow them to search by name, location, faculty????
@@ -234,7 +275,7 @@ public class StaffView {
 
                 int choice = UserIO.getSelection(1, 3);
 
-                switch (choice){
+                switch (choice) {
                     case 1:
                         staff.generateReport(1);
                         return;
@@ -264,11 +305,11 @@ public class StaffView {
         staff.generatePerformanceReport();
     }
 
-    public static void allSuggestionsView(Staff staff){
+    public static void allSuggestionsView(Staff staff) {
         SuggestionView.showStaffSuggestionView(staff);
     }
 
-    public static void processSuggestionView(Staff staff){
+    public static void processSuggestionView(Staff staff) {
         SuggestionView.approveSuggestionView(staff);
     }
 }
