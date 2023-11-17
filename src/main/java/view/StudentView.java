@@ -158,7 +158,6 @@ public class StudentView {
         int count = 1;
         for (UUID key : campKeys) {
             System.out.println("Camp Number: " + count);
-            System.out.println(key);
             allCamps.get(key).printCampDetails();
             campSelection.put(count, key);
             count++;

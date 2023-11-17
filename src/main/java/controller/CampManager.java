@@ -99,7 +99,7 @@ public class CampManager {
         HashMap<UUID, Camp> filteredCamps = new HashMap<>();
         for (UUID key : getAllCamps().keySet()) {
             Camp camp = getCamp(key);
-            if (camp.getUserGroup() == faculty || camp.getUserGroup() == UserGroup.NTU) {
+            if (camp.getUserGroup() == faculty || camp.getUserGroup() == UserGroup.NTU && camp.isVisible()) {
                 filteredCamps.put(key, camp);
             }
         }

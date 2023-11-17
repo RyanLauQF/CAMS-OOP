@@ -79,7 +79,7 @@ public class StaffView {
         HashMap<UUID, Camp> allCamps = CampManager.getAllCamps();
 
         if (allCamps.isEmpty()) {
-            System.out.println(ConsoleColours.YELLOW + "There are no available camps!\n" + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.YELLOW + "\nThere are no available camps!" + ConsoleColours.RESET);
             return;
         }
 
@@ -101,7 +101,7 @@ public class StaffView {
         HashMap<UUID, Camp> allCamps = CampManager.getAllCamps();
 
         if (allCamps.isEmpty()) {
-            System.out.println(ConsoleColours.YELLOW + "There are no available camps!\n" + ConsoleColours.RESET);
+            System.out.println(ConsoleColours.YELLOW + "\nThere are no available camps!" + ConsoleColours.RESET);
             return;
         }
 
@@ -225,7 +225,7 @@ public class StaffView {
         List<UserGroup> UserGroupList = new ArrayList<UserGroup>(Arrays.asList(UserGroup.values()));
         System.out.print(ConsoleColours.BLUE);
         for (int i = 0; i < UserGroupList.size(); i++) {
-            System.out.print((i + 1) + ") " + UserGroupList.get(i) + "    ");
+            System.out.printf("%-3s %-7s", (i + 1) + ")", UserGroupList.get(i));
             if ((i + 1) % 4 == 0) {
                 System.out.print("\n");
             }

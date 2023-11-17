@@ -65,6 +65,7 @@ public class Camp implements Serializable {
         System.out.printf("| %-26s | %-21s |\n", "Committee Members:", registeredCommMemID.size());
         System.out.printf("| %-26s | %-21s |\n", "Description:", description);
         System.out.printf("| %-26s | %-21s |\n", "Staff in Charge:", staffInCharge.getName() + " (" + staffInCharge.getFaculty() + ") ");
+        System.out.printf("| %-26s | %-21s |\n", "Visibility:", isVisible() ? "Visible" : "Not visible");
         System.out.println("------------------------------------------------------");
     }
 
