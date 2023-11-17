@@ -14,7 +14,6 @@ import java.util.UUID;
 
 public class StudentView {
     public static void renderView(String studentID) {
-        System.out.println("\nLogged in as " + studentID);
 
         while (true) {
             User user = UserManager.getUser(studentID);
@@ -25,6 +24,7 @@ public class StudentView {
             } else {
                 Student student = (Student) user;
                 try {
+                    System.out.println("\nLOGGED IN AS " + "ID: " + studentID + ", NAME: " + student.getName() + ", FACULTY: " + student.getFaculty());
                     System.out.println("======================= HOME MENU =======================");
                     System.out.println("1) View all available camps within faculty");
                     System.out.println("2) Register for camp");
