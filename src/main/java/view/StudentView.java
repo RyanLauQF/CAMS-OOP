@@ -2,6 +2,7 @@ package view;
 
 import controller.CampManager;
 import controller.UserManager;
+import helper.ConsoleColours;
 import helper.UserIO;
 import model.Camp;
 import model.CampCommMember;
@@ -78,7 +79,7 @@ public class StudentView {
         // TODO: make this look better
         int count = 1;
         for (UUID key : filteredCamps.keySet()) {
-            System.out.println("Camp: " + count);
+            System.out.println(ConsoleColours.BLUE + "Camp No.: " + count + ConsoleColours.RESET);
             Camp camp = CampManager.getCamp(key);
             camp.printCampDetails();
             System.out.println("\n---------------------------------------------------------\n");
@@ -91,14 +92,13 @@ public class StudentView {
         HashMap<Integer, UUID> selection = new HashMap<>();
 
         if (filteredCamps.isEmpty()) {
-            System.out.println("\nNo camps available");
-            System.out.println("\nBringing you back to the home menu...\n");
+            System.out.println(ConsoleColours.YELLOW + "\nThere are no available enquiries!" + ConsoleColours.RESET);
             return;
         }
 
         int count = 1;
         for (UUID key : filteredCamps.keySet()) {
-            System.out.println("Camp: " + count);
+            System.out.println(ConsoleColours.BLUE + "Camp No.: " + count + ConsoleColours.RESET);
             Camp camp = CampManager.getCamp(key);
             camp.printCampDetails();
             selection.put(count, key);
@@ -144,7 +144,7 @@ public class StudentView {
 
         // handle case where there are no registered camps
         if (campKeys.isEmpty()) {
-            System.out.println("\nYou have not registered for any camps");
+            System.out.println(ConsoleColours.YELLOW + "\nYou have not registered for any camps" + ConsoleColours.RESET);
             System.out.println("\nBringing you back to the home menu...\n");
             return;
         }
@@ -157,7 +157,8 @@ public class StudentView {
 
         int count = 1;
         for (UUID key : campKeys) {
-            System.out.println("Camp Number: " + count);
+            System.out.println(ConsoleColours.BLUE + "Camp No.: " + count + ConsoleColours.RESET);
+            System.out.println("ROLE: " + (CampManager.getCamp(key).getRegisteredAttendees().contains(student.getUserID()) ? "ATTENDEE" : "CAMP COMMITTEE MEMBER"));
             allCamps.get(key).printCampDetails();
             campSelection.put(count, key);
             count++;

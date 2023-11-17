@@ -3,11 +3,9 @@ package view;
 import controller.CampManager;
 
 import java.util.UUID;
+
 import helper.UserIO;
 import model.CampCommMember;
-import model.Staff;
-
-import java.util.UUID;
 
 /**
  * View class for rendering the home menu and managing interactions for Camp Committee Members.
@@ -25,7 +23,8 @@ public class CampCommView {
     public static void renderView(CampCommMember student) {
         while (true) {
             try {
-                System.out.println("======================= HOME MENU =======================");
+                System.out.println("\nLOGGED IN AS " + "ID: " + student.getUserID() + ", NAME: " + student.getName() + ", FACULTY: " + student.getFaculty());
+                System.out.println("\n======================= HOME MENU =======================");
                 System.out.println("1) View available camps");
                 System.out.println("2) Register for camp");
                 System.out.println("3) View registered camps");
@@ -33,7 +32,7 @@ public class CampCommView {
 
                 System.out.println("\n------------- CAMP COMMITTEE MEMBER MENU -------------");
                 System.out.println("Camp Committee Member of: " + CampManager.getCamp(student.getCommCampID()).getName());
-                System.out.println("5) View your suggestions");
+                System.out.println("5) Go to suggestions menu");
                 System.out.println("6) View all enquiries for camp");
                 System.out.println("7) View your points");
                 System.out.println("8) Generate camp report");
@@ -65,7 +64,7 @@ public class CampCommView {
                         break;
                     case 6: {
                         UUID campID = student.getCommCampID();
-                        EnquiryView.ccmViewEnquiryView(campID, student);
+                        EnquiryView.viewEnquiryView(campID, student);
                         break;
                     }
                     case 7:

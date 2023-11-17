@@ -88,7 +88,7 @@ public class StaffView {
         int count = 0;
         for (UUID key : allCamps.keySet()) {
             count++;
-            System.out.println("Camp No.: " + count);
+            System.out.println(ConsoleColours.BLUE + "Camp No.: " + count + ConsoleColours.RESET);
             allCamps.get(key).printCampDetails();
         }
 
@@ -114,7 +114,7 @@ public class StaffView {
         int count = 0;
         for (UUID key : campKeys) {
             count++;
-            System.out.println("Camp No.: " + count);
+            System.out.println(ConsoleColours.BLUE + "Camp No.: " + count + ConsoleColours.RESET);
             allCamps.get(key).printCampDetails();
             campSelection.put(count, key);
         }
@@ -137,11 +137,12 @@ public class StaffView {
     public static void selectCampView(Staff staff, UUID campUID) {
         while (true) {
             try {
-                System.out.println("======================= SELECT MENU =======================");
+                System.out.println("\n======================= SELECT MENU =======================");
+                System.out.println("Camp Name: " + CampManager.getCamp(campUID).getName());
                 System.out.println("1) Edit Camp Details");
                 System.out.println("2) View Registered Attendees");
-                System.out.println("3) View Enquiries");
-                System.out.println("4) View Suggestions");
+                System.out.println("3) View Enquiries For This Camp");
+                System.out.println("4) View Suggestions For This Camp");
                 System.out.println("5) Delete Camp");
                 System.out.println("6) Cancel Selection");
                 System.out.println("===========================================================\n");
@@ -158,10 +159,10 @@ public class StaffView {
                         allAttendeesView(campUID);
                         break;
                     case 3:
-                        EnquiryView.viewEnquiryView(campUID);
+                        EnquiryView.viewEnquiryView(campUID, staff);
                         break;
                     case 4:
-                        allSuggestionsView(staff);
+                        SuggestionView.getSuggestionsForCampView(campUID);
                         break;
                     case 5:
                         deleteCampView(campUID);
@@ -179,7 +180,23 @@ public class StaffView {
     }
 
     public static void allAttendeesView(UUID campUID) {
-        System.out.println("print all attendees in the selected camp");
+        Camp camp = CampManager.getCamp(campUID);
+        System.out.println("===========================================================");
+        System.out.println("Attendees:");
+        if (camp.getRegisteredAttendees().isEmpty()) {
+            System.out.println(ConsoleColours.YELLOW + "NO ATTENDEES" + ConsoleColours.RESET);
+        } else {
+
+            camp.getRegisteredAttendees().forEach(id -> System.out.println(UserManager.getUser(id).getName()));
+        }
+        System.out.println("Camp Committee Members:");
+        if (camp.getRegisteredCommMembers().isEmpty()) {
+            System.out.println(ConsoleColours.YELLOW + "NO CAMP COMMITTEE MEMBERS" + ConsoleColours.RESET);
+        } else {
+
+            camp.getRegisteredCommMembers().forEach(id -> System.out.println(UserManager.getUser(id).getName()));
+        }
+        System.out.println("===========================================================");
     }
 
     public static void deleteCampView(UUID campUID) {

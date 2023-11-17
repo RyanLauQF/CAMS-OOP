@@ -17,6 +17,7 @@ public class Enquiry implements Serializable {
     private boolean isProcessed;
 
     private String reply;
+    private User repliedBy;
 
     public Enquiry(String query, Student createdBy, UUID campID) {
         this.query = query;
@@ -24,14 +25,15 @@ public class Enquiry implements Serializable {
         this.campID = campID;
         this.reply = "";
         this.isProcessed = false;
-
     }
 
-    public void printEnquiryDetails(){
+    public void printEnquiryDetails() {
         System.out.println("Query: " + query);
         System.out.println("Created by: " + createdBy.getName());
-        if (isProcessed == true){
+        if (isProcessed == true) {
             System.out.println("Reply: " + reply);
+            System.out.println("Replied By: " + repliedBy.getName());
+
         }
     }
 
@@ -45,11 +47,11 @@ public class Enquiry implements Serializable {
         BufferedWriter writer = null;
         try {
             int count = 0;
-            String x = "EnquiryReportForCamp"+ camp.getName() +".txt";
+            String x = "EnquiryReportForCamp" + camp.getName() + ".txt";
             writer = new BufferedWriter(new FileWriter(x));
             writer.write("============================================== " + "\n");
-            writer.write("    Enquiry Report for Camp " + x + "    \n");
-            writer.write("============================================== " + "\n\n");
+            writer.write("    Enquiry Report for Camp " + camp.getName() + "    \n");
+            writer.write("============================================== " + "\n");
             writer.write("Camp Name: " + camp.getName() + "\n");
             writer.write("Camp Description: " + camp.getDescription() + "\n");
             writer.write("============================================== " + "\n");
@@ -58,24 +60,26 @@ public class Enquiry implements Serializable {
                 Enquiry curEnquiry = EnquiryManager.getEnquiry(id);
                 if (choice == 1) {
                     writer.write("Enquiry " + count + ": " + "\n");
-                    writer.write("     Made by: " + curEnquiry.getCreatedBy().getName() + "\n");
-                    writer.write("     Query is: " + curEnquiry.getQuery() + "\n");
+                    writer.write("  Made by: " + curEnquiry.getCreatedBy().getName() + "\n");
+                    writer.write("  Query is: " + curEnquiry.getQuery() + "\n");
                     if (curEnquiry.getIsProcessed()) {
-                        writer.write("    Reply is: " + curEnquiry.getReply() + "\n");
+                        writer.write("  Reply is: " + curEnquiry.getReply() + "\n");
+                        writer.write("  Replied by: " + curEnquiry.getRepliedBy() + "\n");
                     }
                 } else if (choice == 2) {
                     writer.write("Enquiry " + count + ": " + "\n");
-                    writer.write("     Made by: " + curEnquiry.getCreatedBy().getName() + "\n");
-                    writer.write("     Query is: " + curEnquiry.getQuery() + "\n");
+                    writer.write("  Made by: " + curEnquiry.getCreatedBy().getName() + "\n");
+                    writer.write("  Query is: " + curEnquiry.getQuery() + "\n");
                 } else if (choice == 3) {
                     if (curEnquiry.getIsProcessed()) {
                         writer.write("Enquiry " + count + ": ");
-                        writer.write("     Made by: " + curEnquiry.getCreatedBy().getName() + "\n");
-                        writer.write("     Query is: " + curEnquiry.getQuery() + "\n");
-                        writer.write("    Reply is: " + curEnquiry.getReply() + "\n");
+                        writer.write("  Made by: " + curEnquiry.getCreatedBy().getName() + "\n");
+                        writer.write("  Query is: " + curEnquiry.getQuery() + "\n");
+                        writer.write("  Reply is: " + curEnquiry.getReply() + "\n");
+                        writer.write("  Replied by: " + curEnquiry.getRepliedBy() + "\n");
                     }
                 }
-               writer.write("----------------------------------------------\n");
+                writer.write("----------------------------------------------\n");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -119,7 +123,15 @@ public class Enquiry implements Serializable {
         this.isProcessed = isProcessed;
     }
 
-    public boolean getIsProcessed(){
+    public boolean getIsProcessed() {
         return isProcessed;
+    }
+
+    public User getRepliedBy() {
+        return repliedBy;
+    }
+
+    public void setRepliedBy(User repliedBy) {
+        this.repliedBy = repliedBy;
     }
 }

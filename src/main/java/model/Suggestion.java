@@ -31,8 +31,7 @@ public class Suggestion implements Serializable {
         System.out.println("Suggestion: " + suggestion);
         System.out.println("Created by: " + createdBy.getName());
         System.out.println("Type: " + type);
-        System.out.println("Viewed: " + isViewed);
-        System.out.println("Approved: " + isAccepted);
+        System.out.println("Status: " + (isViewed ? (isAccepted ? "Accepted" : "Rejected") : "Pending"));
     }
 
     public UUID getCampID() {
@@ -54,15 +53,22 @@ public class Suggestion implements Serializable {
     public boolean isAccepted() {
         return isAccepted;
     }
+
     public void setViewed(boolean viewed) {
         isViewed = viewed;
     }
+
     public void setAccepted(boolean accepted) {
         isAccepted = accepted;
     }
 
-    public SuggestionType getType() {return type;}
-    public void setType(SuggestionType type) {this.type = type;}
+    public SuggestionType getType() {
+        return type;
+    }
+
+    public void setType(SuggestionType type) {
+        this.type = type;
+    }
 
 }
 

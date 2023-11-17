@@ -185,6 +185,6 @@ public class CampEditView {
     public static void changeVisibilityView(UUID campUID) {
         CampManager.updateVisibility(campUID);
         Camp camp = CampManager.getCamp((campUID));
-        System.out.print("Visibility toggled to: " + (camp.isVisible() ? "Visible" : "Not visible" + "\n"));
+        System.out.print("Visibility toggled to: " + (camp.isVisible() ? "Visible" : "Not visible") + "\n");
     }
 }
