@@ -11,8 +11,17 @@ import model.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class SuggestionView {
 
+/**
+ * View class for handling suggestions made by Camp Committee Members and Staff.
+ */
+public class  SuggestionView {
+
+    /**
+     * Displays the SUGGESTIONS MENU for Camp Committee Members (CCM).
+     *
+     * @param student The CampCommMember object representing the CCM.
+     */
     public static void ccmSuggestionView(CampCommMember student) {
         while (true) {
             try {
@@ -55,6 +64,11 @@ public class SuggestionView {
         }
     }
 
+    /**
+     * Shows all suggestions made by a specific Camp Committee Member.
+     *
+     * @param student The CampCommMember object representing the CCM.
+     */
     public static void showCCMSuggestion(CampCommMember student) {
         Set<UUID> ccmSuggestions = CampCommMemberManager.getCCMSuggestions(student);
         if (ccmSuggestions.isEmpty()) {
@@ -76,6 +90,11 @@ public class SuggestionView {
     }
 
     // idk if we should limit each CCM student to one suggestion, bc they only can suggest to the camp they are in charge of
+    /**
+     * Displays the view for creating a new suggestion by a Camp Committee Member.
+     *
+     * @param student The CampCommMember object representing the CCM.
+     */
     public static void createSuggestionView(CampCommMember student) {
         UUID campUID = CampCommMemberManager.getCampID(student);
         Camp camp = CampManager.getCamp(campUID);
@@ -112,6 +131,11 @@ public class SuggestionView {
         }
     }
 
+    /**
+     * Displays the view for editing an existing suggestion made by a Camp Committee Member.
+     *
+     * @param student The CampCommMember object representing the CCM.
+     */
     public static void editSuggestionView(CampCommMember student) {
         Set<UUID> ccmSuggestions = CampCommMemberManager.getCCMSuggestions(student);
 
@@ -150,6 +174,11 @@ public class SuggestionView {
         }
     }
 
+    /**
+     * Displays the view for deleting an existing suggestion made by a Camp Committee Member.
+     *
+     * @param student The CampCommMember object representing the CCM.
+     */
     public static void deleteSuggestionView(CampCommMember student) {
         Set<UUID> ccmSuggestions = CampCommMemberManager.getCCMSuggestions(student);
         if (ccmSuggestions.isEmpty()) {
@@ -183,6 +212,11 @@ public class SuggestionView {
         }
     }
 
+    /**
+     * Displays the view for showing all suggestions for camps managed by a specific Staff member.
+     *
+     * @param staff The Staff object representing the staff member.
+     */
     public static void showStaffSuggestionView(Staff staff) {
         Set<UUID> camps = StaffManager.getAllCamps(staff);
         Set<UUID> campSuggestions = new HashSet<>();
@@ -236,6 +270,11 @@ public class SuggestionView {
         System.out.println("=========================================================\n");
     }
 
+    /**
+     * Displays the view for approving or rejecting suggestions for camps managed by a specific Staff member.
+     *
+     * @param staff The Staff object representing the staff member.
+     */
     public static void approveSuggestionView(Staff staff) {
         Set<UUID> camps = StaffManager.getAllCamps(staff);
 
