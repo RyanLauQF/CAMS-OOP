@@ -1,0 +1,12 @@
+============================================== 
+    Enquiry Report for Camp EnquiryReportForCampHello.txt    
+============================================== 
+
+Camp Name: Hello
+Camp Description: skdjbfkjsb
+============================================== 
+Enquiry 1: 
+     Made by: KOH
+     Query is: hih
+    Reply is: he
+----------------------------------------------

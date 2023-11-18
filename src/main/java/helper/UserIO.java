@@ -4,13 +4,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+
 /**
  * Utility class for user input/output operations. Provides methods for obtaining various types of user responses,
  * such as integers, strings, and dates, with input validation.
  *
- * @author Ryan Lau
+ * @author Ryan Lau, Shao Chong
  * @version 1.0
- * @since 2023-11-14
+ * @since 2023-11-18
  */
 public class UserIO {
 

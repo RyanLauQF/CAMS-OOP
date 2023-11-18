@@ -9,8 +9,10 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+
+
 /**
- * Models a staff member, inheriting properties from the User class.
+ * Model class representing a staff member, inheriting properties from the User class.
  * Staff members have the ability to create and manage camps and generate various reports for camp-related activities.
  *
  * @author Ryan Lau, Seung Yeon, Markus Lim, Tong Ying, Shao Chong

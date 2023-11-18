@@ -8,6 +8,7 @@ import model.UserGroup;
 import java.time.LocalDate;
 import java.util.UUID;
 
+
 /**
  * View class for rendering the camp editing interface and managing interactions related to camp modifications.
  * Provides methods for editing various camp details such as name, dates, location, and visibility.

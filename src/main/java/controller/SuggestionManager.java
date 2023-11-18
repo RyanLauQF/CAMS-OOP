@@ -7,8 +7,9 @@ import model.Suggestion;
 import java.util.HashMap;
 import java.util.UUID;
 
+
 /**
- * Manages operations related to suggestions, including adding, updating, and removing suggestions.
+ * Controller class that manages operations related to suggestions, including adding, updating, and removing suggestions.
  * Additionally, it tracks that acceptance status for the suggestion and also add points for those with suggestions accepted.
  * This class interacts with the database to store and retrieve suggestion data.
  *

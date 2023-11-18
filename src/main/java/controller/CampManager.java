@@ -11,10 +11,12 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.util.Set;
 
+
 /**
- * Manages all operations related to camps, including camp registration and withdrawal for both students and comm members, updating camp details, and generating reports.
+ * Controller class that manages all operations related to camps, including camp registration and withdrawal for
+ * both students and comm members, updating camp details, and generating reports.
  *
- * @author Ryan Lau, Shao Chong, Tong Ying, Seung Yeon, Markus Lim
+ * @author Ryan Lau, Shao Chong, Markus Lim, Tong Ying, Seung Yeon
  * @version 1.0
  * @since 2023-11-14
  */

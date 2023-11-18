@@ -4,8 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+
 /**
- * Represents a student and manages student-related operations.
+ * Model class representing a student and manages student-related operations.
+ *
+ * @author Seung Yeon
+ * @version 1.0
+ * @since 2023-11-18
  */
 public class Student extends User {
     private final Set<UUID> registeredCamps;

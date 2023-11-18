@@ -1,19 +1,18 @@
 package model;
 
-import controller.CampManager;
-import controller.UserManager;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+
 /**
- * Represents a camp and manages camp-related operations.
+ * Model class representing a camp and manages camp-related operations.
+ *
+ * @author Shao Chong
+ * @version 1.0
+ * @since 2023-11-18
  */
 public class Camp implements Serializable {
     // Camp Information

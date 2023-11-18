@@ -1,5 +1,14 @@
 package model;
 
+
+/**
+ * UserGroup Enum representing different user groups within NTU. Each enum constant
+ * corresponds to a specific faculties, providing a structured way to categorise users
+ *
+ * @author Shao Chong
+ * @version 1.0
+ * @since 2023-11-18
+ */
 public enum UserGroup {
     // Whole of NTU
     NTU,

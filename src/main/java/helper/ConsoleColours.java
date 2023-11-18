@@ -1,5 +1,13 @@
 package helper;
 
+
+/**
+ * Utility Class for colouring coding console outputs
+ *
+ * @author Shao Chong
+ * @version 1.0
+ * @since 2023-11-18
+ */
 public class ConsoleColours {
     // Reset
     public static final String RESET = "\033[0m";  // Text Reset

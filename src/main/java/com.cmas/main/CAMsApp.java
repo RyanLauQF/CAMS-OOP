@@ -3,6 +3,7 @@ import database.Database;
 import helper.UserIO;
 import view.AppView;
 
+
 /**
  * The main class for the Camp Application and Management System (CAMS).
  * This class initializes the database and renders the main application view upon run.

@@ -14,8 +14,12 @@ import java.util.stream.Collectors;
 
 /**
  * View class for handling suggestions made by Camp Committee Members and Staff.
+ *
+ * @author Seung Yeon, Shao Chong
+ * @version 1.0
+ * @since 2023-11-18
  */
-public class  SuggestionView {
+public class SuggestionView {
 
     /**
      * Displays the SUGGESTIONS MENU for Camp Committee Members (CCM).
@@ -89,7 +93,6 @@ public class  SuggestionView {
         System.out.println("=========================================================\n");
     }
 
-    // idk if we should limit each CCM student to one suggestion, bc they only can suggest to the camp they are in charge of
     /**
      * Displays the view for creating a new suggestion by a Camp Committee Member.
      *
@@ -254,6 +257,12 @@ public class  SuggestionView {
         System.out.println("=========================================================\n");
     }
 
+    /**
+     * Displays a view of camp suggestions associated with a specified camp by printing details for each suggestion
+     * along with a number incremented based on order.
+     *
+     * @param CampID The UUID of the camp for which suggestions are to be displayed.
+     */
     public static void getSuggestionsForCampView(UUID CampID) {
         Set<UUID> suggestions = CampManager.getCampSuggestions(CampID);
         int count = 0;
