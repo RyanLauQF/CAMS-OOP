@@ -3,11 +3,10 @@ package view;
 import controller.CampManager;
 
 import java.util.UUID;
+
+import helper.ConsoleColours;
 import helper.UserIO;
 import model.CampCommMember;
-import model.Staff;
-
-import java.util.UUID;
 
 /**
  * View class for rendering the home menu and managing interactions for Camp Committee Members.
@@ -25,26 +24,33 @@ public class CampCommView {
     public static void renderView(CampCommMember student) {
         while (true) {
             try {
-                System.out.println("======================= HOME MENU =======================");
+                System.out.println("\n=========================================================");
+                System.out.println("Logged in as " + ConsoleColours.BLUE + student.getName() + " (" + student.getUserID() + ")" + ", " + student.getFaculty() + ConsoleColours.RESET);
+                System.out.println("=========================================================");
+                System.out.println("\n======================= HOME MENU =======================");
+                System.out.print(ConsoleColours.BLUE);
                 System.out.println("1) View available camps");
                 System.out.println("2) Register for camp");
                 System.out.println("3) View registered camps");
-                System.out.println("4) View your enquiries");
-
-                System.out.println("\n------------- CAMP COMMITTEE MEMBER MENU -------------");
-                System.out.println("Camp Committee Member of: " + CampManager.getCamp(student.getCommCampID()).getName());
-                System.out.println("5) View your suggestions");
+                System.out.println("4) Open Enquiry Menu");
+                System.out.print(ConsoleColours.RESET);
+                System.out.println("\n-------------- CAMP COMMITTEE MEMBER MENU ---------------");
+                System.out.println("Camp Committee Member for: " + ConsoleColours.BLUE + CampManager.getCamp(student.getCommCampID()).getName() + ConsoleColours.RESET);
+                System.out.print(ConsoleColours.BLUE);
+                System.out.println("5) Open Suggestions Menu");
                 System.out.println("6) View all enquiries for camp");
                 System.out.println("7) View your points");
                 System.out.println("8) Generate camp report");
 //                System.out.println("9) Generate enquiry report");
-                System.out.println("------------------------------------------------------\n");
-
+                System.out.print(ConsoleColours.RESET);
+                System.out.println("---------------------------------------------------------\n");
+                System.out.print(ConsoleColours.BLUE);
                 System.out.println("9) Change Password");
                 System.out.println("10) Logout");
-                System.out.println("=========================================================\n");
+                System.out.print(ConsoleColours.RESET);
+                System.out.println("=========================================================");
 
-                System.out.print("Select an action: ");
+                System.out.print("\nSelect an action: ");
                 int choice = UserIO.getSelection(1, 11);
 
                 switch (choice) {
@@ -65,7 +71,7 @@ public class CampCommView {
                         break;
                     case 6: {
                         UUID campID = student.getCommCampID();
-                        EnquiryView.ccmViewEnquiryView(campID, student);
+                        EnquiryView.viewEnquiryView(campID, student);
                         break;
                     }
                     case 7:
@@ -79,7 +85,7 @@ public class CampCommView {
                         AppView.changePasswordView(student);
                         break;
                     case 10:
-                        System.out.println("Logging Out...");
+                        System.out.println("\nLogging Out...");
                         return;
                     default:
                         break;

@@ -1,6 +1,7 @@
 package view;
 
 import controller.UserManager;
+import helper.ConsoleColours;
 import helper.UserIO;
 import model.Staff;
 import model.User;
@@ -19,21 +20,23 @@ public class AppView {
      * Renders the main login interface.
      * Allows users to log in, quit the program, and navigates to specific views based on their roles upon login.
      */
-    public static void renderView(){
-        while(true){
+    public static void renderView() {
+        while (true) {
             // system login
             String userID, password;
 
             System.out.println("\nWelcome to Camp Application and Management System (CAMs)");
             System.out.println("========================================================");
+            System.out.print(ConsoleColours.BLUE);
             System.out.println("1) Login");
-            System.out.println("2) Quit\n");
-            System.out.print("Select an action: ");
+            System.out.println("2) Quit");
+            System.out.print(ConsoleColours.RESET);
+            System.out.print("\nSelect an action: ");
 
             int choice = UserIO.getSelection(1, 2);
             if (choice == 2) {
                 // quit program
-                System.out.println("Exiting CAMs. See you again!");
+                System.out.println("\nExiting CAMs. See you again!\n");
                 return;
             }
 
@@ -44,24 +47,23 @@ public class AppView {
             password = UserIO.getStringResponse();
 
             // check if user exists and credentials are valid
-            if(!UserManager.containsUser(userID)){
-                System.out.println("Invalid User!");
+            if (!UserManager.containsUser(userID)) {
+                System.out.println(ConsoleColours.RED + "Invalid User!" + ConsoleColours.RESET);
                 continue;
             }
 
-            if(!UserManager.validateUser(userID, password)){
-                System.out.println("Invalid Password!");
+            if (!UserManager.validateUser(userID, password)) {
+                System.out.println(ConsoleColours.RED + "Invalid Password!" + ConsoleColours.RESET);
                 continue;
             }
 
             User user = UserManager.getUser(userID);
 
             // valid user
-            if(user instanceof Staff){
+            if (user instanceof Staff) {
                 // staff display
                 StaffView.renderView(userID);
-            }
-            else{
+            } else {
                 // student display
                 StudentView.renderView(userID);
             }

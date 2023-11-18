@@ -71,20 +71,21 @@ public class Camp implements Serializable {
      * Prints the details of the camp to the console.
      */
     public void printCampDetails() {
-        System.out.println("------------------------------------------------------");
-        System.out.println("|                    CAMP DETAILS                    |");
-        System.out.println("------------------------------------------------------");
-        System.out.printf("| %-26s | %-21s |\n", "Name:", name);
-        System.out.printf("| %-26s | %-21s |\n", "Start Date:", startDate.toString());
-        System.out.printf("| %-26s | %-21s |\n", "End Date:", endDate.toString());
-        System.out.printf("| %-26s | %-21s |\n", "Registration Closing Date:", closingDate.toString());
-        System.out.printf("| %-26s | %-21s |\n", "User Group:", userGroup);
-        System.out.printf("| %-26s | %-21s |\n", "Location:", location);
-        System.out.printf("| %-26s | %-21s |\n", "Remaining Slots:", getRemainingSlots());
-        System.out.printf("| %-26s | %-21s |\n", "Committee Members:", registeredCommMemID.size());
-        System.out.printf("| %-26s | %-21s |\n", "Description:", description);
-        System.out.printf("| %-26s | %-21s |\n", "Staff in Charge:", staffInCharge.getName() + " (" + staffInCharge.getFaculty() + ") ");
-        System.out.println("------------------------------------------------------");
+        System.out.println("---------------------------------------------------------");
+        System.out.println("|                     CAMP DETAILS                      |");
+        System.out.println("---------------------------------------------------------");
+        System.out.printf("| %-26s | %-24s |\n", "Name:", name);
+        System.out.printf("| %-26s | %-24s |\n", "Start Date:", startDate.toString());
+        System.out.printf("| %-26s | %-24s |\n", "End Date:", endDate.toString());
+        System.out.printf("| %-26s | %-24s |\n", "Registration Closing Date:", closingDate.toString());
+        System.out.printf("| %-26s | %-24s |\n", "User Group:", userGroup);
+        System.out.printf("| %-26s | %-24s |\n", "Location:", location);
+        System.out.printf("| %-26s | %-24s |\n", "Remaining Slots:", getRemainingSlots());
+        System.out.printf("| %-26s | %-24s |\n", "Committee Members:", registeredCommMemID.size());
+        System.out.printf("| %-26s | %-24s |\n", "Description:", description);
+        System.out.printf("| %-26s | %-24s |\n", "Staff in Charge:", staffInCharge.getName() + " (" + staffInCharge.getFaculty() + ") ");
+        System.out.printf("| %-26s | %-24s |\n", "Visibility:", isVisible() ? "Visible" : "Not visible");
+        System.out.println("---------------------------------------------------------");
     }
     /**
      * Generates a report for the camp, including its details.

@@ -159,7 +159,7 @@ public class CampManager {
         HashMap<UUID, Camp> filteredCamps = new HashMap<>();
         for (UUID key : getAllCamps().keySet()) {
             Camp camp = getCamp(key);
-            if (camp.getUserGroup() == faculty || camp.getUserGroup() == UserGroup.NTU) {
+            if ((camp.getUserGroup() == faculty || camp.getUserGroup() == UserGroup.NTU) && camp.isVisible()) {
                 filteredCamps.put(key, camp);
             }
         }
@@ -356,7 +356,7 @@ public class CampManager {
         Camp camp = getCamp((campID));
         BufferedWriter writer = new BufferedWriter(new FileWriter("OverallReport.txt"));
         writer.write("============================================== " + "\n");
-        writer.write("===== OVERALL CAMP REPORT FOR " + "Attendees" + " =====\n");
+        writer.write("===== OVERALL CAMP REPORT FOR " + camp.getName() + " =====\n");
         writer.write("============================================== " + "\n\n");
         writer.write("Camp Name: " + camp.getName() + "\n");
         writer.write("Camp Description: " + camp.getDescription() + "\n");

@@ -1,8 +1,10 @@
 package controller;
 
 import database.Database;
+import model.CampCommMember;
 import model.Enquiry;
 import model.Student;
+import model.User;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -43,7 +45,7 @@ public class EnquiryManager {
     public static void addNewEnquiry(Enquiry enquiry, Student student){
         // generate a unique key for each enquiry to be stored in database
         UUID uid = UUID.randomUUID();
-        while(enquiryData.containsKey(uid)){
+        while (enquiryData.containsKey(uid)) {
             uid = UUID.randomUUID();
         }
         enquiryData.put(uid, enquiry);
@@ -82,7 +84,7 @@ public class EnquiryManager {
      */
     public static void updateEnquiryStatus(UUID enquiryUID){
         Enquiry enquiry = getEnquiry(enquiryUID);
-        if (!enquiry.getIsProcessed()){
+        if (!enquiry.getIsProcessed()) {
             enquiry.setIsProcessed(true);
         }
     }
@@ -96,5 +98,6 @@ public class EnquiryManager {
     public static void updateEnquiryReply(String reply, UUID enquiryUID){
         Enquiry enquiry = getEnquiry(enquiryUID);
         enquiry.setReply(reply);
+        enquiry.setRepliedBy(replier);
     }
 }

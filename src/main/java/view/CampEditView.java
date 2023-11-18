@@ -2,6 +2,7 @@ package view;
 
 import controller.CampManager;
 import helper.UserIO;
+import model.Camp;
 import model.UserGroup;
 
 import java.time.LocalDate;
@@ -22,10 +23,10 @@ public class CampEditView {
      *
      * @param campUID The UUID of camp to be edited.
      */
-    public static void editCampView(UUID campUID){
-        while(true){
-            try{
-                System.out.println("======================= EDIT MENU =======================");
+    public static void editCampView(UUID campUID) {
+        while (true) {
+            try {
+                System.out.println("\n======================= EDIT MENU =======================");
                 CampManager.getCamp(campUID).printCampDetails();
                 System.out.println("\nOptions: ");
                 System.out.println("1) Change Name");
@@ -44,7 +45,7 @@ public class CampEditView {
 
                 int choice = UserIO.getSelection(1, 10);
 
-                switch (choice){
+                switch (choice) {
                     case 1:
                         changeNameView(campUID);
                         break;
@@ -78,8 +79,7 @@ public class CampEditView {
                     default:
                         break;
                 }
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -90,7 +90,7 @@ public class CampEditView {
      *
      * @param campUID The UUID of camp to be edited.
      */
-    public static void changeNameView(UUID campUID){
+    public static void changeNameView(UUID campUID) {
         System.out.print("Enter camp name: ");
         String campName = UserIO.getStringResponse();
         CampManager.updateCampName(campUID, campName);
@@ -101,7 +101,7 @@ public class CampEditView {
      *
      * @param campUID The UUID of camp to be edited.
      */
-    public static void changeStartDateView(UUID campUID){
+    public static void changeStartDateView(UUID campUID) {
         System.out.print("Enter camp start date: ");
         String date = UserIO.getStringResponse();
         LocalDate startDate = LocalDate.parse(date);
@@ -113,7 +113,7 @@ public class CampEditView {
      *
      * @param campUID The UUID of camp to be edited.
      */
-    public static void changeEndDateView(UUID campUID){
+    public static void changeEndDateView(UUID campUID) {
         System.out.print("Enter camp end date: ");
         String date = UserIO.getStringResponse();
         LocalDate endDate = LocalDate.parse(date);
@@ -125,7 +125,7 @@ public class CampEditView {
      *
      * @param campUID The UUID of camp to be edited.
      */
-    public static void changeClosingDateView(UUID campUID){
+    public static void changeClosingDateView(UUID campUID) {
         System.out.print("Enter camp registration closing date: ");
         String date = UserIO.getStringResponse();
         LocalDate closingDate = LocalDate.parse(date);
@@ -137,7 +137,7 @@ public class CampEditView {
      *
      * @param campUID The UUID of camp to be edited.
      */
-    public static void changeStudentGroupView(UUID campUID){
+    public static void changeStudentGroupView(UUID campUID) {
         System.out.print("Enter student group: ");
         String group = UserIO.getStringResponse();
         UserGroup userGroup = UserGroup.valueOf(group.toUpperCase());
@@ -149,7 +149,7 @@ public class CampEditView {
      *
      * @param campUID The UUID of camp to be edited.
      */
-    public static void changeLocationView(UUID campUID){
+    public static void changeLocationView(UUID campUID) {
         System.out.print("Enter camp location: ");
         String location = UserIO.getStringResponse();
         CampManager.updateLocation(campUID, location);
@@ -160,7 +160,7 @@ public class CampEditView {
      *
      * @param campUID The UUID of camp to be edited.
      */
-    public static void changeSlotsView(UUID campUID){
+    public static void changeSlotsView(UUID campUID) {
         System.out.print("Enter number of slots: ");
         int numSlots = UserIO.getIntResponse();
         CampManager.updateNumSlots(campUID, numSlots);
@@ -171,7 +171,7 @@ public class CampEditView {
      *
      * @param campUID The UUID of camp to be edited.
      */
-    public static void changeDescriptionView(UUID campUID){
+    public static void changeDescriptionView(UUID campUID) {
         System.out.print("Enter camp description: ");
         String description = UserIO.getStringResponse();
         CampManager.updateDescription(campUID, description);
@@ -182,8 +182,9 @@ public class CampEditView {
      *
      * @param campUID The UUID of camp to be edited.
      */
-    public static void changeVisibilityView(UUID campUID){
-        System.out.print("Toggled Visibility");
+    public static void changeVisibilityView(UUID campUID) {
         CampManager.updateVisibility(campUID);
+        Camp camp = CampManager.getCamp((campUID));
+        System.out.print("Visibility toggled to: " + (camp.isVisible() ? "Visible" : "Not visible") + "\n");
     }
 }

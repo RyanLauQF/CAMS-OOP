@@ -4,16 +4,16 @@ import controller.CampCommMemberManager;
 import controller.CampManager;
 import controller.StaffManager;
 import controller.SuggestionManager;
+import helper.ConsoleColours;
 import helper.UserIO;
 import model.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
+
 
 /**
- * Represents the view for handling suggestions made by Camp Committee Members and Staff.
+ * View class for handling suggestions made by Camp Committee Members and Staff.
  */
 public class  SuggestionView {
 
@@ -22,17 +22,18 @@ public class  SuggestionView {
      *
      * @param student The CampCommMember object representing the CCM.
      */
-
     public static void ccmSuggestionView(CampCommMember student) {
         while (true) {
             try {
-                System.out.println("======================= SUGGESTIONS MENU =======================");
-                System.out.println("1) Show all suggestions made by me");
+                System.out.println("\n=================== SUGGESTIONS MENU ====================");
+                System.out.print(ConsoleColours.BLUE);
+                System.out.println("1) Show all suggestions made by you");
                 System.out.println("2) Submit suggestion to update camp details");
                 System.out.println("3) Edit Suggestions");
                 System.out.println("4) Delete Suggestion");
                 System.out.println("5) Exit Suggestion Menu");
-                System.out.println("================================================================\n");
+                System.out.print(ConsoleColours.RESET);
+                System.out.println("=========================================================\n");
 
                 System.out.print("Select an action: ");
 
@@ -52,7 +53,7 @@ public class  SuggestionView {
                         deleteSuggestionView(student);
                         break;
                     case 5:
-                        System.out.println("Exiting enquiry menu...");
+                        System.out.println("\nExiting enquiry menu...");
                         return;
                     default:
                         break;
@@ -70,22 +71,22 @@ public class  SuggestionView {
      */
     public static void showCCMSuggestion(CampCommMember student) {
         Set<UUID> ccmSuggestions = CampCommMemberManager.getCCMSuggestions(student);
-
-        // prints all suggestions student has created
-        System.out.println("\n=========================================================\n");
         if (ccmSuggestions.isEmpty()) {
-            System.out.println("No suggestions");
-        } else {
-            int count = 0;
-            for (UUID key : ccmSuggestions) {
-                count++;
-                System.out.println("Suggestion Number: " + count);
-                SuggestionManager.getSuggestion(key).printSuggestionDetails();
-                System.out.println("\n-----------------------\n");
-            }
+            System.out.println(ConsoleColours.YELLOW + "\nThere are no available suggestions!" + ConsoleColours.RESET);
+            return;
+        }
+        // prints all suggestions student has created
+        System.out.println("\n=========================================================");
+        System.out.println("---------------------------------------------------------");
+        int count = 0;
+        for (UUID key : ccmSuggestions) {
+            count++;
+            System.out.println(ConsoleColours.BLUE + "Suggestion No.: " + count + ConsoleColours.RESET);
+            SuggestionManager.getSuggestion(key).printSuggestionDetails();
+            System.out.println("---------------------------------------------------------");
         }
 
-        System.out.println("\n=========================================================\n");
+        System.out.println("=========================================================\n");
     }
 
     // idk if we should limit each CCM student to one suggestion, bc they only can suggest to the camp they are in charge of
@@ -102,7 +103,7 @@ public class  SuggestionView {
         System.out.print("Create suggestion for " + campName + "\n");
         try {
             System.out.println("======================= SUGGESTION MENU =======================");
-            System.out.println("\nOptions: ");
+            System.out.print(ConsoleColours.BLUE);
             System.out.println("1) Change Name");
             System.out.println("2) Change Start Date");
             System.out.println("3) Change End Date");
@@ -112,20 +113,19 @@ public class  SuggestionView {
             System.out.println("7) Change Number of Slots");
             System.out.println("8) Change Description");
             System.out.println("9) Go back to suggestion menu");
-            System.out.println("10) Exit program\n");
+            System.out.print(ConsoleColours.RESET);
+            System.out.print("\nSelect an action: ");
 
-            System.out.print("Select an action: ");
-
-            int choice = UserIO.getSelection(1, 8);
+            int choice = UserIO.getSelection(1, 9);
+            if (choice == 9) return;
             SuggestionType typeEnum = SuggestionType.values()[choice - 1];
 
             System.out.println("Enter suggestion: ");
             String suggestion = UserIO.getStringResponse();
-            Suggestion newSugggestion = new Suggestion(suggestion, student, student.getCommCampID(), typeEnum);
-            SuggestionManager.addSuggestion(newSugggestion, student);
+            Suggestion newSuggestion = new Suggestion(suggestion, student, student.getCommCampID(), typeEnum);
+            SuggestionManager.addSuggestion(newSuggestion, student);
             CampCommMemberManager.addPoint(student);
-            System.out.println("\nSuggestion submitted!");
-            System.out.println("Camp Comm Member Points: " + CampCommMemberManager.getPoints(student));
+            System.out.println(ConsoleColours.GREEN + "\nYour suggestion has been submitted successfully!" + ConsoleColours.RESET);
         } catch (Exception e) {
             System.out.println("Error! " + e.getMessage());
         }
@@ -139,23 +139,28 @@ public class  SuggestionView {
     public static void editSuggestionView(CampCommMember student) {
         Set<UUID> ccmSuggestions = CampCommMemberManager.getCCMSuggestions(student);
 
+        if (ccmSuggestions.isEmpty()) {
+            System.out.println(ConsoleColours.YELLOW + "\nThere are no available suggestions!" + ConsoleColours.RESET);
+            return;
+        }
         HashMap<Integer, UUID> suggestionSelection = new HashMap<>();
 
         // prints all suggestions student has created
-        System.out.println("\n=========================================================\n");
-
+        System.out.println("\n=========================================================");
+        System.out.println("---------------------------------------------------------");
         int count = 0;
         for (UUID key : ccmSuggestions) {
             count++;
-            System.out.println("Suggestion Number: " + count);
+            System.out.println(ConsoleColours.BLUE + "Suggestion No.: " + count + ConsoleColours.RESET);
             SuggestionManager.getSuggestion(key).printSuggestionDetails();
-            System.out.println("\n-----------------------\n");
+            System.out.println("---------------------------------------------------------");
             suggestionSelection.put(count, key);
         }
 
-        if (count == 0) return;
-        System.out.println("Select suggestion to edit: ");
-        int choice = UserIO.getSelection(1, count);
+        System.out.println("=========================================================\n");
+        System.out.println("Select suggestion to edit (0 to exit):");
+        int choice = UserIO.getSelection(0, count);
+        if (choice == 0) return;
         UUID suggestionUID = suggestionSelection.get(choice);
 
         // check if it's processed
@@ -163,11 +168,10 @@ public class  SuggestionView {
             System.out.println("Enter new suggestion: ");
             String suggestion = UserIO.getStringResponse();
             SuggestionManager.updateSuggestion(suggestion, suggestionUID);
+            System.out.println(ConsoleColours.GREEN + "\nYou suggestion has been edited successfully!" + ConsoleColours.RESET);
         } else {
-            System.out.println("Suggestion is already processed, you cannot edit");
+            System.out.println(ConsoleColours.RED + "\nSuggestion is already processed, you cannot edit" + ConsoleColours.RESET);
         }
-
-        System.out.println("\n=========================================================\n");
     }
 
     /**
@@ -177,32 +181,35 @@ public class  SuggestionView {
      */
     public static void deleteSuggestionView(CampCommMember student) {
         Set<UUID> ccmSuggestions = CampCommMemberManager.getCCMSuggestions(student);
-
+        if (ccmSuggestions.isEmpty()) {
+            System.out.println(ConsoleColours.YELLOW + "\nThere are no available suggestions!" + ConsoleColours.RESET);
+            return;
+        }
         HashMap<Integer, UUID> suggestionSelection = new HashMap<>();
 
         // prints all suggestions student has created
         System.out.println("\n=========================================================\n");
-
+        System.out.println("---------------------------------------------------------");
         int count = 0;
         for (UUID key : ccmSuggestions) {
             count++;
-            System.out.println("Suggestion Number: " + count);
+            System.out.println(ConsoleColours.BLUE + "Suggestion No.: " + count + ConsoleColours.RESET);
             SuggestionManager.getSuggestion(key).printSuggestionDetails();
-            System.out.println("\n-----------------------\n");
+            System.out.println("---------------------------------------------------------");
             suggestionSelection.put(count, key);
         }
 
-        if (count == 0) return;
-        System.out.println("Select suggestion to delete: ");
-        int choice = UserIO.getSelection(1, count);
+        System.out.println("=========================================================\n");
+        System.out.println("Select suggestion to delete (0 to exit): ");
+        int choice = UserIO.getSelection(0, count);
+        if (choice == 0) return;
         UUID suggestionUID = suggestionSelection.get(choice);
         if (!SuggestionManager.getSuggestion(suggestionUID).isAccepted()) {
             SuggestionManager.removeSuggestion(suggestionUID, student);
+            System.out.println(ConsoleColours.GREEN + "\nYour suggestion has been deleted successfully!" + ConsoleColours.RESET);
         } else {
             System.out.println("Suggestion is already processed, you cannot delete");
         }
-
-        System.out.println("\n=========================================================\n");
     }
 
     /**
@@ -214,35 +221,53 @@ public class  SuggestionView {
         Set<UUID> camps = StaffManager.getAllCamps(staff);
         Set<UUID> campSuggestions = new HashSet<>();
 
-        if(camps.isEmpty()){
+        if (camps.isEmpty()) {
             System.out.println("You currently have no camps tagged to you!");
             return;
         }
 
         // get all suggestions
-        for(UUID key : camps){
+        for (UUID key : camps) {
             Set<UUID> suggestions = CampManager.getCampSuggestions(key);
             campSuggestions.addAll(suggestions);
         }
 
-        if(campSuggestions.isEmpty()){
+        if (campSuggestions.isEmpty()) {
             System.out.println("There are currently no suggestions for your camps.\n");
             return;
         }
 
         // prints all suggestions for camps staff is in charge of
-        System.out.println("\n=========================================================\n");
+        System.out.println("\n=========================================================");
 
         int count = 0;
+        System.out.println("--------------------------------");
         for (UUID key : campSuggestions) {
             count++;
-            System.out.println("Suggestion No.: " + count);
+            System.out.println(ConsoleColours.BLUE + "Suggestion No.: " + count + ConsoleColours.RESET);
             Suggestion suggestion = SuggestionManager.getSuggestion(key);
+            System.out.println("Camp Name: " + CampManager.getCamp(suggestion.getCampID()).getName());
             suggestion.printSuggestionDetails();
-            System.out.println("\n--------------------------------\n");
+            System.out.println("--------------------------------");
         }
 
-        System.out.println("\n=========================================================\n");
+        System.out.println("=========================================================\n");
+    }
+
+    public static void getSuggestionsForCampView(UUID CampID) {
+        Set<UUID> suggestions = CampManager.getCampSuggestions(CampID);
+        int count = 0;
+        System.out.println("\nSuggestions for Camp " + CampManager.getCamp(CampID).getName());
+        System.out.println("\n=========================================================");
+        System.out.println("--------------------------------");
+        for (UUID key : suggestions) {
+            count++;
+            System.out.println(ConsoleColours.BLUE + "Suggestion No.: " + count + ConsoleColours.RESET);
+            Suggestion suggestion = SuggestionManager.getSuggestion(key);
+            suggestion.printSuggestionDetails();
+            System.out.println("--------------------------------");
+        }
+        System.out.println("=========================================================\n");
     }
 
     /**
@@ -253,7 +278,7 @@ public class  SuggestionView {
     public static void approveSuggestionView(Staff staff) {
         Set<UUID> camps = StaffManager.getAllCamps(staff);
 
-        if(camps.isEmpty()){
+        if (camps.isEmpty()) {
             System.out.println("You currently have no camps tagged to you!");
             return;
         }
@@ -262,30 +287,38 @@ public class  SuggestionView {
         HashMap<Integer, UUID> suggestionSelection = new HashMap<>();
 
         // prints all suggestions for camps staff is in charge of
-        System.out.println("\n=========================================================\n");
+        System.out.println("\n=========================================================");
 
         int campCount = 0;
         int suggestionCount = 0;
 
         for (UUID key : camps) {
-            campCount++;
-            System.out.println("\n-----------CAMP " + campCount + "------------\n");
             Camp camp = CampManager.getCamp(key);
-            camp.printCampDetails();
             Set<UUID> campSuggestions = CampManager.getCampSuggestions(key);
-
+            List<Suggestion> unapprovedSuggestions = (List<Suggestion>) CampManager.getCampSuggestions(key).stream().map(SuggestionManager::getSuggestion).collect(Collectors.toList());
+            unapprovedSuggestions = unapprovedSuggestions.stream().filter(suggestion -> !suggestion.isViewed()).collect(Collectors.toList());
+            if (campSuggestions.isEmpty() || unapprovedSuggestions.isEmpty()) {
+                continue;
+            }
+            camp.printCampDetails();
+            campCount++;
+            System.out.println("------------------------- CAMP " + campCount + " -----------------------");
             for (UUID id : campSuggestions) {
-                suggestionCount++;
                 Suggestion suggestion = SuggestionManager.getSuggestion(id);
-                System.out.println("Suggestion Number: " + suggestionCount);
-                System.out.println("\n-----------------------\n");
+                if (suggestion.isViewed()) {
+                    continue;
+                }
+                suggestionCount++;
+                System.out.println(ConsoleColours.BLUE + "Suggestion No.: " + suggestionCount + ConsoleColours.RESET);
+                System.out.println("-----------------------");
                 suggestion.printSuggestionDetails();
                 suggestionSelection.put(suggestionCount, id);
             }
             campSelection.put(campCount, key);
-            System.out.println("\n-----------------------\n");
+            System.out.println("--------------------------------------------------------");
         }
         if (campCount == 0) {
+            System.out.println(ConsoleColours.YELLOW + "\nYou have no pending suggestions!" + ConsoleColours.RESET);
             return;
         }
         System.out.print("Select suggestion to accept/reject: ");
@@ -293,18 +326,10 @@ public class  SuggestionView {
 
         UUID suggestionUID = suggestionSelection.get(choice);
         System.out.print("Accept? (Y to accept: N to reject): ");
-        String reply = UserIO.getStringResponse();
+        boolean reply = UserIO.getBoolResponse();
+        SuggestionManager.setStatus(suggestionUID, reply);
 
-        while (true) {
-            if (reply.strip().equalsIgnoreCase("y")) {
-                SuggestionManager.setStatus(suggestionUID, true);
-                return;
-            } else if (reply.strip().equalsIgnoreCase("n")) {
-                SuggestionManager.setStatus(suggestionUID, false);
-                return;
-            } else {
-                System.out.println("Invalid input. Key either 'y' or 'n'");
-            }
-        }
+        System.out.println(ConsoleColours.GREEN + "\nThe suggestion has been " + (reply ? "approved" : "rejected") + " successfully!" + ConsoleColours.RESET);
+        System.out.println("\n=========================================================\n");
     }
 }

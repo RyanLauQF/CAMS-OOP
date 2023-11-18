@@ -51,7 +51,7 @@ public class UserIO {
      *
      * @return The user's entered LocalDate.
      */
-    public static LocalDate getDateResponse(){
+    public static LocalDate getDateResponse() {
         LocalDate date = null;
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Adjust the format as needed
 
@@ -95,14 +95,32 @@ public class UserIO {
      *
      * @return The user's entered string.
      */
-    public static String getStringResponse(){
+    public static String getStringResponse() {
         return sc.nextLine();
+    }
+
+    /**
+     * Retrieves a user-inputted boolean.
+     *
+     * @return The user's choice of yes/no
+     */
+    public static boolean getBoolResponse() {
+        while (true) {
+            String input = getStringResponse();
+            if (input.equalsIgnoreCase("Y")) {
+                return true;
+            }
+            if (input.equalsIgnoreCase("N")) {
+                return false;
+            }
+            System.out.println("Invalid input. Please enter Y for yes, N for no.");
+        }
     }
 
     /**
      * Closes the Scanner object to release resources.
      */
-    public static void close(){
+    public static void close() {
         sc.close();
     }
 }
