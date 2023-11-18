@@ -9,29 +9,69 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-
+/**
+ * Models a staff member, inheriting properties from the User class.
+ * Staff members have the ability to create and manage camps and generate various reports for camp-related activities.
+ *
+ * @author Ryan Lau, Seung Yeon, Markus Lim, Tong Ying, Shao Chong
+ * @version 1.0
+ * @since 2023-11-14
+ */
 public class Staff extends User {
 
     //attributes
+    /**
+     * Set of UUIDs for each camp created by the staff member.
+     */
     private final Set<UUID> campIDs;
 
+    /**
+     * Constructs a new Staff object with the name, email, and user group).
+     *
+     * @param name    The name of the staff.
+     * @param email   The email of the staff.
+     * @param faculty The user group for which the staff member belongs.
+     */
     //constructor
     public Staff(String name, String email, UserGroup faculty){
         //change faculty to UserGroup?
         super(name, email, faculty);
         this.campIDs = new HashSet<>();
     }
-
+    /**
+     * Checks if staff has created camp.
+     *
+     * @param campID The UUID of the camp to check.
+     * @return true if the staff member has created the camp, false otherwise.
+     */
     public boolean hasCreatedCamp(UUID campID){
         return campIDs.contains(campID);
     }
+    /**
+     * Registers a new camp created by the staff member.
+     * Adds campID to Set<UUID> for tracking.
+     *
+     * @param campID The UUID of the camp to register.
+     */
     public void registerNewCamp(UUID campID) {
         campIDs.add(campID);
     }
+
+    /**
+     * Gets the set of UUIDs representing the camps created by the staff member.
+     *
+     * @return The set of camp UUIDs.
+     */
     public Set<UUID> getCampIDs() {
         return campIDs;
     }
 
+    /**
+     * Generates a report (.txt format) based on the specified choice.
+     * Implemented filters include Attendees, Camp Committee Members
+     *
+     * @param choice The choice for which the report is generated (1 for attendees, 2 for committee members).
+     */
     public void generateReport(int choice) {
         // For each camp that the staff has created, print a view for it
         if (campIDs.size() == 0) {
@@ -111,7 +151,9 @@ public class Staff extends User {
             }
         }
     }
-
+    /**
+     * Generates a performance report (points) for camp committee members associated with the camps created by the staff member.
+     */
     public void generatePerformanceReport() {
         if (campIDs.size() == 0) {
             System.out.println("Staff has no camp created");
