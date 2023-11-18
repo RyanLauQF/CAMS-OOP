@@ -10,16 +10,16 @@ import model.*;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
+
 
 /**
  * View class for rendering the enquiry menu and managing interactions related to camp enquiries.
  * Provides views for students to view, create, edit, and delete their enquiries.
  * Additionally, it contains views for Camp Committee Members to view, reply to, and generate reports for camp enquiries.
  *
- * @author Tong Ying
+ * @author Tong Ying, Shao Chong, Markus Lim
  * @version 1.0
- * @since 2023-11-14
+ * @since 2023-11-18
  */
 public class EnquiryView {
 
@@ -324,6 +324,12 @@ public class EnquiryView {
         }
     }
 
+    /**
+     * Displays menu for users to select filter when generating enquiry report. Users can choose to view all
+     * enquiries, pending enquiries (those that have yet to be replied) or enquiries that have already been replied.
+     *
+     * @param campUID The UUID of camp for which the enquiry report is to be generated
+     */
     public static void generateEnquiryReportView(UUID campUID) {
         //for each camp -> show few details -> show the enquiries
         Camp camp = CampManager.getCamp(campUID);

@@ -6,13 +6,14 @@ import helper.UserIO;
 import model.Staff;
 import model.User;
 
+
 /**
  * View class for rendering the main application interface.
  * Handles user login, authentication, password reset, and navigation to specific views based on user roles.
  *
- * @author Ryan Lau
+ * @author Ryan Lau, Shao Chong
  * @version 1.0
- * @since 2023-11-14
+ * @since 2023-11-18
  */
 public class AppView {
 

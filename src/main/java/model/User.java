@@ -4,9 +4,13 @@ import java.io.Serializable;
 
 
 /**
- * Represents a user and manages user-related operations.
+ * Abstract model class representing a user and manages user-related operations.
+ *
+ * @author Ryan Lau
+ * @version 1.0
+ * @since 2023-11-18
  */
-public class User implements Serializable {
+public abstract class User implements Serializable {
     private final String name;
     private final String email;
     private final String userID;

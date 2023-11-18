@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 
+
 /**
  * View class for rendering and managing interactions related to student-specific functionalities.
  * Provides views for students to view available camps, register for camps, view registered camps,
@@ -23,6 +24,7 @@ import java.util.UUID;
  * @since 2023-11-14
  */
 public class StudentView {
+
     /**
      * Renders the main menu for students
      * Allows students to perform actions such as viewing available camps, registering for camps,

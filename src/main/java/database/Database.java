@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.UUID;
 
+
 /**
  * Database class to maintain persistent data integrity. Reads and writes Hashmap instances to ".dat" files.
  * This class provides methods for loading data from and saving data to serialized files,

@@ -8,19 +8,27 @@ import helper.ConsoleColours;
 import helper.UserIO;
 import model.CampCommMember;
 
+
 /**
  * View class for rendering the home menu and managing interactions for Camp Committee Members.
  * Provides standard student view options such as to view available camps, register for camps,
  * view registered camps and view enquiries, change password and logout.
- * <p>
+ *
  * Additional options under camp committee member menu including: view suggestions, view all enquiries, view points,
  * generate camp reports, generate enquiry reports.
  *
- * @author Ryan Lau
+ * @author Shao Chong, Ryan Lau
  * @version 1.0
- * @since 2023-11-14
+ * @since 2023-11-18
  */
 public class CampCommView {
+
+    /**
+     * Renders the home interface for a Camp Committee Member, allowing interaction through a menu
+     * with various options related to their role.
+     *
+     * @param student The CampCommMember object representing the logged-in committee member.
+     */
     public static void renderView(CampCommMember student) {
         while (true) {
             try {
@@ -96,6 +104,12 @@ public class CampCommView {
         }
     }
 
+    /**
+     * Displays the camp report generation view, allowing the committee member to select filters for
+     * generating a report.
+     *
+     * @param student The CampCommMember object representing the logged-in committee member.
+     */
     public static void generateReportView(CampCommMember student) {
         UUID campID = student.getCommCampID();
         try {

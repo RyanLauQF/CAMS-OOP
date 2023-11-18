@@ -8,6 +8,7 @@ import model.User;
 import java.util.HashMap;
 import java.util.UUID;
 
+
 /**
  * Controller class that manages user-related operations such as registration, password updates,
  * and user validation. This class interacts with the underlying database model objects to store and retrieve

@@ -1,7 +1,6 @@
 package controller;
 
 import database.Database;
-import model.CampCommMember;
 import model.Enquiry;
 import model.Student;
 import model.User;
@@ -11,7 +10,11 @@ import java.util.UUID;
 
 
 /**
- * Manages operations related to Enquiries, such as adding, deleting, and updating Enquiries.
+ * Controller class that manages operations related to Enquiries, such as adding, deleting, and updating Enquiries.
+ *
+ * @author Tong Ying
+ * @version 1.0
+ * @since 2023-11-18
  */
 public class EnquiryManager {
     // Database containing Enquiry data
@@ -94,8 +97,9 @@ public class EnquiryManager {
      *
      * @param reply      The new reply for the Enquiry.
      * @param enquiryUID The UID of the Enquiry to be updated.
+     * @param replier    The User that replied to the enquiry
      */
-    public static void updateEnquiryReply(String reply, UUID enquiryUID){
+    public static void updateEnquiryReply(String reply, UUID enquiryUID, User replier){
         Enquiry enquiry = getEnquiry(enquiryUID);
         enquiry.setReply(reply);
         enquiry.setRepliedBy(replier);
