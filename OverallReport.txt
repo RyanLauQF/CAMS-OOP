@@ -1,21 +1,15 @@
 ============================================== 
-===== OVERALL CAMP REPORT FOR asldjals =====
+===== OVERALL CAMP REPORT FOR Attendees =====
 ============================================== 
 
-Camp Name: asldjals
-Camp Description: sakdlasd
-Camp Start Date: 2023-11-25
-Camp End Date: 2023-11-27
-Total Camp Slots: 10
-Camp User Group: EEE
+Camp Name: hello
+Camp Description: dkalsjdn
+Camp Start Date: 2023-12-12
+Camp End Date: 2023-12-14
+Total Camp Slots: 1
+Camp User Group: NTU
 Camp Staff in Charge: Chattopadhyay
 ============================================== 
-============================================== 
-List of all registered attendees: 
 No current Attendees 
-============================================== 
-============================================== 
-List of all registered committee members: 
-BRANDON
 ============================================== 
 
