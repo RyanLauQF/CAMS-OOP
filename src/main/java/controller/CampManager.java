@@ -168,6 +168,10 @@ public class CampManager {
         return filteredCamps;
     }
 
+    public static Set<UUID> getCampEnquiries(UUID campUID) {
+        Camp camp = getCamp(campUID);
+        return camp.getEnquiryID();
+    }
     /**
      * Retrieves all suggestions associated with the provided campID.
      *

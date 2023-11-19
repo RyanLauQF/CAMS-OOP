@@ -59,7 +59,7 @@ public class CampCommView {
                 System.out.println("=========================================================");
 
                 System.out.print("\nSelect an action: ");
-                int choice = UserIO.getSelection(1, 11);
+                int choice = UserIO.getSelection(1, 10);
 
                 switch (choice) {
                     case 1:
@@ -114,15 +114,15 @@ public class CampCommView {
         UUID campID = student.getCommCampID();
         try {
             System.out.println("======================= SELECT FILTERS =======================");
-            System.out.println("0) No Filters");
-            System.out.println("1) Attendee");
-            System.out.println("2) Camp Committee Member");
-            System.out.println("3) Quit");
+            System.out.println("1) No Filters");
+            System.out.println("2) Attendee");
+            System.out.println("3) Camp Committee Member");
+            System.out.println("4) Quit");
             System.out.println("===========================================================\n");
 
             System.out.print("Select an action: ");
 
-            int choice = UserIO.getSelection(0, 3);
+            int choice = UserIO.getSelection(1, 4);
             if (choice == 4) {
                 System.out.println("Quitting report generation...");
                 return;

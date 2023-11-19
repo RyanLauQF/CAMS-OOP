@@ -248,9 +248,7 @@ public class SuggestionView {
         for (UUID key : campSuggestions) {
             count++;
             System.out.println(ConsoleColours.BLUE + "Suggestion No.: " + count + ConsoleColours.RESET);
-            Suggestion suggestion = SuggestionManager.getSuggestion(key);
-            System.out.println("Camp Name: " + CampManager.getCamp(suggestion.getCampID()).getName());
-            suggestion.printSuggestionDetails();
+            SuggestionManager.printSuggestionDetails(key);
             System.out.println("--------------------------------");
         }
 

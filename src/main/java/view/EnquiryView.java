@@ -1,13 +1,12 @@
 package view;
 
-import controller.CampCommMemberManager;
-import controller.CampManager;
-import controller.EnquiryManager;
+import controller.*;
 import helper.ConsoleColours;
 import helper.UserIO;
 import model.*;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -93,7 +92,7 @@ public class EnquiryView {
         for (UUID key : enquiryKeys) {
             count++;
             System.out.println(ConsoleColours.BLUE + "Enquiry No.: " + count + ConsoleColours.RESET);
-            allEnquiries.get(key).printEnquiryDetails();
+            EnquiryManager.printEnquiryDetails(key);
             System.out.println("---------------------------------------------------------");
             enquirySelection.put(count, key);
         }
@@ -171,7 +170,7 @@ public class EnquiryView {
             }
             count++;
             System.out.println(ConsoleColours.BLUE + "Enquiry No.: " + count + ConsoleColours.RESET);
-            allEnquiries.get(key).printEnquiryDetails();
+            EnquiryManager.printEnquiryDetails(key);
             System.out.println("---------------------------------------------------------");
             enquirySelection.put(count, key);
         }
@@ -213,18 +212,57 @@ public class EnquiryView {
             }
             count++;
             System.out.println(ConsoleColours.BLUE + "Enquiry No.: " + count + ConsoleColours.RESET);
-            allEnquiries.get(key).printEnquiryDetails();
+            EnquiryManager.printEnquiryDetails(key);
             System.out.println("\n-----------------------\n");
             enquirySelection.put(count, key);
         }
         System.out.println("\n=========================================================\n");
 
-        System.out.println("Select enquiry to delete: ");
-        int choice = UserIO.getSelection(1, count);
+        System.out.println("Select enquiry to delete (0 to exit): ");
+        int choice = UserIO.getSelection(0, count);
+        if (choice == 0) return;
         UUID enquiryUID = enquirySelection.get(choice);
         EnquiryManager.deleteEnquiry(enquiryUID, student);
     }
+    /**
+     * Displays the view for showing all enquiries for camps managed by a specific Staff member.
+     *
+     * @param staff The Staff object representing the staff member.
+     */
+    public static void showAllEnquiryStaffView(Staff staff) {
+        Set<UUID> camps = StaffManager.getAllCamps(staff);
+        Set<UUID> campEnquiries = new HashSet<>();
 
+        if (camps.isEmpty()) {
+            System.out.println("You currently have no camps tagged to you!");
+            return;
+        }
+
+        // get all suggestions
+        for (UUID key : camps) {
+            Set<UUID> enquiries = CampManager.getCampEnquiries(key);
+            campEnquiries.addAll(enquiries);
+        }
+
+        if (campEnquiries.isEmpty()) {
+            System.out.println("There are currently no enquiries for your camps.\n");
+            return;
+        }
+
+        // prints all enquiries for camps staff is in charge of
+        System.out.println("\n=========================================================");
+
+        int count = 0;
+        System.out.println("--------------------------------");
+        for (UUID key : campEnquiries) {
+            count++;
+            System.out.println(ConsoleColours.BLUE + "Enquiry No.: " + count + ConsoleColours.RESET);
+            EnquiryManager.printEnquiryDetails(key);
+            System.out.println("--------------------------------");
+        }
+
+        System.out.println("=========================================================\n");
+    }
     /**
      * Renders view for camp committee members to reply to enquiries and update enquiry status.
      *
@@ -250,7 +288,7 @@ public class EnquiryView {
             for (UUID key : enquiryKeys) {
                 count++;
                 System.out.println(ConsoleColours.BLUE + "Enquiry No.: " + count + ConsoleColours.RESET);
-                allEnquiries.get(key).printEnquiryDetails();
+                EnquiryManager.printEnquiryDetails(key);
                 System.out.println("-----------------------");
                 enquirySelection.put(count, key);
             }
@@ -260,7 +298,7 @@ public class EnquiryView {
             System.out.println("1) Reply enquiries");
             System.out.println("2) Print enquiry report");
             System.out.println("3) Exit");
-            int select = UserIO.getSelection(1, 2);
+            int select = UserIO.getSelection(1, 3);
             switch (select) {
                 case 1:
                     replyEnquiryView(campUID, user);
@@ -305,14 +343,15 @@ public class EnquiryView {
             }
             count++;
             System.out.println(ConsoleColours.BLUE + "Enquiry No.: " + count + ConsoleColours.RESET);
-            allEnquiries.get(key).printEnquiryDetails();
+            EnquiryManager.printEnquiryDetails(key);
             System.out.println("-----------------------");
             enquirySelection.put(count, key);
         }
         System.out.println("=========================================================\n");
 
-        System.out.print("Select enquiry to reply to: ");
-        int choice = UserIO.getSelection(1, count);
+        System.out.print("Select enquiry to reply to (0 to exit): ");
+        int choice = UserIO.getSelection(0, count);
+        if (choice == 0) return;
         UUID enquiryUID = enquirySelection.get(choice);
         System.out.print("Enter reply: ");
         String reply = UserIO.getStringResponse();

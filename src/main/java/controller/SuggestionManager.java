@@ -3,6 +3,7 @@ package controller;
 import database.Database;
 import model.CampCommMember;
 import model.Suggestion;
+import model.Camp;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -86,6 +87,17 @@ public class SuggestionManager {
         if (status) {
             suggestion.getCreatedBy().addPoint();
         }
+    }
+    /**
+     * Prints the details of a suggestion.
+     *
+     * @param suggestionUID The UID of the suggestion to be printed.
+     */
+    public static void printSuggestionDetails(UUID suggestionUID) {
+        Suggestion suggestion = getSuggestion(suggestionUID);
+        Camp camp = CampManager.getCamp(suggestion.getCampID());
+        System.out.println("Camp Name: " + camp.getName());
+        suggestion.printSuggestionDetails();
     }
 }
 
