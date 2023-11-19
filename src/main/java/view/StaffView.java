@@ -13,8 +13,24 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
-
+/**
+ * View class for rendering the home menu and managing interactions for Camp Committee Members.
+ * Provides standard student view options such as to view available camps, register for camps,
+ * view registered camps and view enquiries, change password and logout.
+ *
+ * Additional options under camp committee member menu including: view suggestions, view all enquiries, view points,
+ * generate camp reports, generate enquiry reports.
+ *
+ * @author Shao Chong, Ryan Lau
+ * @version 1.0
+ * @since 2023-11-18
+ */
 public class StaffView {
+    /**
+     * Renders the main menu for Camp Committee Members and handles user interactions.
+     *
+     * @param staffID The unique identifier for the staff member.
+     */
     public static void renderView(String staffID) {
 
         while (true) {
@@ -29,17 +45,18 @@ public class StaffView {
                 System.out.println("1) View All Camps");
                 System.out.println("2) Select Camp");
                 System.out.println("3) Create new Camp");
-                System.out.println("4) View all Suggestions");
-                System.out.println("5) Accept/Reject Suggestions");
-                System.out.println("6) Generate Camp Report");
-                System.out.println("7) Generate Performance Report");
-                System.out.println("8) Change Password");
-                System.out.println("9) Logout");
+                System.out.println("4) View all enquiries");
+                System.out.println("5) View all Suggestions");
+                System.out.println("6) Accept/Reject Suggestions");
+                System.out.println("7) Generate Camp Report");
+                System.out.println("8) Generate Performance Report");
+                System.out.println("9) Change Password");
+                System.out.println("10) Logout");
                 System.out.print(ConsoleColours.RESET);
                 System.out.println("=========================================================");
                 System.out.print("\nSelect an action: ");
 
-                int choice = UserIO.getSelection(1, 9);
+                int choice = UserIO.getSelection(1, 10);
 
                 switch (choice) {
                     case 1:
@@ -52,21 +69,24 @@ public class StaffView {
                         createCampView(staff);
                         break;
                     case 4:
-                        allSuggestionsView(staff);
+                        allEnquiriesView(staff);
                         break;
                     case 5:
-                        processSuggestionView(staff);
+                        allSuggestionsView(staff);
                         break;
                     case 6:
-                        generateReportView(staff);
+                        processSuggestionView(staff);
                         break;
                     case 7:
-                        generatePerformanceReportView(staff);
+                        generateReportView(staff);
                         break;
                     case 8:
-                        AppView.changePasswordView(staff);
+                        generatePerformanceReportView(staff);
                         break;
                     case 9:
+                        AppView.changePasswordView(staff);
+                        break;
+                    case 10:
                         System.out.println("\nLogging Out...");
                         return;
                     default:
@@ -77,7 +97,9 @@ public class StaffView {
             }
         }
     }
-
+    /**
+     * Displays details of all available camps.
+     */
     public static void allCampView() {
         HashMap<UUID, Camp> allCamps = CampManager.getAllCamps();
 
@@ -97,7 +119,11 @@ public class StaffView {
 
         System.out.println("\n=========================================================\n");
     }
-
+    /**
+     * Displays details of camps created by the staff member and allows the selection of a specific camp.
+     *
+     * @param staff The staff member whose camps are to be displayed.
+     */
     public static void staffCampView(Staff staff) {
 
         Set<UUID> campKeys = staff.getCampIDs();
@@ -136,7 +162,12 @@ public class StaffView {
         selectCampView(staff, campUID);
     }
 
-
+    /**
+     * Displays options for a specific camp selected by the staff member.
+     *
+     * @param staff   The staff member.
+     * @param campUID The unique identifier of the selected camp.
+     */
     public static void selectCampView(Staff staff, UUID campUID) {
         while (true) {
             try {
@@ -181,7 +212,11 @@ public class StaffView {
             }
         }
     }
-
+    /**
+     * Displays the list of attendees for a specific camp.
+     *
+     * @param campUID The unique identifier of the camp.
+     */
     public static void allAttendeesView(UUID campUID) {
         Camp camp = CampManager.getCamp(campUID);
         System.out.println("===========================================================");
@@ -201,7 +236,11 @@ public class StaffView {
         }
         System.out.println("===========================================================");
     }
-
+    /**
+     * Prompts the staff member for confirmation and deletes the selected camp.
+     *
+     * @param campUID The unique identifier of the camp to be deleted.
+     */
     public static void deleteCampView(UUID campUID) {
         System.out.println("Are you sure you want to delete this camp?");
         System.out.print("Enter 'YES' to confirm deletion: ");
@@ -212,7 +251,11 @@ public class StaffView {
         }
         System.out.println("Deletion Unsuccessful. Try again");
     }
-
+    /**
+     * Displays the form for creating a new camp and adds the camp to the system.
+     *
+     * @param staff The staff member creating the camp.
+     */
     public static void createCampView(Staff staff) {
         System.out.print("Enter the name of camp: ");
         String name = UserIO.getStringResponse();
@@ -280,7 +323,11 @@ public class StaffView {
 
         System.out.print(ConsoleColours.GREEN + "\n" + "Camp has been successfully created!\n" + ConsoleColours.RESET);
     }
-
+    /**
+     * Displays options for generating various types of reports.
+     *
+     * @param staff The staff member generating the reports.
+     */
     public static void generateReportView(Staff staff) {  //if i want to allow them to search by name, location, faculty????
         while (true) {
             try {
@@ -293,7 +340,7 @@ public class StaffView {
 
                 System.out.print("Select an action: ");
 
-                int choice = UserIO.getSelection(1, 3);
+                int choice = UserIO.getSelection(1, 4);
 
                 switch (choice) {
                     case 1:
@@ -318,17 +365,36 @@ public class StaffView {
             }
         }
     }
-
-
+    /**
+     * Displays the camp performance report for the staff member.
+     *
+     * @param staff The staff member generating the performance report.
+     */
     public static void generatePerformanceReportView(Staff staff) {
         //prints the camp that they wanna see, print the points of the camp committee member
         staff.generatePerformanceReport();
     }
-
+    /**
+     * Displays all enquiries for the staff member.
+     *
+     * @param staff The staff member viewing enquiries.
+     */
+    public static void allEnquiriesView(Staff staff) {
+        EnquiryView.showAllEnquiryStaffView(staff);
+    }
+    /**
+     * Displays all suggestions for the staff member.
+     *
+     * @param staff The staff member viewing suggestions.
+     */
     public static void allSuggestionsView(Staff staff) {
         SuggestionView.showStaffSuggestionView(staff);
     }
-
+    /**
+     * Allows the staff member to approve or reject suggestions.
+     *
+     * @param staff The staff member processing suggestions.
+     */
     public static void processSuggestionView(Staff staff) {
         SuggestionView.approveSuggestionView(staff);
     }

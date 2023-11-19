@@ -4,6 +4,8 @@ import database.Database;
 import model.Enquiry;
 import model.Student;
 import model.User;
+import model.Camp;
+import controller.CampManager;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -103,5 +105,17 @@ public class EnquiryManager {
         Enquiry enquiry = getEnquiry(enquiryUID);
         enquiry.setReply(reply);
         enquiry.setRepliedBy(replier);
+    }
+    /**
+     * Prints the details of an Enquiry.
+     *
+     * @param enquiryUID The UID of the Enquiry to be printed.
+     */
+    public static void printEnquiryDetails(UUID enquiryUID) {
+        Enquiry enquiry = getEnquiry(enquiryUID);
+        UUID campUID = enquiry.getCampID();
+        Camp camp = CampManager.getCamp(campUID);
+        System.out.println("Camp: " + camp.getName());
+        enquiry.printEnquiryDetails();
     }
 }

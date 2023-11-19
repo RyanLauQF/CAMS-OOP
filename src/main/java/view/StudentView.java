@@ -58,7 +58,7 @@ public class StudentView {
                     System.out.println("=========================================================");
 
                     System.out.print("\nSelect an action: ");
-                    int choice = UserIO.getSelection(1, 7);
+                    int choice = UserIO.getSelection(1, 6);
 
                     switch (choice) {
                         case 1:

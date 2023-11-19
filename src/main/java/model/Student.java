@@ -8,7 +8,7 @@ import java.util.UUID;
 /**
  * Model class representing a student and manages student-related operations.
  *
- * @author Seung Yeon
+ * @author Seung Yeon, Tong Ying, Ryan Lau, Shao Chong
  * @version 1.0
  * @since 2023-11-18
  */
