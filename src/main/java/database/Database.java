@@ -3,12 +3,15 @@ package database;
 import model.*;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.UUID;
 
 
 /**
- * Database class to maintain persistent data integrity. Reads and writes Hashmap instances to ".dat" files.
+ * Database class to maintain persistent data integrity. Reads and writes Hashmap instances to ".txt" files.
  * This class provides methods for loading data from and saving data to serialized files,
  * as well as handling temporary CSV file processing for testing purposes.
  *
@@ -63,41 +66,50 @@ public class Database {
 //        processCSV(USER_DATA, STAFF_LIST_FILEPATH, false);
 //        processCSV(USER_DATA, STUDENT_LIST_FILEPATH, true);
 
-        USER_DATA = (HashMap<String, User>) deserializeObject("Users.dat");
-        CAMP_DATA = (HashMap<UUID, Camp>) deserializeObject("Camps.dat");
-        ENQUIRY_DATA = (HashMap<UUID, Enquiry>) deserializeObject("Enquiries.dat");
-        SUGGESTION_DATA = (HashMap<UUID, Suggestion>) deserializeObject("Suggestions.dat");
+        USER_DATA = (HashMap<String, User>) deserializeObject("Users.txt");
+        CAMP_DATA = (HashMap<UUID, Camp>) deserializeObject("Camps.txt");
+        ENQUIRY_DATA = (HashMap<UUID, Enquiry>) deserializeObject("Enquiries.txt");
+        SUGGESTION_DATA = (HashMap<UUID, Suggestion>) deserializeObject("Suggestions.txt");
     }
 
     /**
      * Saves data from HashMaps to serialized files, ensuring persistent data integrity.
      */
     public void saveToDatabase(){
-        serializeObject("Users.dat", USER_DATA);
-        serializeObject("Camps.dat", CAMP_DATA);
-        serializeObject("Suggestions.dat", SUGGESTION_DATA);
-        serializeObject("Enquiries.dat", ENQUIRY_DATA);
+        serializeObject("Users.txt", USER_DATA);
+        serializeObject("Camps.txt", CAMP_DATA);
+        serializeObject("Suggestions.txt", SUGGESTION_DATA);
+        serializeObject("Enquiries.txt", ENQUIRY_DATA);
     }
 
     /**
-     * Serializes an object and saves it to a specified file.
+     * Serializes an object into a base-64 string and saves it to a specified text file.
      *
      * @param fileName The name of the file to which the object is serialized.
      * @param object   The object to be serialized and saved.
      */
     public static void serializeObject(String fileName, Serializable object) {
-        fileName = filepath + fileName;
-        try (FileOutputStream fileOut = new FileOutputStream(fileName);
-            ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+        String filePath = filepath + fileName;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try (ObjectOutputStream out = new ObjectOutputStream(baos)) {
             out.writeObject(object);
-            System.out.println("Object serialized and saved to " + fileName);
+            out.flush();
+
+            // convert the byte array to Base64-encoded string
+            byte[] binary = baos.toByteArray();
+            String base64String = Base64.getEncoder().encodeToString(binary);
+
+            // save the Base64-encoded string to a txt file
+            Files.write(Paths.get(filePath), base64String.getBytes());
+
+            System.out.println("Object serialized and saved to " + filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Deserializes an object from a specified file.
+     * Deserializes an object from a base-64 string in specified text file.
      *
      * @param fileName The name of the file from which the object is deserialized.
      * @return The deserialized object.
@@ -106,13 +118,20 @@ public class Database {
         fileName = filepath + fileName;
         Object object = null;
 
-        try (FileInputStream fileIn = new FileInputStream(fileName);
-            ObjectInputStream in = new ObjectInputStream(fileIn)) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName));
+             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(Base64.getDecoder().decode(reader.readLine()));
+             ObjectInputStream in = new ObjectInputStream(byteArrayInputStream)) {
+
+            // Deserialize the object from the byte array
             object = in.readObject();
+
             System.out.println("Object deserialized from " + fileName);
+            return object;
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
         return object;
     }
 
