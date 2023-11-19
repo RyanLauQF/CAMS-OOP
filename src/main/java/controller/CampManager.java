@@ -1,6 +1,7 @@
 package controller;
 
 import database.Database;
+import filter.IFilter;
 import model.*;
 
 import java.io.BufferedWriter;
@@ -149,6 +150,17 @@ public class CampManager {
      */
     public static Camp getCamp(UUID campUID) {
         return campsData.get(campUID);
+    }
+
+    /**
+     * Retrieves all camps in faculty based on the provided faculty.
+     *
+     * @param camps The UUID of the set of camps.
+     * @param filter The Filter that the user want to implement
+     * @return A HashMap of all camps in faculty, where keys are UUIDs and values are Camps.
+     */
+    public static HashMap<UUID, Camp> getFilteredCamps(Set<UUID> camps, IFilter filter) {
+        return filter.filterBy(camps);
     }
 
     /**

@@ -2,6 +2,7 @@ package view;
 
 import controller.CampManager;
 import controller.UserManager;
+import filter.*;
 import helper.ConsoleColours;
 import helper.UserIO;
 import model.Camp;
@@ -96,21 +97,60 @@ public class StudentView {
      */
     public static void availableCampsView(Student student) {
         HashMap<UUID, Camp> filteredCamps = CampManager.getCampInFaculty(student.getFaculty());
-
+        HashMap<UUID, Camp> finalFilteredCamps;
         if (filteredCamps.isEmpty()) {
             System.out.println(ConsoleColours.YELLOW + "\nThere are no available camps" + ConsoleColours.RESET);
             return;
         }
 
+        // TODO - Do we need to have another like interface here or something to ask for what filter do u wanna implement?
+        System.out.print("Which filters do u want to implement?\n");
+        System.out.print("1) No Filter (Alphabetical)\n");
+        System.out.print("2) Start Date\n");
+        System.out.print("3) End Date\n");
+        System.out.print("4) Location\n");
+        System.out.print("5) Remaining Slots\n");
+        System.out.print("6) Staff In Charge\n");
+
+        int userFilter = UserIO.getSelection(1,5);
         int count = 1;
-        System.out.println("\n.........................................................");
-        for (UUID key : filteredCamps.keySet()) {
+        System.out.println(".........................................................");
+
+        switch (userFilter) {
+            case 2:
+                IFilter startDateFilter = new DateStartFilter();
+                finalFilteredCamps = CampManager.getFilteredCamps(filteredCamps.keySet(), startDateFilter);
+                break;
+            case 3:
+                IFilter endDateFilter = new DateEndFilter();
+                finalFilteredCamps = CampManager.getFilteredCamps(filteredCamps.keySet(), endDateFilter);
+                break;
+            case 4:
+                IFilter locationFilter = new LocationFilter();
+                finalFilteredCamps = CampManager.getFilteredCamps(filteredCamps.keySet(), locationFilter);
+                break;
+            case 5:
+                IFilter slotFilter= new SlotFilter();
+                finalFilteredCamps = CampManager.getFilteredCamps(filteredCamps.keySet(), slotFilter);
+                break;
+            case 6:
+                IFilter staffFilter = new StaffFilter();
+                finalFilteredCamps = CampManager.getFilteredCamps(filteredCamps.keySet(), staffFilter);
+                break;
+            default:
+                finalFilteredCamps = filteredCamps;
+                break;
+        }
+
+        for (UUID key : finalFilteredCamps.keySet()) {
             System.out.println(ConsoleColours.BLUE + "Camp No.: " + count + ConsoleColours.RESET);
             Camp camp = CampManager.getCamp(key);
             camp.printCampDetails();
             System.out.println(".........................................................");
             count++;
         }
+
+
     }
 
     /**
