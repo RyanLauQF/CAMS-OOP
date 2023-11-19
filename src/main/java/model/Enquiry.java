@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
+
 /**
  * The Enquiry class represents a user's query within a camp. It includes information about the query,
  * the user who created it (a Student), the associated camp ID, and details about the processing and reply.
@@ -18,7 +19,6 @@ import java.util.UUID;
  * @version 1.0
  * @since 2023-11-18
  */
-
 public class Enquiry implements Serializable {
     private String query;
     private final Student createdBy;
@@ -28,6 +28,7 @@ public class Enquiry implements Serializable {
 
     private String reply;
     private User repliedBy;
+
     /**
      * Constructs an Enquiry object with the specified query, creator (Student), and camp ID.
      *
@@ -42,6 +43,7 @@ public class Enquiry implements Serializable {
         this.reply = "";
         this.isProcessed = false;
     }
+
     /**
      * Prints the details of the enquiry, including the query, creator, and reply (if processed).
      */
@@ -54,6 +56,7 @@ public class Enquiry implements Serializable {
 
         }
     }
+
     /**
      * Generates an enquiry report for a camp based on the specified choice.
      *
@@ -120,6 +123,7 @@ public class Enquiry implements Serializable {
             }
         }
     }
+
     /**
      * Gets the user's query.
      *
@@ -128,6 +132,7 @@ public class Enquiry implements Serializable {
     public String getQuery() {
         return query;
     }
+
     /**
      * Sets the user's query.
      *
@@ -136,6 +141,7 @@ public class Enquiry implements Serializable {
     public void setQuery(String query) {
         this.query = query;
     }
+
     /**
      * Gets the UUID of the camp associated with the enquiry.
      *
@@ -144,6 +150,7 @@ public class Enquiry implements Serializable {
     public UUID getCampID() {
         return campID;
     }
+
     /**
      * Gets the Student who created the enquiry.
      *
@@ -152,6 +159,7 @@ public class Enquiry implements Serializable {
     public Student getCreatedBy() {
         return createdBy;
     }
+
     /**
      * Gets the reply to the enquiry.
      *
@@ -169,6 +177,7 @@ public class Enquiry implements Serializable {
     public void setReply(String reply) {
         this.reply = reply;
     }
+
     /**
      * Sets the processing status of the enquiry.
      *
@@ -177,6 +186,7 @@ public class Enquiry implements Serializable {
     public void setIsProcessed(boolean isProcessed) {
         this.isProcessed = isProcessed;
     }
+
     /**
      * Checks if the enquiry has been processed.
      *
@@ -185,6 +195,7 @@ public class Enquiry implements Serializable {
     public boolean getIsProcessed() {
         return isProcessed;
     }
+
     /**
      * Gets the user who replied to the enquiry.
      *
@@ -193,6 +204,7 @@ public class Enquiry implements Serializable {
     public User getRepliedBy() {
         return repliedBy;
     }
+
     /**
      * Sets the user who replied to the enquiry.
      *

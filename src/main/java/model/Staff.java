@@ -21,7 +21,6 @@ import java.util.UUID;
  */
 public class Staff extends User {
 
-    //attributes
     /**
      * Set of UUIDs for each camp created by the staff member.
      */

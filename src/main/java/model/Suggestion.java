@@ -2,6 +2,8 @@ package model;
 
 import java.io.Serializable;
 import java.util.UUID;
+
+
 /**
  * Model class representing a suggestion and manages suggestions-related operations.
  *
@@ -19,6 +21,7 @@ public class Suggestion implements Serializable {
     private boolean isViewed;
     private boolean isAccepted;
     private SuggestionType type;
+
     /**
      * Constructs a Suggestion object with the specified suggestion, committee member, camp ID, and suggestion type.
      *
@@ -35,6 +38,7 @@ public class Suggestion implements Serializable {
         this.isAccepted = false;
         this.type = type;
     }
+
     /**
      * Gets the suggestion made by the committee member.
      *
@@ -43,6 +47,7 @@ public class Suggestion implements Serializable {
     public String getSuggestion() {
         return suggestion;
     }
+
     /**
      * Prints the details of the suggestion, including the suggestion text, creator, type, and status.
      */
@@ -52,6 +57,7 @@ public class Suggestion implements Serializable {
         System.out.println("Type: " + type);
         System.out.println("Status: " + (isViewed ? (isAccepted ? "Accepted" : "Rejected") : "Pending"));
     }
+
     /**
      * Gets the UUID of the camp associated with the suggestion.
      *
@@ -60,6 +66,7 @@ public class Suggestion implements Serializable {
     public UUID getCampID() {
         return campID;
     }
+
     /**
      * Sets the suggestion text.
      *
@@ -68,6 +75,7 @@ public class Suggestion implements Serializable {
     public void setSuggestion(String suggestion) {
         this.suggestion = suggestion;
     }
+
     /**
      * Gets the committee member who created the suggestion.
      *
@@ -76,6 +84,7 @@ public class Suggestion implements Serializable {
     public CampCommMember getCreatedBy() {
         return createdBy;
     }
+
     /**
      * Checks if the suggestion has been viewed.
      *
@@ -84,6 +93,7 @@ public class Suggestion implements Serializable {
     public boolean isViewed() {
         return isViewed;
     }
+
     /**
      * Checks if the suggestion has been accepted.
      *
@@ -92,6 +102,7 @@ public class Suggestion implements Serializable {
     public boolean isAccepted() {
         return isAccepted;
     }
+
     /**
      * Sets the viewed status of the suggestion.
      *
@@ -100,6 +111,7 @@ public class Suggestion implements Serializable {
     public void setViewed(boolean viewed) {
         isViewed = viewed;
     }
+
     /**
      * Sets the accepted status of the suggestion.
      *
@@ -108,6 +120,7 @@ public class Suggestion implements Serializable {
     public void setAccepted(boolean accepted) {
         isAccepted = accepted;
     }
+
     /**
      * Gets the type of the suggestion.
      *
@@ -116,6 +129,7 @@ public class Suggestion implements Serializable {
     public SuggestionType getType() {
         return type;
     }
+
     /**
      * Sets the type of the suggestion.
      *
@@ -124,6 +138,5 @@ public class Suggestion implements Serializable {
     public void setType(SuggestionType type) {
         this.type = type;
     }
-
 }
 

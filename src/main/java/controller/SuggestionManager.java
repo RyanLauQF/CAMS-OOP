@@ -19,6 +19,7 @@ import java.util.UUID;
  * @since 2023-11-14
  */
 public class SuggestionManager {
+
     /**
      * HashMap storing suggestion data, where the keys are UUIDs and values are suggestions.
      */
@@ -60,6 +61,7 @@ public class SuggestionManager {
     public static void updateSuggestion(String suggestion, UUID suggestionUID) {
         getSuggestion(suggestionUID).setSuggestion(suggestion);
     }
+
     /**
      * Removes a suggestion from the system based on the provided suggestion UUID.
      * Also removes the association from the Camp Committee Member.
@@ -73,6 +75,7 @@ public class SuggestionManager {
         CampCommMemberManager.removeSuggestionfromCCM(student, suggestionUID);
         suggestionData.remove(suggestionUID);
     }
+
     /**
      * Sets the acceptance status of a suggestion.
      * Additionally, awards points to the creator of the suggestion if it is accepted.
@@ -88,6 +91,7 @@ public class SuggestionManager {
             suggestion.getCreatedBy().addPoint();
         }
     }
+
     /**
      * Prints the details of a suggestion.
      *
