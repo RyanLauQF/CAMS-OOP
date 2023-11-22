@@ -21,7 +21,6 @@ import java.util.UUID;
  */
 public class Staff extends User {
 
-    //attributes
     /**
      * Set of UUIDs for each camp created by the staff member.
      */
@@ -34,12 +33,12 @@ public class Staff extends User {
      * @param email   The email of the staff.
      * @param faculty The user group for which the staff member belongs.
      */
-    //constructor
     public Staff(String name, String email, UserGroup faculty){
         //change faculty to UserGroup?
         super(name, email, faculty);
         this.campIDs = new HashSet<>();
     }
+
     /**
      * Checks if staff has created camp.
      *
@@ -49,9 +48,10 @@ public class Staff extends User {
     public boolean hasCreatedCamp(UUID campID){
         return campIDs.contains(campID);
     }
+
     /**
      * Registers a new camp created by the staff member.
-     * Adds campID to Set<UUID> for tracking.
+     * Adds campID to UUID Set for tracking.
      *
      * @param campID The UUID of the camp to register.
      */

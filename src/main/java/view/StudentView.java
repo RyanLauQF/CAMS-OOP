@@ -111,8 +111,9 @@ public class StudentView {
         System.out.print("4) Location\n");
         System.out.print("5) Remaining Slots\n");
         System.out.print("6) Staff In Charge\n");
+        System.out.print("7) Exit\n");
 
-        int userFilter = UserIO.getSelection(1,5);
+        int userFilter = UserIO.getSelection(1,7);
         int count = 1;
         System.out.println(".........................................................");
 
@@ -137,9 +138,17 @@ public class StudentView {
                 IFilter staffFilter = new StaffFilter();
                 finalFilteredCamps = CampManager.getFilteredCamps(filteredCamps.keySet(), staffFilter);
                 break;
+            case 7:
+                System.out.println("Exiting Filter View");
+                return;
             default:
                 finalFilteredCamps = filteredCamps;
                 break;
+        }
+
+        if (finalFilteredCamps.isEmpty()) {
+            System.out.println(ConsoleColours.YELLOW + "\nThere are no available camps with your filter" + ConsoleColours.RESET);
+            return;
         }
 
         for (UUID key : finalFilteredCamps.keySet()) {

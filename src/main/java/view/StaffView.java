@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
+
+
 /**
  * View class for rendering the home menu and managing interactions for Camp Committee Members.
  * Provides standard student view options such as to view available camps, register for camps,
@@ -26,6 +28,7 @@ import java.util.UUID;
  * @since 2023-11-18
  */
 public class StaffView {
+
     /**
      * Renders the main menu for Camp Committee Members and handles user interactions.
      *
@@ -97,6 +100,7 @@ public class StaffView {
             }
         }
     }
+
     /**
      * Displays details of all available camps.
      */
@@ -119,6 +123,7 @@ public class StaffView {
 
         System.out.println("\n=========================================================\n");
     }
+
     /**
      * Displays details of camps created by the staff member and allows the selection of a specific camp.
      *
@@ -212,6 +217,7 @@ public class StaffView {
             }
         }
     }
+
     /**
      * Displays the list of attendees for a specific camp.
      *
@@ -236,6 +242,7 @@ public class StaffView {
         }
         System.out.println("===========================================================");
     }
+
     /**
      * Prompts the staff member for confirmation and deletes the selected camp.
      *
@@ -251,6 +258,7 @@ public class StaffView {
         }
         System.out.println("Deletion Unsuccessful. Try again");
     }
+
     /**
      * Displays the form for creating a new camp and adds the camp to the system.
      *
@@ -323,6 +331,7 @@ public class StaffView {
 
         System.out.print(ConsoleColours.GREEN + "\n" + "Camp has been successfully created!\n" + ConsoleColours.RESET);
     }
+
     /**
      * Displays options for generating various types of reports.
      *
@@ -365,6 +374,7 @@ public class StaffView {
             }
         }
     }
+
     /**
      * Displays the camp performance report for the staff member.
      *
@@ -374,6 +384,7 @@ public class StaffView {
         //prints the camp that they wanna see, print the points of the camp committee member
         staff.generatePerformanceReport();
     }
+
     /**
      * Displays all enquiries for the staff member.
      *
@@ -382,6 +393,7 @@ public class StaffView {
     public static void allEnquiriesView(Staff staff) {
         EnquiryView.showAllEnquiryStaffView(staff);
     }
+
     /**
      * Displays all suggestions for the staff member.
      *
@@ -390,6 +402,7 @@ public class StaffView {
     public static void allSuggestionsView(Staff staff) {
         SuggestionView.showStaffSuggestionView(staff);
     }
+
     /**
      * Allows the staff member to approve or reject suggestions.
      *

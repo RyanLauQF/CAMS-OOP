@@ -42,7 +42,7 @@ public class Database {
     public static HashMap<UUID, Enquiry> ENQUIRY_DATA = new HashMap<>();
 
     /**
-     * Filepath to data folder containing ".dat" files
+     * Filepath to data folder containing ".txt" files
      */
     public static final String filepath = "./src/main/java/database/data/";
 
@@ -122,7 +122,7 @@ public class Database {
              ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(Base64.getDecoder().decode(reader.readLine()));
              ObjectInputStream in = new ObjectInputStream(byteArrayInputStream)) {
 
-            // Deserialize the object from the byte array
+            // deserialize the object from the byte array
             object = in.readObject();
 
             System.out.println("Object deserialized from " + fileName);
