@@ -1,7 +1,7 @@
 package com.cmas.main;
-import database.Database;
-import helper.UserIO;
-import view.AppView;
+import com.cmas.helper.UserIO;
+import com.cmas.database.Database;
+import com.cmas.view.AppView;
 
 
 /**

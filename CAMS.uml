@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-98.5" y="-14.5">com.cmas.view</node>
+    <node x="-114.0" y="100.5">com.cmas.database</node>
+    <node x="-98.5" y="345.5">com.cmas.filter</node>
+    <node x="-115.5" y="166.5">com.cmas.controller</node>
+    <node x="-105.0" y="225.5">com.cmas.helper</node>
+    <node x="-100.0" y="285.5">com.cmas.main</node>
+    <node x="-105.0" y="45.5">com.cmas.model</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Circular" zoom="0.64" showDependencies="true" x="-122.62499999999955" y="115.34375" />
+  <SelectedNodes>
+    <node>com.cmas.database</node>
+    <node>com.cmas.filter</node>
+    <node>com.cmas.controller</node>
+    <node>com.cmas.helper</node>
+    <node>com.cmas.view</node>
+    <node>com.cmas.main</node>
+    <node>com.cmas.model</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
