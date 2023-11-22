@@ -9,6 +9,13 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Staff name filter for students
+ *
+ * @author Markus Lim
+ * @version 1.0
+ * @since 2023-11-18
+ */
 public class StaffFilter implements IFilter{
     private final String staffName;
 

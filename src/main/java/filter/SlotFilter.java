@@ -8,6 +8,13 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Remaining slots filter for students
+ *
+ * @author Markus Lim
+ * @version 1.0
+ * @since 2023-11-18
+ */
 public class SlotFilter implements IFilter{
     private final int totalFilter;
 

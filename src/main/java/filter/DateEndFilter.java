@@ -7,6 +7,13 @@ import model.Camp;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * End date filter for students
+ *
+ * @author Markus Lim
+ * @version 1.0
+ * @since 2023-11-18
+ */
 public class DateEndFilter implements IFilter{
     private final LocalDate date;
 
