@@ -13,6 +13,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * The StaffEnquiryView class provides methods for rendering views related to staff-enquiry interactions
+ * and implementing the GenerateEnquiryReportView interface.
+ */
 public class StaffEnquiryView implements GenerateEnquiryReportView {
 
     /**

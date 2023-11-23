@@ -11,6 +11,10 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * The CCMEnquiryView class extends StudentEnquiryView and implements GenerateEnquiryReportView,
+ * providing methods for rendering views related to Camp Committee Member (CCM)-enquiry interactions.
+ */
 public class CCMEnquiryView extends StudentEnquiryView implements GenerateEnquiryReportView {
 
     /**

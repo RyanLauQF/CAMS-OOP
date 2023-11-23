@@ -6,7 +6,11 @@ import com.cmas.model.*;
 
 import java.util.UUID;
 
-//for staff and student
+/**
+ * The GenerateEnquiryReportView interface provides a method to display a menu for users to select filters
+ * when generating an enquiry report. Users can choose to view all enquiries, pending enquiries
+ * (those that have yet to be replied), or enquiries that have already been replied.
+ */
 public interface GenerateEnquiryReportView {
 
     /**

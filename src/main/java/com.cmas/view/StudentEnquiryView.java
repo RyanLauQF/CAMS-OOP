@@ -1,17 +1,14 @@
 package com.cmas.view;
 
-import com.cmas.controller.CampManager;
-import com.cmas.controller.EnquiryManager;
 import com.cmas.helper.ConsoleColours;
 import com.cmas.helper.UserIO;
-import com.cmas.model.Camp;
-import com.cmas.model.Enquiry;
 import com.cmas.model.Student;
 
-import java.util.HashMap;
-import java.util.Set;
-import java.util.UUID;
 
+/**
+ * The StudentEnquiryView class provides a method for rendering the enquiry menu for students
+ * and managing user selections to render various views as part of the CreateEnquiryView interface.
+ */
 public class StudentEnquiryView implements CreateEnquiryView{
     /**
      * Renders the enquiry menu for students and manages user selections to render various views.

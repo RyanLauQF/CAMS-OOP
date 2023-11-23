@@ -12,7 +12,9 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 
-//for creating and editing enquiries
+/**
+ * The CreateEnquiryView interface provides methods for rendering views related to student-enquiry interactions.
+ */
 public interface CreateEnquiryView{
     /**
      * Renders all the enquiries submitted by the student
