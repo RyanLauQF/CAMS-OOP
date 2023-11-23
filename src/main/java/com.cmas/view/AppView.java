@@ -6,6 +6,8 @@ import com.cmas.model.Staff;
 import com.cmas.model.User;
 import com.cmas.controller.UserManager;
 
+import java.util.HashMap;
+
 
 /**
  * View class for rendering the main application interface.
@@ -22,6 +24,8 @@ public class AppView {
      * Allows users to log in, quit the program, and navigates to specific views based on their roles upon login.
      */
     public static void renderView() {
+        int count = 0;
+        HashMap<String, Integer> tmp = new HashMap<>();
         while (true) {
             // system login
             String userID, password;
@@ -41,32 +45,37 @@ public class AppView {
                 return;
             }
 
-            System.out.print("Enter your User ID: ");
-            userID = UserIO.getStringResponse();
+            while (true) {
+                System.out.print("Enter your User ID: ");
+                userID = UserIO.getStringResponse();
 
-            System.out.print("Enter your Password: ");
-            password = UserIO.getStringResponse();
+                System.out.print("Enter your Password: ");
+                password = UserIO.getStringResponse();
 
-            // check if user exists and credentials are valid
-            if (!UserManager.containsUser(userID)) {
-                System.out.println(ConsoleColours.RED + "Invalid User!" + ConsoleColours.RESET);
-                continue;
-            }
+                // check if user exists and credentials are valid
+                if (!UserManager.containsUser(userID)) {
+                    System.out.println(ConsoleColours.RED + "Invalid User!" + ConsoleColours.RESET);
+                    continue;
+                }
 
-            if (!UserManager.validateUser(userID, password)) {
-                System.out.println(ConsoleColours.RED + "Invalid Password!" + ConsoleColours.RESET);
-                continue;
-            }
+                if (!UserManager.validateUser(userID, password)) {
+                    tmp.put(userID, tmp.getOrDefault(userID, 0) + 1);
+                    if (tmp.get(userID) == 3) break;
+                    System.out.println(ConsoleColours.RED + "Invalid Password!" + ConsoleColours.RESET);
+                    System.out.println(ConsoleColours.RED + "You have " + (3 - tmp.get(userID)) + " tries left" + ConsoleColours.RESET);
+                    continue;
+                }
 
-            User user = UserManager.getUser(userID);
+                User user = UserManager.getUser(userID);
 
-            // valid user
-            if (user instanceof Staff) {
-                // staff display
-                StaffView.renderView(userID);
-            } else {
-                // student display
-                StudentView.renderView(userID);
+                // valid user
+                if (user instanceof Staff) {
+                    // staff display
+                    StaffView.renderView(userID);
+                } else {
+                    // student display
+                    StudentView.renderView(userID);
+                }
             }
         }
     }
