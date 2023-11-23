@@ -75,7 +75,7 @@ public class StaffView {
                         createCampView(staff);
                         break;
                     case 4:
-                        allEnquiriesView(staff);
+                        StaffEnquiryView.showAllEnquiryStaffView(staff);
                         break;
                     case 5:
                         allSuggestionsView(staff);
@@ -201,7 +201,7 @@ public class StaffView {
                         allAttendeesView(campUID);
                         break;
                     case 3:
-                        EnquiryView.viewEnquiryView(campUID, staff);
+                        StaffEnquiryView.viewEnquiryView(campUID, staff);
                         break;
                     case 4:
                         SuggestionView.getSuggestionsForCampView(campUID);
@@ -252,11 +252,19 @@ public class StaffView {
      * @param campUID The unique identifier of the camp to be deleted.
      */
     public static void deleteCampView(UUID campUID) {
-        System.out.println("Are you sure you want to delete this camp?");
-        System.out.print("Enter 'YES' to confirm deletion: ");
-        String confirmation = UserIO.getStringResponse();
-        if (confirmation.equals("YES")) {
-            // TODO: DELETE CAMP FROM DB
+        Camp camp = CampManager.getCamp(campUID);
+        if (camp.getRegisteredCommMembers().isEmpty() && camp.getRegisteredAttendees().isEmpty() ){
+            System.out.println("Are you sure you want to delete this camp?");
+            System.out.print("Enter 'YES' to confirm deletion: ");
+            String confirmation = UserIO.getStringResponse();
+            if (confirmation.equals("YES")) {
+                CampManager.deleteCamp(campUID);
+                System.out.println("Camp successfully deleted.");
+                return;
+            }
+        }
+        else{
+            System.out.println("You have attendees in the camp already. Camp cannot be deleted.");
             return;
         }
         System.out.println("Deletion Unsuccessful. Try again");
@@ -388,14 +396,6 @@ public class StaffView {
         staff.generatePerformanceReport();
     }
 
-    /**
-     * Displays all enquiries for the staff member.
-     *
-     * @param staff The staff member viewing enquiries.
-     */
-    public static void allEnquiriesView(Staff staff) {
-        EnquiryView.showAllEnquiryStaffView(staff);
-    }
 
     /**
      * Displays all suggestions for the staff member.

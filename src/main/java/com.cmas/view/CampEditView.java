@@ -183,8 +183,12 @@ public class CampEditView {
      * @param campUID The UUID of camp to be edited.
      */
     public static void changeVisibilityView(UUID campUID) {
-        CampManager.updateVisibility(campUID);
         Camp camp = CampManager.getCamp((campUID));
+        if (camp.isVisible() && (camp.getRegisteredAttendees() != null || camp.getRegisteredCommMembers() != null)){
+            System.out.print("Camp already has attendees. Camp visibility cannot be turned off.");
+            return;
+        }
+        CampManager.updateVisibility(campUID);
         System.out.print("Visibility toggled to: " + (camp.isVisible() ? "Visible" : "Not visible") + "\n");
     }
 }
