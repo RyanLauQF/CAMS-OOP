@@ -207,7 +207,7 @@ public class StaffView {
                         SuggestionView.getSuggestionsForCampView(campUID);
                         break;
                     case 5:
-                        deleteCampView(campUID);
+                        deleteCampView(campUID, staff);
                         return;
                     case 6:
                         System.out.println("Cancelling Selection...\n");
@@ -251,14 +251,14 @@ public class StaffView {
      *
      * @param campUID The unique identifier of the camp to be deleted.
      */
-    public static void deleteCampView(UUID campUID) {
+    public static void deleteCampView(UUID campUID, Staff staff) {
         Camp camp = CampManager.getCamp(campUID);
         if (camp.getRegisteredCommMembers().isEmpty() && camp.getRegisteredAttendees().isEmpty() ){
             System.out.println("Are you sure you want to delete this camp?");
             System.out.print("Enter 'YES' to confirm deletion: ");
             String confirmation = UserIO.getStringResponse();
             if (confirmation.equals("YES")) {
-                CampManager.deleteCamp(campUID);
+                CampManager.deleteCamp(campUID, staff);
                 System.out.println("Camp successfully deleted.");
                 return;
             }

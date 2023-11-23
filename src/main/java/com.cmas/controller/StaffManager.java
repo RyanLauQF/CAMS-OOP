@@ -26,6 +26,7 @@ public class StaffManager {
         staff.registerNewCamp(campID);
     }
 
+    public static void removeCampFromStaff(UUID campID, Staff staff){staff.removeCamp(campID);}
     /**
      * Retrieves a set of UUIDs representing all camps associated with the specified staff member.
      *

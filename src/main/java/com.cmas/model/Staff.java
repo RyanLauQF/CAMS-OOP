@@ -60,6 +60,13 @@ public class Staff extends User {
     }
 
     /**
+     * Removes a camp identified by the specified UUID from the set of camp IDs under Staff.
+     *
+     * @param campID The UUID of the camp to be removed.
+     */
+    public void removeCamp(UUID campID){campIDs.remove(campID);}
+
+    /**
      * Gets the set of UUIDs representing the camps created by the staff member.
      *
      * @return The set of camp UUIDs.
