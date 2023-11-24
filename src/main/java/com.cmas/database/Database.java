@@ -22,6 +22,11 @@ import java.util.UUID;
 public class Database {
 
     /**
+     * Unique instance of database to ensure Singleton database class
+     */
+    private static Database uniqueInstance = null;
+
+    /**
      * HashMap to store user data with user IDs (uppercase) as keys and User objects as values.
      */
     public static HashMap<String, User> USER_DATA = new HashMap<>();
@@ -57,10 +62,20 @@ public class Database {
     public static final String STUDENT_LIST_FILEPATH = "src/main/resources/student_list.csv";
 
     /**
-     * Constructor for the Database class. Initializes the database by loading data from serialized files.
+     * Private constructor for Database class. Initializes the database by loading data from serialized files.
      */
-    public Database() {
+    private Database() {
         loadFromDatabase();
+    }
+
+    /**
+     * Retrieves single instance of database. If it does not exist, database will be initialised via a private constructor
+     * @return instance of database
+     */
+    public static Database getInstance() {
+        if (uniqueInstance == null)
+            uniqueInstance = new Database();
+        return uniqueInstance;
     }
 
     /**
@@ -77,7 +92,6 @@ public class Database {
             processCSV(USER_DATA, STAFF_LIST_FILEPATH, false);
             processCSV(USER_DATA, STUDENT_LIST_FILEPATH, true);
         }
-
     }
 
     /**
