@@ -18,7 +18,7 @@ public class UserIO {
     /**
      * Scanner object for reading user input.
      */
-    public static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
     /**
      * Retrieves a user selection within specified range of [lowestChoiceIdx, highestChoiceIdx]

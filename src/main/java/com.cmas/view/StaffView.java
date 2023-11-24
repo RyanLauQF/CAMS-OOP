@@ -354,8 +354,7 @@ public class StaffView {
                 System.out.println("======================= SELECT FILTERS =======================");
                 System.out.println("1) Attendee");
                 System.out.println("2) Camp Committee Member");
-                System.out.println("3) ....");
-                System.out.println("4) Quit");
+                System.out.println("3) Exit Report Generation");
                 System.out.println("===========================================================\n");
 
                 System.out.print("Select an action: ");
@@ -370,10 +369,6 @@ public class StaffView {
                         staff.generateReport(2);
                         return;
                     case 3:
-                        System.out.println("Generating Report for Location");
-                        staff.generateReport(3);
-                        return;
-                    case 4:
                         System.out.println("Cancelling Report...");
                         return;
                     default:
