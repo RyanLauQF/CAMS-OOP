@@ -46,6 +46,11 @@ public class CampManager {
         StaffManager.addCampToStaff(uid, staff);
     }
 
+    public static void deleteCamp(UUID campUID, Staff staff){
+        campsData.remove(campUID);
+        StaffManager.removeCampFromStaff(campUID, staff);
+    }
+
     // ================== CAMP REGISTRATION ================== //
 
     /**

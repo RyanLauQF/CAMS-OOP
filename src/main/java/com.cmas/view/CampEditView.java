@@ -1,5 +1,6 @@
 package com.cmas.view;
 
+import com.cmas.helper.ConsoleColours;
 import com.cmas.helper.UserIO;
 import com.cmas.model.Camp;
 import com.cmas.model.UserGroup;
@@ -102,10 +103,19 @@ public class CampEditView {
      * @param campUID The UUID of camp to be edited.
      */
     public static void changeStartDateView(UUID campUID) {
-        System.out.print("Enter camp start date: ");
-        String date = UserIO.getStringResponse();
-        LocalDate startDate = LocalDate.parse(date);
-        CampManager.updateStartDate(campUID, startDate);
+
+        Camp camp = CampManager.getCamp(campUID);
+        LocalDate closingDate = camp.getClosingDate();
+        while (true) {
+            System.out.print("Enter new camp start date: ");
+            LocalDate startDate = UserIO.getDateResponse();
+            if (!startDate.isAfter(closingDate)) {
+                System.out.print(ConsoleColours.RED + "Start date cannot be before the registration closing date!\n" + ConsoleColours.RESET);
+                continue;
+            }
+            CampManager.updateStartDate(campUID, startDate);
+            break;
+        }
     }
 
     /**
@@ -114,10 +124,19 @@ public class CampEditView {
      * @param campUID The UUID of camp to be edited.
      */
     public static void changeEndDateView(UUID campUID) {
-        System.out.print("Enter camp end date: ");
-        String date = UserIO.getStringResponse();
-        LocalDate endDate = LocalDate.parse(date);
-        CampManager.updateEndDate(campUID, endDate);
+
+        Camp camp = CampManager.getCamp(campUID);
+        LocalDate startDate = camp.getStartDate();
+        while (true) {
+            System.out.print("Enter new camp end date: ");
+            LocalDate endDate = UserIO.getDateResponse();
+            if (!endDate.isAfter(startDate)) {
+                System.out.print(ConsoleColours.RED + "End date has to be after the camp start date!\n" + ConsoleColours.RESET);
+                continue;
+            }
+            CampManager.updateEndDate(campUID, endDate);
+            break;
+        }
     }
 
     /**
@@ -126,10 +145,19 @@ public class CampEditView {
      * @param campUID The UUID of camp to be edited.
      */
     public static void changeClosingDateView(UUID campUID) {
-        System.out.print("Enter camp registration closing date: ");
-        String date = UserIO.getStringResponse();
-        LocalDate closingDate = LocalDate.parse(date);
-        CampManager.updateClosingDate(campUID, closingDate);
+        Camp camp = CampManager.getCamp(campUID);
+        LocalDate startDate = camp.getStartDate();
+
+        while (true) {
+            System.out.print("Enter new camp registration closing date: ");
+            LocalDate closingDate = UserIO.getDateResponse();
+            if (!closingDate.isBefore(startDate)) {
+                System.out.print(ConsoleColours.RED + "Registration has to close before the start of the camp!\n" + ConsoleColours.RESET);
+                continue;
+            }
+            CampManager.updateClosingDate(campUID, closingDate);
+            break;
+        }
     }
 
     /**
@@ -183,8 +211,12 @@ public class CampEditView {
      * @param campUID The UUID of camp to be edited.
      */
     public static void changeVisibilityView(UUID campUID) {
-        CampManager.updateVisibility(campUID);
         Camp camp = CampManager.getCamp((campUID));
+        if (camp.isVisible() && (camp.getRegisteredAttendees() != null || camp.getRegisteredCommMembers() != null)){
+            System.out.print("Camp already has attendees. Camp visibility cannot be turned off.");
+            return;
+        }
+        CampManager.updateVisibility(campUID);
         System.out.print("Visibility toggled to: " + (camp.isVisible() ? "Visible" : "Not visible") + "\n");
     }
 }

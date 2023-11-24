@@ -71,14 +71,14 @@ public class CampCommView {
                         StudentView.registeredCampsView(student);
                         break;
                     case 4:
-                        EnquiryView.studentEnquiryView(student);
+                        StudentEnquiryView.studentEnquiryView(student);
                         break;
                     case 5:
                         SuggestionView.ccmSuggestionView(student);
                         break;
                     case 6: {
                         UUID campID = student.getCommCampID();
-                        EnquiryView.viewEnquiryView(campID, student);
+                        CCMEnquiryView.viewEnquiryView(campID, student);
                         break;
                     }
                     case 7:

@@ -72,7 +72,7 @@ public class StudentView {
                             registeredCampsView(student);
                             break;
                         case 4:
-                            EnquiryView.studentEnquiryView(student);
+                            StudentEnquiryView.studentEnquiryView(student);
                             break;
                         case 5:
                             AppView.changePasswordView(student);
