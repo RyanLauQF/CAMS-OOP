@@ -1,10 +1,13 @@
 package com.cmas.view;
 
 import com.cmas.helper.ConsoleColours;
+import com.cmas.helper.PasswordChecker;
 import com.cmas.helper.UserIO;
 import com.cmas.model.Staff;
 import com.cmas.model.User;
 import com.cmas.controller.UserManager;
+
+import java.util.HashMap;
 
 
 /**
@@ -22,6 +25,8 @@ public class AppView {
      * Allows users to log in, quit the program, and navigates to specific views based on their roles upon login.
      */
     public static void renderView() {
+        int count = 0;
+        HashMap<String, Integer> tmp = new HashMap<>();
         while (true) {
             // system login
             String userID, password;
@@ -41,32 +46,48 @@ public class AppView {
                 return;
             }
 
-            System.out.print("Enter your User ID: ");
-            userID = UserIO.getStringResponse();
+            while (true) {
+                System.out.print("Enter your User ID: ");
+                userID = UserIO.getStringResponse();
 
-            System.out.print("Enter your Password: ");
-            password = UserIO.getStringResponse();
+                System.out.print("Enter your Password: ");
+                password = UserIO.getStringResponse();
 
-            // check if user exists and credentials are valid
-            if (!UserManager.containsUser(userID)) {
-                System.out.println(ConsoleColours.RED + "Invalid User!" + ConsoleColours.RESET);
-                continue;
-            }
+                // check if user exists and credentials are valid
+                if (!UserManager.containsUser(userID)) {
+                    System.out.println(ConsoleColours.RED + "Invalid User!" + ConsoleColours.RESET);
+                    continue;
+                }
 
-            if (!UserManager.validateUser(userID, password)) {
-                System.out.println(ConsoleColours.RED + "Invalid Password!" + ConsoleColours.RESET);
-                continue;
-            }
+                if (!UserManager.validateUser(userID, password)) {
+                    tmp.put(userID, tmp.getOrDefault(userID, 0) + 1);
+                    if (tmp.get(userID) == 3) break;
+                    System.out.println(ConsoleColours.RED + "Invalid Password!" + ConsoleColours.RESET);
+                    System.out.println(ConsoleColours.RED + "You have " + (3 - tmp.get(userID)) + " tries left" + ConsoleColours.RESET);
+                    continue;
+                }
 
-            User user = UserManager.getUser(userID);
+                User user = UserManager.getUser(userID);
 
-            // valid user
-            if (user instanceof Staff) {
-                // staff display
-                StaffView.renderView(userID);
-            } else {
-                // student display
-                StudentView.renderView(userID);
+                if (user.getPassword().equals("password")) {
+                    System.out.println(ConsoleColours.YELLOW + "\nYour current password is insecure" + ConsoleColours.RESET);
+                    System.out.println(ConsoleColours.YELLOW + "Please change your password" + ConsoleColours.RESET);
+                    try {
+                        changePasswordView(user);
+                    } catch (Exception e) {
+                        System.out.println(ConsoleColours.RED + "Sorry, something went wrong. Please try again" + ConsoleColours.RESET);
+                        continue;
+                    }
+                }
+
+                // valid user
+                if (user instanceof Staff) {
+                    // staff display
+                    StaffView.renderView(userID);
+                } else {
+                    // student display
+                    StudentView.renderView(userID);
+                }
             }
         }
     }
@@ -78,13 +99,23 @@ public class AppView {
      * @throws Exception If an error occurs during the password change process.
      */
     public static void changePasswordView(User user) throws Exception {
-        System.out.print("Enter new password: ");
-        String newPassword = UserIO.getStringResponse();
-
+        String newPassword;
         // TODO: first time login needs a reset password flow
         // TODO: password checking? can throw exceptions if u want to
-        UserManager.updatePassword(user, newPassword);
+        System.out.println("\nYour new password must contain at least 8 characters, 1 special character, and a mix of alphanumeric characters.");
+        while (true) {
+            try {
+                System.out.print("Enter new password: ");
+                newPassword = UserIO.getStringResponse();
+                if (PasswordChecker.isSecurePassword(newPassword)) {
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println(ConsoleColours.RED + e.getMessage() + ConsoleColours.RESET + "\n");
+            }
+        }
 
-        System.out.println("Successfully changed password!\n");
+        UserManager.updatePassword(user, newPassword);
+        System.out.println(ConsoleColours.GREEN + "\nSuccessfully changed password!" + ConsoleColours.RESET);
     }
 }

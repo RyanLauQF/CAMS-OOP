@@ -18,6 +18,8 @@ public abstract class User implements Serializable {
 
     private String password;
 
+    private String salt;
+
     /**
      * Constructs a User object with the specified parameters.
      *
@@ -25,7 +27,7 @@ public abstract class User implements Serializable {
      * @param email     The email of the user.
      * @param userGroup The user group to which the user belongs.
      */
-    public User(String name, String email, UserGroup userGroup){
+    public User(String name, String email, UserGroup userGroup) {
         this.name = name;
         this.email = email;
         this.userID = email.substring(0, email.indexOf("@")); // set user id from email
@@ -40,7 +42,7 @@ public abstract class User implements Serializable {
      *
      * @param password The new password for the user.
      */
-    public void setPassword(String password){
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -50,7 +52,7 @@ public abstract class User implements Serializable {
      *
      * @return The name of the user.
      */
-    public String getName(){
+    public String getName() {
         return name;
     }
 
@@ -59,7 +61,7 @@ public abstract class User implements Serializable {
      *
      * @return The password of the user.
      */
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
 
@@ -68,7 +70,8 @@ public abstract class User implements Serializable {
      *
      * @return The user group of the user.
      */
-    public UserGroup getFaculty(){ return faculty;
+    public UserGroup getFaculty() {
+        return faculty;
     }
 
     /**
@@ -76,7 +79,7 @@ public abstract class User implements Serializable {
      *
      * @return The email of the user.
      */
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
@@ -86,7 +89,25 @@ public abstract class User implements Serializable {
      *
      * @return The user ID of the user.
      */
-    public String getUserID(){
+    public String getUserID() {
         return userID;
+    }
+
+    /**
+     * Gets the password salt of the user.
+     *
+     * @return The password salt of the user
+     */
+    public String getSalt() {
+        return salt;
+    }
+
+    /**
+     * Sets the password salt of the user.
+     *
+     * @param salt The password salt of the user
+     */
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }

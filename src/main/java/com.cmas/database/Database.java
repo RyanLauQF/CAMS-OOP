@@ -53,7 +53,7 @@ public class Database {
     /**
      * Constructor for the Database class. Initializes the database by loading data from serialized files.
      */
-    public Database(){
+    public Database() {
         loadFromDatabase();
     }
 
@@ -61,21 +61,26 @@ public class Database {
      * Loads data from serialized files into the corresponding HashMaps.
      */
     @SuppressWarnings("unchecked")
-    public void loadFromDatabase(){
+    public void loadFromDatabase() {
         // IF THE USER/CAMP OBJECTS ARE CHANGED, YOU WILL PROBABLY NEED THIS FUNCTION TO RELOAD THE DATABASE
 //        processCSV(USER_DATA, STAFF_LIST_FILEPATH, false);
 //        processCSV(USER_DATA, STUDENT_LIST_FILEPATH, true);
+        try {
+            USER_DATA = (HashMap<String, User>) deserializeObject("Users.txt");
+            CAMP_DATA = (HashMap<UUID, Camp>) deserializeObject("Camps.txt");
+            ENQUIRY_DATA = (HashMap<UUID, Enquiry>) deserializeObject("Enquiries.txt");
+            SUGGESTION_DATA = (HashMap<UUID, Suggestion>) deserializeObject("Suggestions.txt");
+        } catch (Exception e) {
+            processCSV(USER_DATA, STAFF_LIST_FILEPATH, false);
+            processCSV(USER_DATA, STUDENT_LIST_FILEPATH, true);
+        }
 
-        USER_DATA = (HashMap<String, User>) deserializeObject("Users.txt");
-        CAMP_DATA = (HashMap<UUID, Camp>) deserializeObject("Camps.txt");
-        ENQUIRY_DATA = (HashMap<UUID, Enquiry>) deserializeObject("Enquiries.txt");
-        SUGGESTION_DATA = (HashMap<UUID, Suggestion>) deserializeObject("Suggestions.txt");
     }
 
     /**
      * Saves data from HashMaps to serialized files, ensuring persistent data integrity.
      */
-    public void saveToDatabase(){
+    public void saveToDatabase() {
         serializeObject("Users.txt", USER_DATA);
         serializeObject("Camps.txt", CAMP_DATA);
         serializeObject("Suggestions.txt", SUGGESTION_DATA);
@@ -114,7 +119,7 @@ public class Database {
      * @param fileName The name of the file from which the object is deserialized.
      * @return The deserialized object.
      */
-    public static Object deserializeObject(String fileName) {
+    public static Object deserializeObject(String fileName) throws Exception {
         fileName = filepath + fileName;
         Object object = null;
 
@@ -128,11 +133,7 @@ public class Database {
             System.out.println("Object deserialized from " + fileName);
             return object;
 
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
         }
-
-        return object;
     }
 
     /**
@@ -142,12 +143,12 @@ public class Database {
      * @param filePath  The path of the CSV file to be processed.
      * @param isStudent A boolean indicating whether the processed data is for students or staff.
      */
-    private static void processCSV(HashMap<String, User> usersData, String filePath, boolean isStudent){
-        try(BufferedReader br = new BufferedReader(new FileReader(filePath))){
+    private static void processCSV(HashMap<String, User> usersData, String filePath, boolean isStudent) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             br.readLine(); // ignore header
 
-            while((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
                 String name = data[0].trim();
                 String email = data[1].trim();
@@ -156,17 +157,15 @@ public class Database {
                 String userID = email.substring(0, email.indexOf("@")); // set user id from email
                 UserGroup userGroup = UserGroup.valueOf(faculty.toUpperCase());
 
-                if(isStudent){
+                if (isStudent) {
                     Student student = new Student(name, email, userGroup);
                     usersData.put(userID, student);
-                }
-                else{
+                } else {
                     Staff staff = new Staff(name, email, userGroup);
                     usersData.put(userID, staff);
                 }
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
