@@ -376,15 +376,6 @@ public class Camp implements Serializable {
     }
 
     /**
-     * Sets the staff member in charge of the camp.
-     *
-     * @param staffInCharge The new staff member in charge for the camp.
-     */
-    public void setStaffInCharge(Staff staffInCharge) {
-        this.staffInCharge = staffInCharge;
-    }
-
-    /**
      * Checks if the camp is visible.
      *
      * @return true if the camp is visible, false otherwise.

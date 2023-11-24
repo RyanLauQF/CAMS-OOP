@@ -98,9 +98,8 @@ public class AppView {
      * Renders view for changing user's password.
      *
      * @param user The User object for whom the password is to be changed.
-     * @throws Exception If an error occurs during the password change process.
      */
-    public static void changePasswordView(User user) throws Exception {
+    public static void changePasswordView(User user) {
         String newPassword;
         System.out.println("\nYour new password must contain at least 8 characters, 1 special character, and a mix of alphanumeric characters.");
         while (true) {

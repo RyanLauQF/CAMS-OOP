@@ -135,7 +135,9 @@ public class UserManager {
     }
 
     /**
-     * @return get random salt
+     * Gets random salt
+     *
+     * @return a byte array of random salt
      * @throws NoSuchAlgorithmException if hashing algorithm does not exist
      */
     private static byte[] getSalt() throws NoSuchAlgorithmException {
@@ -150,7 +152,7 @@ public class UserManager {
     }
 
     /**
-     * gets byte array of salted and hashed password
+     * Gets byte array of salted and hashed password
      *
      * @param password user inputted password string
      * @param salt     byte array of random generated salt
@@ -169,7 +171,7 @@ public class UserManager {
     }
 
     /**
-     * converts a byte array to a hexadecimal string
+     * Converts a byte array to a hexadecimal string
      *
      * @param hex hexadecimal string
      * @return byte array
@@ -183,7 +185,7 @@ public class UserManager {
     }
 
     /**
-     * converts a hexadecimal string to a byte array
+     * Converts a hexadecimal string to a byte array
      *
      * @param array byte array
      * @return hexadecimal string

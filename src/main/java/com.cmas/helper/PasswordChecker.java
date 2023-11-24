@@ -15,6 +15,9 @@ import java.util.regex.Pattern;
 public class PasswordChecker {
 
     /**
+     * Checks whether password generated adheres to guidelines. Passwords must be at least 8 characters long, contain
+     * at least one special character, and have a mix of alphanumeric characters.
+     *
      * @param password User inputted password
      * @return returns true if password is secure
      * @throws Exception Corresponding error messages that identify the problems in the given password

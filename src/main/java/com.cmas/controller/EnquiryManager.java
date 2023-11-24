@@ -18,7 +18,10 @@ import java.util.UUID;
  * @since 2023-11-18
  */
 public class EnquiryManager {
-    // Database containing Enquiry data
+
+    /**
+     * Reference to enquiry data from database
+     */
     private static final HashMap<UUID, Enquiry> enquiryData = Database.ENQUIRY_DATA;
 
     /**

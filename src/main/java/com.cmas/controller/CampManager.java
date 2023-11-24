@@ -46,6 +46,11 @@ public class CampManager {
         StaffManager.addCampToStaff(uid, staff);
     }
 
+    /**
+     * Deletes a camp from database and remove UUID references from staff object.
+     * @param campUID The UUID of the camp to be removed.
+     * @param staff   The staff removing camp.
+     */
     public static void deleteCamp(UUID campUID, Staff staff){
         campsData.remove(campUID);
         StaffManager.removeCampFromStaff(campUID, staff);
@@ -185,10 +190,16 @@ public class CampManager {
         return filteredCamps;
     }
 
+    /**
+     * Retrieves all enquiries associated with a provided campID
+     * @param campUID The UUID of the camp to retrieve enquires.
+     * @return A Set of UUIDs of Enquiries.
+     */
     public static Set<UUID> getCampEnquiries(UUID campUID) {
         Camp camp = getCamp(campUID);
         return camp.getEnquiryID();
     }
+
     /**
      * Retrieves all suggestions associated with the provided campID.
      *
@@ -411,11 +422,7 @@ public class CampManager {
             if (camp.getRegisteredCommMembers().isEmpty()) {
                 writer.write("No current Committee Members \n");
             } else {
-
-                int count = 0;
                 for (String studentId : camp.getRegisteredCommMembers()) {
-                    //how to get the list of all students and check here?
-                    count++;
                     User user = UserManager.getUser(studentId);
                     writer.write(user.getName() + '\n');
                 }
@@ -423,10 +430,5 @@ public class CampManager {
             writer.write("============================================== " + "\n\n");
         }
         writer.close();
-    }
-
-    // ----- UNIMPLEMENTED METHODS -----
-    public static void generatePerformanceReport() throws Exception {
-        throw new Exception("generatePerformanceReport has no implementation");
     }
 }

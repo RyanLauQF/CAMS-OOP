@@ -50,7 +50,7 @@ public class Enquiry implements Serializable {
     public void printEnquiryDetails() {
         System.out.println("Query: " + query);
         System.out.println("Created by: " + createdBy.getName());
-        if (isProcessed == true) {
+        if (isProcessed) {
             System.out.println("Reply: " + reply);
             System.out.println("Replied By: " + repliedBy.getName());
 

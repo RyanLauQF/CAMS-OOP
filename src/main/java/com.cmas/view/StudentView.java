@@ -84,7 +84,7 @@ public class StudentView {
                             break;
                     }
                 } catch (Exception e) {
-                    System.out.println(e.toString());
+                    System.out.println(e.getMessage());
                 }
             }
         }
@@ -103,7 +103,6 @@ public class StudentView {
             return;
         }
 
-        // TODO - Do we need to have another like interface here or something to ask for what filter do u wanna implement?
         System.out.print("Which filters do u want to implement?\n");
         System.out.print("1) No Filter (Alphabetical)\n");
         System.out.print("2) Start Date\n");

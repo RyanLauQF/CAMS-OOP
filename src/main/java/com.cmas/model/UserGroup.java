@@ -27,7 +27,6 @@ public enum UserGroup {
     SSS,
     WKWSCI,
     // College of Science
-    // CCEB (repeated)
     SPMS,
     SBS,
     ASE,

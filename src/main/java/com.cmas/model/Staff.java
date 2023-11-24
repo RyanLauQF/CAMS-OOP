@@ -40,16 +40,6 @@ public class Staff extends User {
     }
 
     /**
-     * Checks if staff has created camp.
-     *
-     * @param campID The UUID of the camp to check.
-     * @return true if the staff member has created the camp, false otherwise.
-     */
-    public boolean hasCreatedCamp(UUID campID){
-        return campIDs.contains(campID);
-    }
-
-    /**
      * Registers a new camp created by the staff member.
      * Adds campID to UUID Set for tracking.
      *

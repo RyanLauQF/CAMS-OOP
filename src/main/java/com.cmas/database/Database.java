@@ -46,8 +46,14 @@ public class Database {
      */
     public static final String filepath = "./src/main/java/com.cmas/database/data/";
 
-    // FOR TESTING
+    /**
+     * Filepath to csv file containing all staff details
+     */
     public static final String STAFF_LIST_FILEPATH = "src/main/resources/staff_list.csv";
+
+    /**
+     * Filepath to csv file containing all student details
+     */
     public static final String STUDENT_LIST_FILEPATH = "src/main/resources/student_list.csv";
 
     /**
@@ -62,9 +68,6 @@ public class Database {
      */
     @SuppressWarnings("unchecked")
     public void loadFromDatabase() {
-        // IF THE USER/CAMP OBJECTS ARE CHANGED, YOU WILL PROBABLY NEED THIS FUNCTION TO RELOAD THE DATABASE
-//        processCSV(USER_DATA, STAFF_LIST_FILEPATH, false);
-//        processCSV(USER_DATA, STUDENT_LIST_FILEPATH, true);
         try {
             USER_DATA = (HashMap<String, User>) deserializeObject("Users.txt");
             CAMP_DATA = (HashMap<UUID, Camp>) deserializeObject("Camps.txt");

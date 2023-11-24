@@ -26,7 +26,14 @@ public class StaffManager {
         staff.registerNewCamp(campID);
     }
 
+    /**
+     * Removes camp UUID reference from staff object.
+     *
+     * @param campID The UUID of the camp to be removed.
+     * @param staff The Staff object to which the camp reference will be removed.
+     */
     public static void removeCampFromStaff(UUID campID, Staff staff){staff.removeCamp(campID);}
+
     /**
      * Retrieves a set of UUIDs representing all camps associated with the specified staff member.
      *

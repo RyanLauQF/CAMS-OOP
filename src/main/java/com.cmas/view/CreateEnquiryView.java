@@ -86,7 +86,6 @@ public interface CreateEnquiryView{
             EnquiryManager.addNewEnquiry(enquiry, student);
         } catch (Exception e) {
             System.out.println("Error! " + e.getMessage());
-            return;
         }
     }
 
