@@ -26,7 +26,7 @@ public class CampManager {
     /**
      * HashMap that stores camp data, where the keys are UUIDs and values are camps.
      */
-    private static final HashMap<UUID, Camp> campsData = Database.CAMP_DATA;
+    private static final HashMap<UUID, Camp> campsData = Database.getCampData();
 
     /**
      * Adds a new camp to the system, generating a unique UUID for the camp.

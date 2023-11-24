@@ -22,7 +22,7 @@ public class EnquiryManager {
     /**
      * Reference to enquiry data from database
      */
-    private static final HashMap<UUID, Enquiry> enquiryData = Database.ENQUIRY_DATA;
+    private static final HashMap<UUID, Enquiry> enquiryData = Database.getEnquiryData();
 
     /**
      * Retrieves all Enquiries from the database.

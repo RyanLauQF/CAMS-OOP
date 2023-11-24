@@ -29,37 +29,37 @@ public class Database {
     /**
      * HashMap to store user data with user IDs (uppercase) as keys and User objects as values.
      */
-    public static HashMap<String, User> USER_DATA = new HashMap<>();
+    private static HashMap<String, User> USER_DATA = new HashMap<>();
 
     /**
      * HashMap to store camp data with UUIDs as keys and Camp objects as values.
      */
-    public static HashMap<UUID, Camp> CAMP_DATA = new HashMap<>();
+    private static HashMap<UUID, Camp> CAMP_DATA = new HashMap<>();
 
     /**
      * HashMap to store suggestion data with UUIDs as keys and Suggestion objects as values.
      */
-    public static HashMap<UUID, Suggestion> SUGGESTION_DATA = new HashMap<>();
+    private static HashMap<UUID, Suggestion> SUGGESTION_DATA = new HashMap<>();
 
     /**
      * HashMap to store enquiry data with UUIDs as keys and Enquiry objects as values.
      */
-    public static HashMap<UUID, Enquiry> ENQUIRY_DATA = new HashMap<>();
+    private static HashMap<UUID, Enquiry> ENQUIRY_DATA = new HashMap<>();
 
     /**
      * Filepath to data folder containing ".txt" files
      */
-    public static final String filepath = "./src/main/java/com.cmas/database/data/";
+    private static final String filepath = "./src/main/java/com.cmas/database/data/";
 
     /**
      * Filepath to csv file containing all staff details
      */
-    public static final String STAFF_LIST_FILEPATH = "src/main/resources/staff_list.csv";
+    private static final String STAFF_LIST_FILEPATH = "src/main/resources/staff_list.csv";
 
     /**
      * Filepath to csv file containing all student details
      */
-    public static final String STUDENT_LIST_FILEPATH = "src/main/resources/student_list.csv";
+    private static final String STUDENT_LIST_FILEPATH = "src/main/resources/student_list.csv";
 
     /**
      * Private constructor for Database class. Initializes the database by loading data from serialized files.
@@ -185,5 +185,39 @@ public class Database {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    // =========================== GETTER FUNCTIONS =========================== //
+
+    /**
+     * Retrieves instance of user data store from database
+     * @return HashMap containing data with user IDs (uppercase) as keys and User objects as values.
+     */
+    public static HashMap<String, User> getUserData() {
+        return USER_DATA;
+    }
+
+    /**
+     * Retrieves instance of camp data store from database
+     * @return HashMap containing data with UUIDs as keys and Camp objects as values.
+     */
+    public static HashMap<UUID, Camp> getCampData() {
+        return CAMP_DATA;
+    }
+
+    /**
+     * Retrieves instance of suggestion data store from database
+     * @return HashMap containing data with UUIDs as keys and Suggestion objects as values.
+     */
+    public static HashMap<UUID, Suggestion> getSuggestionData() {
+        return SUGGESTION_DATA;
+    }
+
+    /**
+     * Retrieves instance of enquiry data store from database
+     * @return HashMap containing data with UUIDs as keys and Enquiry objects as values.
+     */
+    public static HashMap<UUID, Enquiry> getEnquiryData() {
+        return ENQUIRY_DATA;
     }
 }
