@@ -3,6 +3,8 @@ import com.cmas.helper.UserIO;
 import com.cmas.database.Database;
 import com.cmas.view.AppView;
 
+import javax.xml.crypto.Data;
+
 
 /**
  * The main class for the Camp Application and Management System (CAMS).
@@ -20,7 +22,7 @@ public class CAMsApp {
      * Main function to run Camp Application and Management System (CAMS)
      */
     public static void main(String[] args){
-        Database db = new Database(); // LOAD DATABASE
+        Database db = Database.getInstance(); // LOAD DATABASE
         AppView.renderView();
         db.saveToDatabase(); // WRITE ALL CHANGES TO DATABASE
         UserIO.close(); // CLOSES SCANNER

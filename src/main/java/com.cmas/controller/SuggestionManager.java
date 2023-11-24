@@ -23,7 +23,7 @@ public class SuggestionManager {
     /**
      * HashMap storing suggestion data, where the keys are UUIDs and values are suggestions.
      */
-    private static final HashMap<UUID, Suggestion> suggestionData = Database.SUGGESTION_DATA;
+    private static final HashMap<UUID, Suggestion> suggestionData = Database.getSuggestionData();
 
     /**
      * Retrieves a suggestion based on the provided UUID.

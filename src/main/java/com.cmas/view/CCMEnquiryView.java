@@ -114,7 +114,6 @@ public class CCMEnquiryView extends StudentEnquiryView implements GenerateEnquir
         EnquiryManager.updateEnquiryStatus(enquiryUID);
 
         CampCommMemberManager.addPoint(replier);
-
     }
 }
 

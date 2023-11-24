@@ -28,7 +28,7 @@ public class UserManager {
     /**
      * Reference to user data hashmap stored in database.
      */
-    private static final HashMap<String, User> usersData = Database.USER_DATA;
+    private static final HashMap<String, User> usersData = Database.getUserData();
 
     /**
      * Registers a student as a Camp Committee Member and adds them to the user database.
