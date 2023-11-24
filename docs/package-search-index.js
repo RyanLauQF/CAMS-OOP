@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.cmas.main"},{"l":"controller"},{"l":"database"},{"l":"helper"},{"l":"model"},{"l":"view"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.cmas.controller"},{"l":"com.cmas.database"},{"l":"com.cmas.filter"},{"l":"com.cmas.helper"},{"l":"com.cmas.main"},{"l":"com.cmas.model"},{"l":"com.cmas.view"}];updateSearchResults();

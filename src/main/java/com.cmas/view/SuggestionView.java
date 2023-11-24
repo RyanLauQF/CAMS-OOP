@@ -290,7 +290,6 @@ public class SuggestionView {
             return;
         }
 
-        HashMap<Integer, UUID> campSelection = new HashMap<>();
         HashMap<Integer, UUID> suggestionSelection = new HashMap<>();
 
         // prints all suggestions for camps staff is in charge of
@@ -302,7 +301,7 @@ public class SuggestionView {
         for (UUID key : camps) {
             Camp camp = CampManager.getCamp(key);
             Set<UUID> campSuggestions = CampManager.getCampSuggestions(key);
-            List<Suggestion> unapprovedSuggestions = (List<Suggestion>) CampManager.getCampSuggestions(key).stream().map(SuggestionManager::getSuggestion).collect(Collectors.toList());
+            List<Suggestion> unapprovedSuggestions = CampManager.getCampSuggestions(key).stream().map(SuggestionManager::getSuggestion).collect(Collectors.toList());
             unapprovedSuggestions = unapprovedSuggestions.stream().filter(suggestion -> !suggestion.isViewed()).collect(Collectors.toList());
             if (campSuggestions.isEmpty() || unapprovedSuggestions.isEmpty()) {
                 continue;
@@ -321,7 +320,6 @@ public class SuggestionView {
                 suggestion.printSuggestionDetails();
                 suggestionSelection.put(suggestionCount, id);
             }
-            campSelection.put(campCount, key);
             System.out.println("--------------------------------------------------------");
         }
         if (campCount == 0) {

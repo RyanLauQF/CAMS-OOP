@@ -1,6 +1,5 @@
 package com.cmas.view;
 
-import com.cmas.controller.CampCommMemberManager;
 import com.cmas.controller.CampManager;
 import com.cmas.controller.EnquiryManager;
 import com.cmas.controller.StaffManager;
@@ -13,9 +12,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+
 /**
  * The StaffEnquiryView class provides methods for rendering views related to staff-enquiry interactions
  * and implementing the GenerateEnquiryReportView interface.
+ *
+ * @author Tong Ying, Shao Chong
+ * @version 1.0
+ * @since 2023-11-18
  */
 public class StaffEnquiryView implements GenerateEnquiryReportView {
 

@@ -1,6 +1,7 @@
+com.cmas.controller
+com.cmas.database
+com.cmas.filter
+com.cmas.helper
 com.cmas.main
-controller
-database
-helper
-model
-view
+com.cmas.model
+com.cmas.view

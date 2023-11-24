@@ -8,8 +8,13 @@ import com.cmas.model.Student;
 /**
  * The StudentEnquiryView class provides a method for rendering the enquiry menu for students
  * and managing user selections to render various views as part of the CreateEnquiryView interface.
+ *
+ * @author Tong Ying, Ryan Lau
+ * @version 1.0
+ * @since 2023-11-24
  */
 public class StudentEnquiryView implements CreateEnquiryView{
+
     /**
      * Renders the enquiry menu for students and manages user selections to render various views.
      *

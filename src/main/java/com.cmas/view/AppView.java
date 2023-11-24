@@ -16,7 +16,7 @@ import java.util.HashMap;
  *
  * @author Ryan Lau, Shao Chong
  * @version 1.0
- * @since 2023-11-18
+ * @since 2023-11-24
  */
 public class AppView {
 
@@ -25,11 +25,11 @@ public class AppView {
      * Allows users to log in, quit the program, and navigates to specific views based on their roles upon login.
      */
     public static void renderView() {
-        int count = 0;
         HashMap<String, Integer> tmp = new HashMap<>();
         while (true) {
             // system login
             String userID, password;
+            User user = null;
 
             System.out.println("\nWelcome to Camp Application and Management System (CAMs)");
             System.out.println("========================================================");
@@ -67,7 +67,7 @@ public class AppView {
                     continue;
                 }
 
-                User user = UserManager.getUser(userID);
+                user = UserManager.getUser(userID);
 
                 if (user.getPassword().equals("password")) {
                     System.out.println(ConsoleColours.YELLOW + "\nYour current password is insecure" + ConsoleColours.RESET);
@@ -76,18 +76,20 @@ public class AppView {
                         changePasswordView(user);
                     } catch (Exception e) {
                         System.out.println(ConsoleColours.RED + "Sorry, something went wrong. Please try again" + ConsoleColours.RESET);
-                        continue;
                     }
                 }
-
-                // valid user
-                if (user instanceof Staff) {
-                    // staff display
-                    StaffView.renderView(userID);
-                } else {
-                    // student display
-                    StudentView.renderView(userID);
+                else{
+                    break;
                 }
+            }
+
+            // valid user
+            if (user instanceof Staff) {
+                // staff display
+                StaffView.renderView(userID);
+            } else {
+                // student display
+                StudentView.renderView(userID);
             }
         }
     }
@@ -100,8 +102,6 @@ public class AppView {
      */
     public static void changePasswordView(User user) throws Exception {
         String newPassword;
-        // TODO: first time login needs a reset password flow
-        // TODO: password checking? can throw exceptions if u want to
         System.out.println("\nYour new password must contain at least 8 characters, 1 special character, and a mix of alphanumeric characters.");
         while (true) {
             try {

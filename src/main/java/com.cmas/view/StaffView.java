@@ -348,7 +348,7 @@ public class StaffView {
      *
      * @param staff The staff member generating the reports.
      */
-    public static void generateReportView(Staff staff) {  //if i want to allow them to search by name, location, faculty????
+    public static void generateReportView(Staff staff) {
         while (true) {
             try {
                 System.out.println("======================= SELECT FILTERS =======================");
@@ -395,7 +395,6 @@ public class StaffView {
         //prints the camp that they wanna see, print the points of the camp committee member
         staff.generatePerformanceReport();
     }
-
 
     /**
      * Displays all suggestions for the staff member.

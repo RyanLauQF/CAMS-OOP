@@ -11,9 +11,14 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 
+
 /**
  * The CCMEnquiryView class extends StudentEnquiryView and implements GenerateEnquiryReportView,
  * providing methods for rendering views related to Camp Committee Member (CCM)-enquiry interactions.
+ *
+ * @author Tong Ying, Shao Chong
+ * @version 1.0
+ * @since 2023-11-24
  */
 public class CCMEnquiryView extends StudentEnquiryView implements GenerateEnquiryReportView {
 
@@ -111,7 +116,6 @@ public class CCMEnquiryView extends StudentEnquiryView implements GenerateEnquir
         CampCommMemberManager.addPoint(replier);
 
     }
-
 }
 
 

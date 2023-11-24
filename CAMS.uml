@@ -3,32 +3,306 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="-98.5" y="-14.5">com.cmas.view</node>
-    <node x="-114.0" y="100.5">com.cmas.database</node>
-    <node x="-98.5" y="345.5">com.cmas.filter</node>
-    <node x="-115.5" y="166.5">com.cmas.controller</node>
-    <node x="-105.0" y="225.5">com.cmas.helper</node>
-    <node x="-100.0" y="285.5">com.cmas.main</node>
-    <node x="-105.0" y="45.5">com.cmas.model</node>
+    <node x="2400.0" y="838.0">com.cmas.database.Database</node>
+    <node x="1150.25" y="1675.0">com.cmas.view.CCMEnquiryView</node>
+    <node x="1112.0" y="1871.0">com.cmas.view.StudentView</node>
+    <node x="3636.0" y="860.0">com.cmas.model.SuggestionType</node>
+    <node x="60.0" y="2100.0">com.cmas.helper.ConsoleColours</node>
+    <node x="537.0" y="893.0">com.cmas.model.Staff</node>
+    <node x="2567.0" y="1849.0">com.cmas.controller.CampCommMemberManager</node>
+    <node x="4799.0" y="827.0">com.cmas.controller.UserManager</node>
+    <node x="2980.0" y="1882.0">com.cmas.controller.StaffManager</node>
+    <node x="3612.0" y="1893.0">com.cmas.controller.StudentManager</node>
+    <node x="3932.0" y="1893.0">com.cmas.view.AppView</node>
+    <node x="135.0" y="387.0">com.cmas.model.Camp</node>
+    <node x="3187.0" y="783.0">com.cmas.model.Suggestion</node>
+    <node x="-200.0" y="1892.5">com.cmas.filter.StaffFilter</node>
+    <node x="2794.0" y="893.0">com.cmas.controller.SuggestionManager</node>
+    <node x="1115.0" y="959.5">com.cmas.view.StudentEnquiryView</node>
+    <node x="-200.0" y="2716.0">com.cmas.helper.PasswordChecker</node>
+    <node x="216.5" y="-469.0">com.cmas.model.UserGroup</node>
+    <node x="3884.0" y="971.0">com.cmas.view.GenerateEnquiryReportView</node>
+    <node x="789.0" y="1915.5">com.cmas.filter.IFilter</node>
+    <node x="2330.0" y="1837.5">com.cmas.helper.UserIO</node>
+    <node x="2445.8" y="-392.0">com.cmas.model.User</node>
+    <node x="1403.0" y="1892.5">com.cmas.filter.LocationFilter</node>
+    <node x="1666.0" y="662.0">com.cmas.controller.CampManager</node>
+    <node x="3894.0" y="1664.0">com.cmas.view.StaffEnquiryView</node>
+    <node x="-200.0" y="849.5">com.cmas.view.StaffView</node>
+    <node x="2360.8" y="69.0">com.cmas.model.Student</node>
+    <node x="4454.0" y="882.5">com.cmas.view.SuggestionView</node>
+    <node x="2082.0" y="871.0">com.cmas.controller.EnquiryManager</node>
+    <node x="1726.0" y="1892.5">com.cmas.filter.DateStartFilter</node>
+    <node x="123.0" y="1892.5">com.cmas.filter.SlotFilter</node>
+    <node x="2597.5" y="1686.0">com.cmas.main.CAMsApp</node>
+    <node x="446.0" y="1892.5">com.cmas.filter.DateEndFilter</node>
+    <node x="3277.0" y="1893.0">com.cmas.view.CampCommView</node>
+    <node x="4174.0" y="860.0">com.cmas.model.CampCommMember</node>
+    <node x="2049.0" y="1805.0">com.cmas.view.CampEditView</node>
+    <node x="802.0" y="938.0">com.cmas.view.CreateEnquiryView</node>
+    <node x="1377.0" y="772.0">com.cmas.model.Enquiry</node>
   </nodes>
   <notes />
-  <edges />
-  <settings layout="Circular" zoom="0.64" showDependencies="true" x="-122.62499999999955" y="115.34375" />
+  <edges>
+    <edge source="com.cmas.filter.DateEndFilter" target="com.cmas.filter.IFilter" relationship="REALIZATION">
+      <point x="146.5" y="-0.0" />
+      <point x="-146.5" y="-0.0" />
+    </edge>
+    <edge source="com.cmas.database.Database" target="com.cmas.model.Camp" relationship="TO_MANY">
+      <point x="-91.0" y="160.0" />
+      <point x="2491.0" y="1634.0" />
+      <point x="223.0" y="1634.0" />
+      <point x="-88.0" y="611.0" />
+    </edge>
+    <edge source="com.cmas.database.Database" target="com.cmas.model.User" relationship="TO_MANY">
+      <point x="72.80000000000001" y="-160.0" />
+      <point x="2654.8" y="-13.0" />
+      <point x="2609.3" y="-13.0" />
+      <point x="54.5" y="182.0" />
+    </edge>
+    <edge source="com.cmas.filter.SlotFilter" target="com.cmas.filter.IFilter" relationship="REALIZATION">
+      <point x="73.25" y="50.0" />
+      <point x="342.75" y="2002.5" />
+      <point x="862.25" y="2002.5" />
+      <point x="-73.25" y="27.0" />
+    </edge>
+    <edge source="com.cmas.model.Suggestion" target="com.cmas.model.SuggestionType" relationship="TO_ONE">
+      <point x="199.5" y="-0.0" />
+      <point x="-109.0" y="-0.0" />
+    </edge>
+    <edge source="com.cmas.model.Enquiry" target="com.cmas.model.Student" relationship="TO_ONE">
+      <point x="-32.375" y="-226.0" />
+      <point x="1474.125" y="387.0" />
+      <point x="2407.3" y="622.0" />
+      <point x="-93.0" y="149.0" />
+    </edge>
+    <edge source="com.cmas.model.CampCommMember" target="com.cmas.model.Student" relationship="GENERALIZATION">
+      <point x="0.0" y="-138.0" />
+      <point x="4299.0" y="758.0" />
+      <point x="2593.3" y="758.0" />
+      <point x="93.0" y="149.0" />
+    </edge>
+    <edge source="com.cmas.database.Database" target="com.cmas.model.Enquiry" relationship="TO_MANY">
+      <point x="-145.60000000000002" y="-160.0" />
+      <point x="2436.4" y="642.0" />
+      <point x="1538.875" y="642.0" />
+      <point x="32.375" y="-226.0" />
+    </edge>
+    <edge source="com.cmas.view.CCMEnquiryView" target="com.cmas.view.StudentEnquiryView" relationship="GENERALIZATION">
+      <point x="-80.75" y="-49.5" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="com.cmas.view.StudentEnquiryView" target="com.cmas.view.CreateEnquiryView" relationship="REALIZATION">
+      <point x="-116.0" y="-0.0" />
+      <point x="131.5" y="-0.0" />
+    </edge>
+    <edge source="com.cmas.filter.StaffFilter" target="com.cmas.filter.IFilter" relationship="REALIZATION">
+      <point x="73.25" y="50.0" />
+      <point x="19.75" y="2034.0" />
+      <point x="1008.75" y="2034.0" />
+      <point x="73.25" y="27.0" />
+    </edge>
+    <edge source="com.cmas.view.CCMEnquiryView" target="com.cmas.view.GenerateEnquiryReportView" relationship="REALIZATION">
+      <point x="80.75" y="-49.5" />
+      <point x="1392.5" y="1654.0" />
+      <point x="4014.0" y="1654.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="com.cmas.view.StaffEnquiryView" target="com.cmas.view.GenerateEnquiryReportView" relationship="REALIZATION">
+      <point x="0.0" y="-60.5" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="com.cmas.database.Database" target="com.cmas.model.Student" relationship="CREATE">
+      <point x="0.0" y="-160.0" />
+      <point x="2582.0" y="622.0" />
+      <point x="2500.3" y="622.0" />
+      <point x="0.0" y="149.0" />
+    </edge>
+    <edge source="com.cmas.model.Staff" target="com.cmas.model.User" relationship="GENERALIZATION">
+      <point x="-58.75" y="-105.0" />
+      <point x="595.75" y="49.0" />
+      <point x="2500.3" y="49.0" />
+      <point x="-54.5" y="182.0" />
+    </edge>
+    <edge source="com.cmas.controller.UserManager" target="com.cmas.model.User" relationship="TO_MANY">
+      <point x="84.0" y="-171.0" />
+      <point x="5051.0" y="59.0" />
+      <point x="2654.8" y="59.0" />
+      <point x="2654.8" y="-13.0" />
+      <point x="2609.3" y="-13.0" />
+      <point x="54.5" y="182.0" />
+    </edge>
+    <edge source="com.cmas.model.Camp" target="com.cmas.model.UserGroup" relationship="TO_ONE">
+      <point x="0.0" y="-611.0" />
+      <point x="0.0" y="259.0" />
+    </edge>
+    <edge source="com.cmas.filter.DateStartFilter" target="com.cmas.filter.IFilter" relationship="REALIZATION">
+      <point x="0.0" y="-50.0" />
+      <point x="1872.5" y="1841.0" />
+      <point x="862.25" y="1841.0" />
+      <point x="-73.25" y="-27.0" />
+    </edge>
+    <edge source="com.cmas.controller.EnquiryManager" target="com.cmas.model.Enquiry" relationship="TO_MANY">
+      <point x="0.0" y="-127.0" />
+      <point x="2226.0" y="652.0" />
+      <point x="1603.625" y="652.0" />
+      <point x="97.125" y="-226.0" />
+    </edge>
+    <edge source="com.cmas.model.Camp" target="com.cmas.model.Staff" relationship="TO_ONE">
+      <point x="176.0" y="-0.0" />
+      <point x="-117.5" y="-0.0" />
+    </edge>
+    <edge source="com.cmas.view.StudentView" target="com.cmas.filter.SlotFilter" relationship="CREATE">
+      <point x="-80.33333333333334" y="71.5" />
+      <point x="1152.1666666666667" y="2024.0" />
+      <point x="196.25" y="2024.0" />
+      <point x="-73.25" y="50.0" />
+    </edge>
+    <edge source="com.cmas.controller.CampManager" target="com.cmas.model.Camp" relationship="TO_MANY">
+      <point x="0.0" y="336.0" />
+      <point x="1859.0" y="1624.0" />
+      <point x="399.0" y="1624.0" />
+      <point x="88.0" y="611.0" />
+    </edge>
+    <edge source="com.cmas.view.StudentView" target="com.cmas.filter.DateEndFilter" relationship="CREATE">
+      <point x="0.0" y="-71.5" />
+      <point x="1232.5" y="1851.0" />
+      <point x="592.5" y="1851.0" />
+      <point x="0.0" y="-50.0" />
+    </edge>
+    <edge source="com.cmas.view.StudentView" target="com.cmas.filter.LocationFilter" relationship="CREATE">
+      <point x="120.5" y="-0.0" />
+      <point x="-146.5" y="-0.0" />
+    </edge>
+    <edge source="com.cmas.view.CreateEnquiryView" target="com.cmas.model.Enquiry" relationship="CREATE">
+      <point x="0.0" y="-60.0" />
+      <point x="933.5" y="757.0" />
+      <point x="1409.375" y="757.0" />
+      <point x="-97.125" y="-226.0" />
+    </edge>
+    <edge source="com.cmas.controller.SuggestionManager" target="com.cmas.model.Suggestion" relationship="TO_MANY">
+      <point x="171.5" y="-0.0" />
+      <point x="-199.5" y="-0.0" />
+    </edge>
+    <edge source="com.cmas.model.Enquiry" target="com.cmas.model.User" relationship="TO_ONE">
+      <point x="-32.375" y="-226.0" />
+      <point x="1474.125" y="59.0" />
+      <point x="2654.8" y="59.0" />
+      <point x="2654.8" y="-13.0" />
+      <point x="2609.3" y="-13.0" />
+      <point x="54.5" y="182.0" />
+    </edge>
+    <edge source="com.cmas.main.CAMsApp" target="com.cmas.database.Database" relationship="CREATE">
+      <point x="0.0" y="-38.5" />
+      <point x="91.0" y="160.0" />
+    </edge>
+    <edge source="com.cmas.database.Database" target="com.cmas.model.Staff" relationship="CREATE">
+      <point x="-72.80000000000001" y="-160.0" />
+      <point x="2509.2" y="632.0" />
+      <point x="713.25" y="632.0" />
+      <point x="58.75" y="-105.0" />
+    </edge>
+    <edge source="com.cmas.model.User" target="com.cmas.model.UserGroup" relationship="TO_ONE">
+      <point x="-109.0" y="-0.0" />
+      <point x="94.5" y="-0.0" />
+    </edge>
+    <edge source="com.cmas.filter.LocationFilter" target="com.cmas.filter.IFilter" relationship="REALIZATION">
+      <point x="0.0" y="-50.0" />
+      <point x="1549.5" y="1861.0" />
+      <point x="1008.75" y="1861.0" />
+      <point x="73.25" y="-27.0" />
+    </edge>
+    <edge source="com.cmas.model.Student" target="com.cmas.model.User" relationship="GENERALIZATION">
+      <point x="0.0" y="-149.0" />
+      <point x="-54.5" y="182.0" />
+    </edge>
+    <edge source="com.cmas.controller.UserManager" target="com.cmas.model.CampCommMember" relationship="CREATE">
+      <point x="-84.0" y="-171.0" />
+      <point x="4883.0" y="817.0" />
+      <point x="4382.333333333333" y="817.0" />
+      <point x="83.33333333333334" y="-138.0" />
+    </edge>
+    <edge source="com.cmas.view.StudentView" target="com.cmas.filter.StaffFilter" relationship="CREATE">
+      <point x="0.0" y="71.5" />
+      <point x="1232.5" y="2044.0" />
+      <point x="-126.75" y="2044.0" />
+      <point x="-73.25" y="50.0" />
+    </edge>
+    <edge source="com.cmas.view.SuggestionView" target="com.cmas.model.Suggestion" relationship="CREATE">
+      <point x="0.0" y="115.5" />
+      <point x="4611.5" y="1228.0" />
+      <point x="3386.5" y="1228.0" />
+      <point x="0.0" y="215.0" />
+    </edge>
+    <edge source="com.cmas.view.StudentView" target="com.cmas.filter.DateStartFilter" relationship="CREATE">
+      <point x="80.33333333333334" y="71.5" />
+      <point x="1312.8333333333333" y="2024.0" />
+      <point x="1872.5" y="2024.0" />
+      <point x="0.0" y="50.0" />
+    </edge>
+    <edge source="com.cmas.model.Suggestion" target="com.cmas.model.CampCommMember" relationship="TO_ONE">
+      <point x="99.75" y="-215.0" />
+      <point x="3486.25" y="773.0" />
+      <point x="4215.666666666667" y="773.0" />
+      <point x="-83.33333333333334" y="-138.0" />
+    </edge>
+    <edge source="com.cmas.view.StaffView" target="com.cmas.model.Camp" relationship="CREATE">
+      <point x="142.5" y="-0.0" />
+      <point x="-176.0" y="-0.0" />
+    </edge>
+    <edge source="com.cmas.database.Database" target="com.cmas.model.Suggestion" relationship="TO_MANY">
+      <point x="145.6" y="-160.0" />
+      <point x="2727.6" y="768.0" />
+      <point x="3286.75" y="768.0" />
+      <point x="-99.75" y="-215.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.4114145658263306" showDependencies="true" x="2360.8406515957436" y="993.3769148936161" />
   <SelectedNodes>
-    <node>com.cmas.database</node>
-    <node>com.cmas.filter</node>
-    <node>com.cmas.controller</node>
-    <node>com.cmas.helper</node>
-    <node>com.cmas.view</node>
-    <node>com.cmas.main</node>
-    <node>com.cmas.model</node>
+    <node>com.cmas.controller.CampManager</node>
+    <node>com.cmas.controller.CampCommMemberManager</node>
+    <node>com.cmas.controller.EnquiryManager</node>
+    <node>com.cmas.controller.StaffManager</node>
+    <node>com.cmas.view.StudentView</node>
+    <node>com.cmas.model.Staff</node>
+    <node>com.cmas.view.StudentEnquiryView</node>
+    <node>com.cmas.helper.ConsoleColours</node>
+    <node>com.cmas.view.StaffEnquiryView</node>
+    <node>com.cmas.filter.IFilter</node>
+    <node>com.cmas.model.User</node>
+    <node>com.cmas.model.UserGroup</node>
+    <node>com.cmas.model.Suggestion</node>
+    <node>com.cmas.controller.SuggestionManager</node>
+    <node>com.cmas.filter.StaffFilter</node>
+    <node>com.cmas.view.CreateEnquiryView</node>
+    <node>com.cmas.helper.UserIO</node>
+    <node>com.cmas.filter.LocationFilter</node>
+    <node>com.cmas.main.CAMsApp</node>
+    <node>com.cmas.model.Camp</node>
+    <node>com.cmas.view.SuggestionView</node>
+    <node>com.cmas.controller.StudentManager</node>
+    <node>com.cmas.view.CCMEnquiryView</node>
+    <node>com.cmas.view.CampCommView</node>
+    <node>com.cmas.view.GenerateEnquiryReportView</node>
+    <node>com.cmas.database.Database</node>
+    <node>com.cmas.helper.PasswordChecker</node>
+    <node>com.cmas.filter.SlotFilter</node>
+    <node>com.cmas.view.AppView</node>
+    <node>com.cmas.model.SuggestionType</node>
+    <node>com.cmas.controller.UserManager</node>
+    <node>com.cmas.view.StaffView</node>
+    <node>com.cmas.filter.DateStartFilter</node>
+    <node>com.cmas.model.CampCommMember</node>
+    <node>com.cmas.view.CampEditView</node>
+    <node>com.cmas.model.Student</node>
+    <node>com.cmas.filter.DateEndFilter</node>
+    <node>com.cmas.model.Enquiry</node>
   </SelectedNodes>
   <Categories>
     <Category>Constructors</Category>
     <Category>Fields</Category>
     <Category>Inner Classes</Category>
     <Category>Methods</Category>
-    <Category>Properties</Category>
   </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
