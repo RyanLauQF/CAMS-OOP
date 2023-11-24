@@ -66,10 +66,10 @@ public class StaffView {
 
                 switch (choice) {
                     case 1:
-                        allCampView();
+                        campView();
                         break;
                     case 2:
-                        staffCampView(staff);
+                        campView(staff);
                         break;
                     case 3:
                         createCampView(staff);
@@ -107,7 +107,7 @@ public class StaffView {
     /**
      * Displays details of all available camps.
      */
-    public static void allCampView() {
+    public static void campView() {
         HashMap<UUID, Camp> allCamps = CampManager.getAllCamps();
 
         if (allCamps.isEmpty()) {
@@ -132,7 +132,7 @@ public class StaffView {
      *
      * @param staff The staff member whose camps are to be displayed.
      */
-    public static void staffCampView(Staff staff) {
+    public static void campView(Staff staff) {
 
         Set<UUID> campKeys = staff.getCampIDs();
         HashMap<UUID, Camp> allCamps = CampManager.getAllCamps();
@@ -167,7 +167,7 @@ public class StaffView {
         }
         UUID campUID = campSelection.get(choice);
 
-        selectCampView(staff, campUID);
+        campView(staff, campUID);
     }
 
     /**
@@ -176,7 +176,7 @@ public class StaffView {
      * @param staff   The staff member.
      * @param campUID The unique identifier of the selected camp.
      */
-    public static void selectCampView(Staff staff, UUID campUID) {
+    public static void campView(Staff staff, UUID campUID) {
         while (true) {
             try {
                 System.out.println("\n======================= SELECT MENU =======================");
