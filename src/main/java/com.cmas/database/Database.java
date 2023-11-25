@@ -52,6 +52,7 @@ public class Database {
 
     /**
      * Retrieves single instance of database. If it does not exist, database will be initialised via a private constructor
+     *
      * @return instance of database
      */
     public static Database getInstance() {
@@ -66,10 +67,11 @@ public class Database {
     @SuppressWarnings("unchecked")
     public void loadFromDatabase() {
         try {
-            USER_DATA = (HashMap<String, User>) FileIO.deserializeObject("Users.txt");
-            CAMP_DATA = (HashMap<UUID, Camp>) FileIO.deserializeObject("Camps.txt");
-            ENQUIRY_DATA = (HashMap<UUID, Enquiry>) FileIO.deserializeObject("Enquiries.txt");
-            SUGGESTION_DATA = (HashMap<UUID, Suggestion>) FileIO.deserializeObject("Suggestions.txt");
+            throw new Exception();
+//            USER_DATA = (HashMap<String, User>) FileIO.deserializeObject("Users.txt");
+//            CAMP_DATA = (HashMap<UUID, Camp>) FileIO.deserializeObject("Camps.txt");
+//            ENQUIRY_DATA = (HashMap<UUID, Enquiry>) FileIO.deserializeObject("Enquiries.txt");
+//            SUGGESTION_DATA = (HashMap<UUID, Suggestion>) FileIO.deserializeObject("Suggestions.txt");
         } catch (Exception e) {
             FileIO.loadDefaultUserData(USER_DATA);
         }
@@ -89,6 +91,7 @@ public class Database {
 
     /**
      * Retrieves instance of user data store from database
+     *
      * @return HashMap containing data with user IDs (uppercase) as keys and User objects as values.
      */
     public static HashMap<String, User> getUserData() {
@@ -97,6 +100,7 @@ public class Database {
 
     /**
      * Retrieves instance of camp data store from database
+     *
      * @return HashMap containing data with UUIDs as keys and Camp objects as values.
      */
     public static HashMap<UUID, Camp> getCampData() {
@@ -105,6 +109,7 @@ public class Database {
 
     /**
      * Retrieves instance of suggestion data store from database
+     *
      * @return HashMap containing data with UUIDs as keys and Suggestion objects as values.
      */
     public static HashMap<UUID, Suggestion> getSuggestionData() {
@@ -113,6 +118,7 @@ public class Database {
 
     /**
      * Retrieves instance of enquiry data store from database
+     *
      * @return HashMap containing data with UUIDs as keys and Enquiry objects as values.
      */
     public static HashMap<UUID, Enquiry> getEnquiryData() {
