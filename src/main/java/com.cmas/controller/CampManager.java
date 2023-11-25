@@ -2,6 +2,7 @@ package com.cmas.controller;
 
 import com.cmas.database.Database;
 import com.cmas.filter.IFilter;
+import com.cmas.helper.ConsoleColours;
 import com.cmas.model.*;
 
 import java.io.BufferedWriter;
@@ -432,5 +433,6 @@ public class CampManager {
             writer.write("============================================== " + "\n\n");
         }
         writer.close();
+        System.out.println(ConsoleColours.GREEN + "Successfully generated report!\n" + ConsoleColours.RESET);
     }
 }

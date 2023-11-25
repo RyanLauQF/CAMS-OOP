@@ -1,6 +1,7 @@
 package com.cmas.model;
 
 import com.cmas.controller.EnquiryManager;
+import com.cmas.helper.ConsoleColours;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -121,6 +122,7 @@ public class Enquiry implements Serializable {
                 System.out.println("An error occurred.");
                 e.printStackTrace();
             }
+            System.out.println(ConsoleColours.GREEN + "Successfully generated report!\n" + ConsoleColours.RESET);
         }
     }
 

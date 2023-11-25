@@ -80,7 +80,7 @@ public interface CreateEnquiryView{
         UUID selectedCampID = selection.get(selected);
 
         try {
-            System.out.println("Enter your query: ");
+            System.out.print("Enter your query: ");
             String query = UserIO.getStringResponse();
             Enquiry enquiry = new Enquiry(query, student, selectedCampID);
             EnquiryManager.addNewEnquiry(enquiry, student);

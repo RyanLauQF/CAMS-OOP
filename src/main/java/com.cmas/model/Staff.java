@@ -2,6 +2,7 @@ package com.cmas.model;
 
 import com.cmas.controller.CampManager;
 import com.cmas.controller.UserManager;
+import com.cmas.helper.ConsoleColours;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -81,7 +82,7 @@ public class Staff extends User {
         String x = choice == 1 ? "Attendees" : "Camp Committee Members";
         try {
 
-            System.out.println("Generating Report for " + x + "...\n");
+            System.out.println("Generating Report for " + x + "...");
 
             writer = new BufferedWriter(new FileWriter("OverallReport.txt"));
             writer.write("============================================== " + "\n");
@@ -148,8 +149,10 @@ public class Staff extends User {
                 System.out.println("An error occurred.");
                 e.printStackTrace();
             }
+            System.out.println(ConsoleColours.GREEN + "Successfully generated report!\n" + ConsoleColours.RESET);
         }
     }
+
     /**
      * Generates a performance report (points) for camp committee members associated with the camps created by the staff member.
      */
@@ -160,8 +163,7 @@ public class Staff extends User {
         }
         BufferedWriter writer = null;
         try{
-          
-            System.out.println("Generating Performance Report for Camp Committee Members...\n");
+            System.out.println("Generating Performance Report for Camp Committee Members...");
 
             writer = new BufferedWriter(new FileWriter("PerformanceReport.txt"));
             writer.write("================================================ " + "\n");
@@ -197,7 +199,7 @@ public class Staff extends User {
                 System.out.println("An error occurred.");
                 e.printStackTrace();
             }
+            System.out.println(ConsoleColours.GREEN + "Successfully generated report!\n" + ConsoleColours.RESET);
         }
     }
-
 }
