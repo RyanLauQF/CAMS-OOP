@@ -76,7 +76,7 @@ public class Enquiry implements Serializable {
         BufferedWriter writer = null;
         try {
             int count = 0;
-            String x = "EnquiryReportForCamp" + camp.getName() + ".txt";
+            String x = "EnquiryReport.txt";
             writer = new BufferedWriter(new FileWriter(x));
             writer.write("============================================== " + "\n");
             writer.write("    Enquiry Report for Camp " + camp.getName() + "    \n");
