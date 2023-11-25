@@ -67,11 +67,10 @@ public class Database {
     @SuppressWarnings("unchecked")
     public void loadFromDatabase() {
         try {
-            throw new Exception();
-//            USER_DATA = (HashMap<String, User>) FileIO.deserializeObject("Users.txt");
-//            CAMP_DATA = (HashMap<UUID, Camp>) FileIO.deserializeObject("Camps.txt");
-//            ENQUIRY_DATA = (HashMap<UUID, Enquiry>) FileIO.deserializeObject("Enquiries.txt");
-//            SUGGESTION_DATA = (HashMap<UUID, Suggestion>) FileIO.deserializeObject("Suggestions.txt");
+            USER_DATA = (HashMap<String, User>) FileIO.deserializeObject("Users.txt");
+            CAMP_DATA = (HashMap<UUID, Camp>) FileIO.deserializeObject("Camps.txt");
+            ENQUIRY_DATA = (HashMap<UUID, Enquiry>) FileIO.deserializeObject("Enquiries.txt");
+            SUGGESTION_DATA = (HashMap<UUID, Suggestion>) FileIO.deserializeObject("Suggestions.txt");
         } catch (Exception e) {
             FileIO.loadDefaultUserData(USER_DATA);
         }
