@@ -93,6 +93,7 @@ public class CampEditView {
      * @param campUID The UUID of camp to be edited.
      */
     public static void changeNameView(UUID campUID) {
+        System.out.println("Enter new camp name: ");
         String campName = UserIO.getStringResponse();
         CampManager.updateCampName(campUID, campName);
     }
