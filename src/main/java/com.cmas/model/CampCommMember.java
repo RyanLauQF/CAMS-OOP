@@ -8,7 +8,7 @@ import java.util.UUID;
 /**
  * Model class representing a camp committee member, extending the functionality of the
  * Student class. It includes additional attributes and methods specific to camp committee members.
- *
+ * <p>
  * The class maintains information about the camp suggestions provided by the committee member, the camp ID
  * associated with their committee role, and a points system to track their contributions.
  *
@@ -18,13 +18,19 @@ import java.util.UUID;
  */
 public class CampCommMember extends Student {
 
-    /** The set of UUIDs representing camp suggestions made by the committee member. */
+    /**
+     * The set of UUIDs representing camp suggestions made by the committee member.
+     */
     private final Set<UUID> campSuggestions;
 
-    /** The UUID of the camp associated with the committee role of the member. */
+    /**
+     * The UUID of the camp associated with the committee role of the member.
+     */
     private UUID commCampID;
 
-    /** The points earned by the committee member. */
+    /**
+     * The points earned by the committee member.
+     */
     private int points;
 
     /**
@@ -32,11 +38,11 @@ public class CampCommMember extends Student {
      * Performs a deep copy of the Student class and initializes committee-specific variables.
      *
      * @param student The Student object whose information is used for constructing the committee member.
-     * @param campID The UUID of the camp associated with the committee role.
+     * @param campID  The UUID of the camp associated with the committee role.
      */
-    public CampCommMember(Student student, UUID campID){
+    public CampCommMember(Student student, UUID campID) {
         // deep copy student class
-        super(student.getName(), student.getEmail(), student.getFaculty());
+        super(student.getName(), student.getEmail(), student.getFaculty(), student.getPassword(), student.getSalt());
         this.setPassword(student.getPassword());
         this.setCampCommitteeMember(true);
         this.getRegisteredCamps().addAll(student.getRegisteredCamps());
@@ -53,7 +59,7 @@ public class CampCommMember extends Student {
      *
      * @return The set of UUIDs representing camp suggestions.
      */
-    public Set<UUID> getCampSuggestions(){
+    public Set<UUID> getCampSuggestions() {
         return campSuggestions;
     }
 
@@ -89,7 +95,7 @@ public class CampCommMember extends Student {
      *
      * @param suggestionID The UUID of the camp suggestion to be deleted.
      */
-    public void deleteCampSuggestion(UUID suggestionID){
+    public void deleteCampSuggestion(UUID suggestionID) {
         campSuggestions.remove(suggestionID);
     }
 
@@ -98,14 +104,14 @@ public class CampCommMember extends Student {
      *
      * @return The number of points earned.
      */
-    public int getPoints(){
+    public int getPoints() {
         return points;
     }
 
     /**
      * Increments the points earned by the committee member.
      */
-    public void addPoint(){
+    public void addPoint() {
         this.points++;
     }
 }

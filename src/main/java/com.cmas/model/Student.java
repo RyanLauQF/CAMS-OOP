@@ -32,6 +32,13 @@ public class Student extends User {
         this.submittedEnquiries = new HashSet<>();
     }
 
+    public Student(String name, String email, UserGroup faculty, String password, String salt) {
+        super(name, email, faculty, password, salt);
+        this.isCampCommitteeMember = false;
+        this.registeredCamps = new HashSet<>();
+        this.submittedEnquiries = new HashSet<>();
+    }
+
     /**
      * Registers the student for a camp.
      *
@@ -43,6 +50,7 @@ public class Student extends User {
 
 
     // ================ GETTER AND SETTER FUNCTIONS ================
+
     /**
      * Gets the set of UUIDs of camps the student is registered for.
      *

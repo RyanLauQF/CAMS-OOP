@@ -127,7 +127,6 @@ public class UserManager {
         if (user.getPassword().equals("password")) {
             return user.getPassword().equals(password);
         }
-
         byte[] byteSalt = fromHex(user.getSalt());
         byte[] byteHashedPw = getSaltedHashSHA512(password, byteSalt);
         byte[] byteStoredHashedPw = fromHex(user.getPassword());

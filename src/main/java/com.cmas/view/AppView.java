@@ -77,8 +77,7 @@ public class AppView {
                     } catch (Exception e) {
                         System.out.println(ConsoleColours.RED + "Sorry, something went wrong. Please try again" + ConsoleColours.RESET);
                     }
-                }
-                else{
+                } else {
                     break;
                 }
             }
@@ -115,6 +114,6 @@ public class AppView {
         }
 
         UserManager.updatePassword(user, newPassword);
-        System.out.println(ConsoleColours.GREEN + "\nSuccessfully changed password!" + ConsoleColours.RESET);
+        System.out.println(ConsoleColours.GREEN + "\nSuccessfully changed password!\n" + ConsoleColours.RESET);
     }
 }

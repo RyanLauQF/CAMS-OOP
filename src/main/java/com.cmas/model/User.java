@@ -35,6 +35,15 @@ public abstract class User implements Serializable {
         this.faculty = userGroup;
     }
 
+    public User(String name, String email, UserGroup userGroup, String password, String salt) {
+        this.name = name;
+        this.email = email;
+        this.userID = email.substring(0, email.indexOf("@")); // set user id from email
+        this.password = password;
+        this.salt = salt;
+        this.faculty = userGroup;
+    }
+
     // ======================= GETTER AND SETTER FUNCTIONS =======================
 
     /**
