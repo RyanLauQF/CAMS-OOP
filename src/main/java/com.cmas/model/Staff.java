@@ -168,12 +168,10 @@ public class Staff extends User {
             writer.write(" PERFORMANCE REPORT FOR CAMP COMMITTEE MEMBERS " + "\n");
             writer.write("================================================ " + "\n\n");
             for (UUID campid : campIDs) {
-                writer.write("Committee Members: ");
                 Camp curCamp = CampManager.getCamp(campid);
                 writer.write("Camp Name: " + curCamp.getName() + "\n");
                 writer.write("Camp Description: " + curCamp.getDescription() + "\n");
                 writer.write("============================================== " + "\n");
-
                 if (curCamp.getRegisteredCommMembers().size() == 0) {
                     writer.write("No current Committee Members\n");
                     writer.write("============================================== " + "\n\n");

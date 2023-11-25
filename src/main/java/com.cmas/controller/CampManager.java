@@ -400,7 +400,7 @@ public class CampManager {
         writer.write("Camp User Group: " + camp.getUserGroup() + "\n");
         writer.write("Camp Staff in Charge: " + camp.getStaffInCharge().getName() + "\n");
         writer.write("============================================== " + "\n");
-        if (filter == 0 || filter == 1) {
+        if (filter == 1 || filter == 2) {
             writer.write("============================================== " + "\n");
             writer.write("List of all registered attendees: " + "\n");
             if (camp.getRegisteredAttendees().isEmpty()) {
@@ -416,15 +416,17 @@ public class CampManager {
             }
             writer.write("============================================== " + "\n");
         }
-        if (filter == 0 || filter == 2) {
+        if (filter == 1 || filter == 3) {
             writer.write("============================================== " + "\n");
             writer.write("List of all registered committee members: " + "\n");
             if (camp.getRegisteredCommMembers().isEmpty()) {
                 writer.write("No current Committee Members \n");
             } else {
+                int ccmCount = 0;
                 for (String studentId : camp.getRegisteredCommMembers()) {
+                    ccmCount++;
                     User user = UserManager.getUser(studentId);
-                    writer.write(user.getName() + '\n');
+                    writer.write(ccmCount + ": " + user.getName() + '\n');
                 }
             }
             writer.write("============================================== " + "\n\n");
